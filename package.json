@@ -1,0 +1,28 @@
+{
+  "name": "labitemmanagement",
+  "version": "1.0.0",
+  "description": "Lab Inventory Management System",
+  "main": "main.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server -p 8080 -o",
+    "dev": "http-server -p 3000 -c-1",
+    "host": "http-server -a 0.0.0.0 -p 8080 -o",
+    "serve": "http-server --cors -p 8080"
+  },
+  "keywords": [
+    "inventory",
+    "management", 
+    "lab",
+    "supabase",
+    "javascript"
+  ],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
