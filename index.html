@@ -624,7 +624,8 @@
 
                     <!-- ✅ NEW: Members Search Box -->
                     <div class="mb-4">
-                        <input type="text" placeholder="Search members..." id="search-members" class="w-full p-3 border rounded-lg" oninput="searchMembers()">
+                        <input type="text" placeholder="Search members..." id="search-members"
+                            class="w-full p-3 border rounded-lg" oninput="searchMembers()">
                     </div>
 
                     <div class="overflow-x-auto">
@@ -676,7 +677,8 @@
 
                     <!-- ✅ NEW: Categories Search Box -->
                     <div class="mb-4">
-                        <input type="text" placeholder="Search categories..." id="search-categories" class="w-full p-3 border rounded-lg" oninput="searchCategories()">
+                        <input type="text" placeholder="Search categories..." id="search-categories"
+                            class="w-full p-3 border rounded-lg" oninput="searchCategories()">
                     </div>
 
                     <!-- Categories Grid -->
@@ -770,10 +772,11 @@
                         <!-- Current Issues Tab Content -->
                         <div id="current-issues-content" class="admin-tab-content">
                             <h3 class="text-lg font-semibold mb-4 text-green-600">Currently Issued Items</h3>
-                            
+
                             <!-- ✅ NEW: Admin Issues Search Box -->
                             <div class="mb-4">
-                                <input type="text" placeholder="Search issues..." id="search-issues" class="w-full p-3 border rounded-lg" oninput="searchIssues()">
+                                <input type="text" placeholder="Search issues..." id="search-issues"
+                                    class="w-full p-3 border rounded-lg" oninput="searchIssues()">
                             </div>
 
                             <div class="overflow-x-auto">
@@ -1684,7 +1687,7 @@
                 const deleteBtn = document.getElementById('confirm-delete');
 
                 messageEl.textContent = message;
-                
+
                 // ✅ Change button text and style based on action type
                 if (isReturn) {
                     deleteBtn.textContent = 'Return';
@@ -1693,7 +1696,7 @@
                     deleteBtn.textContent = 'Delete';
                     deleteBtn.className = 'confirm-btn delete';
                 }
-                
+
                 backdrop.classList.remove('hidden');
                 modal.classList.remove('hidden');
 
@@ -2077,7 +2080,6 @@
         }
 
         async function addItem() {
-            // ✅ Fixed: Target only input elements in dialog
             const getDialogInputValue = (id) => {
                 const element = document.querySelector(`#dialog-content input#${id}`);
                 if (!element) {
@@ -2088,10 +2090,16 @@
                 return element.value ? element.value.trim() : '';
             };
 
-            // ✅ Get form values from dialog inputs only
             const name = getDialogInputValue('item-name');
-            const property = getDialogInputValue('item-property') || '';
             const totalStr = getDialogInputValue('item-total');
+
+            // ✅ NEW: Get all properties from inputs
+            const propertyInputs = document.querySelectorAll('#item-properties-list .item-property-input');
+            const properties = Array.from(propertyInputs)
+                .map(input => input.value.trim())
+                .filter(value => value.length > 0);
+
+            const property = properties.join(', '); // Join all properties
 
             console.log('🔍 Form inputs found:', {
                 name: name,
@@ -2181,6 +2189,26 @@
             } finally {
                 showLoading(false);
             }
+        }
+
+        // ✅ NEW: Add Item Property Input Field
+        function addItemProperty() {
+            const container = document.getElementById('item-properties-list');
+            const div = document.createElement('div');
+            div.className = 'flex items-center gap-2';
+            div.innerHTML = `
+        <input type="text" class="item-property-input flex-1 p-2 border rounded" placeholder="Add custom property">
+        <button type="button" onclick="removeItemProperty(this)" class="text-red-500 hover:bg-red-100 p-1 rounded" title="Remove this property">
+            <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+    `;
+            container.appendChild(div);
+            lucide.createIcons();
+        }
+
+        // ✅ NEW: Remove Item Property Input Field
+        function removeItemProperty(button) {
+            button.parentElement.remove();
         }
 
         // ✅ UPDATED: Issue Item Function (Same day merging)
@@ -2447,7 +2475,7 @@
             }
         }
 
-                function setActiveTab(tab) {
+        function setActiveTab(tab) {
             activeTab = tab;
 
             document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -2462,40 +2490,43 @@
         }
 
         // ✅ UPDATED: Update Stats Function (Low Stock Count जोड़ना)
+        // ✅ UPDATED: Update Stats Function (Low Stock Count जोड़ना)
         async function updateStats() {
             try {
                 const members = await fetchMembers();
                 const items = await fetchItems();
-                let totalItems = 0;
-                let availableItems = 0;
-                let lowStockItems = 0; // ✅ NEW
+                let totalQuantity = 0;
+                let availableQuantity = 0;
+                let lowStockItems = 0;
 
                 items.forEach(item => {
-                    totalItems += item.total || 0;
-                    availableItems += item.available || 0;
-                    if (item.available <= 5) { // ✅ NEW: Count low stock items
+                    totalQuantity += item.total || 0;
+                    availableQuantity += item.available || 0;
+                    if (item.available <= 5) {
                         lowStockItems++;
                     }
                 });
 
-                const issuedItems = totalItems - availableItems;
+                // ✅ FIX: Prevent negative values
+                const issuedItems = Math.max(0, totalQuantity - availableQuantity);
 
                 const totalMembersEl = document.getElementById('total-members');
                 const totalItemsEl = document.getElementById('total-items');
                 const issuedItemsEl = document.getElementById('issued-items');
                 const availableItemsEl = document.getElementById('available-items');
-                const lowStockItemsEl = document.getElementById('low-stock-items'); // ✅ NEW
+                const lowStockItemsEl = document.getElementById('low-stock-items');
 
                 if (totalMembersEl) totalMembersEl.textContent = members.length;
-                if (totalItemsEl) totalItemsEl.textContent = totalItems;
-                if (issuedItemsEl) issuedItemsEl.textContent = issuedItems;
-                if (availableItemsEl) availableItemsEl.textContent = availableItems;
-                if (lowStockItemsEl) lowStockItemsEl.textContent = lowStockItems; // ✅ NEW
+                if (totalItemsEl) totalItemsEl.textContent = items.length; // Item count
+                if (issuedItemsEl) issuedItemsEl.textContent = issuedItems; // ✅ Fixed
+                if (availableItemsEl) availableItemsEl.textContent = availableQuantity;
+                if (lowStockItemsEl) lowStockItemsEl.textContent = lowStockItems;
 
             } catch (error) {
                 console.error('Error updating stats:', error);
             }
         }
+
 
         async function populateMembersTable() {
             const tbody = document.getElementById('members-table-body');
@@ -2639,35 +2670,45 @@
                         `<img src="${item.image}" class="w-16 h-16 object-cover rounded mb-2 mx-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="text-3xl mb-2 text-center hidden">🔌</div>` :
                         '<div class="text-3xl mb-2 text-center">🔌</div>';
 
-                    const propertyHTML = item.property ?
-                        `<p class="text-xs text-blue-600 mb-1">Property: ${item.property}</p>` : '';
+                    // ✅ UPDATED: Show both item property AND category properties
+                    let propertyHTML = '';
+
+                    // Item's own property
+                    if (item.property) {
+                        propertyHTML += `<p class="text-xs text-blue-600 mb-1">Property: ${item.property}</p>`;
+                    }
+
+                    // Category properties
+                    if (selectedCategory && selectedCategory.properties && selectedCategory.properties.length > 0) {
+                        propertyHTML += `<p class="text-xs text-green-600 mb-1">Category Properties: ${selectedCategory.properties.join(', ')}</p>`;
+                    }
 
                     itemDiv.innerHTML = `
-                        <div onclick="showItemDetail(${JSON.stringify(item).replace(/"/g, '&quot;')})">
-                            ${displayImage}
-                            <h3 class="font-semibold mb-2 text-center">${item.name}</h3>
-                            ${propertyHTML}
-                            <div class="text-sm text-gray-600 text-center">
-                                <p>Available: <span class="font-semibold text-green-600">${item.available}</span></p>
-                                <p>Total: <span class="font-semibold">${item.total}</span></p>
-                            </div>
+                <div onclick="showItemDetail(${JSON.stringify(item).replace(/"/g, '&quot;')})">
+                    ${displayImage}
+                    <h3 class="font-semibold mb-2 text-center">${item.name}</h3>
+                    ${propertyHTML}
+                    <div class="text-sm text-gray-600 text-center">
+                        <p>Available: <span class="font-semibold text-green-600">${item.available}</span></p>
+                        <p>Total: <span class="font-semibold">${item.total}</span></p>
+                    </div>
+                </div>
+                <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div class="relative">
+                        <button onclick="event.stopPropagation(); toggleMenu('item-menu-${item.id}')" class="p-1 hover:bg-gray-200 rounded">
+                            <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                        </button>
+                        <div id="item-menu-${item.id}" class="dropdown-menu">
+                            <button onclick="editItem(${item.id})" class="dropdown-item">
+                                <i data-lucide="edit" class="w-4 h-4 inline mr-2"></i>Edit
+                            </button>
+                            <button onclick="deleteItem(${item.id})" class="dropdown-item delete">
+                                <i data-lucide="trash-2" class="w-4 h-4 inline mr-2"></i>Delete
+                            </button>
                         </div>
-                        <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <div class="relative">
-                                <button onclick="event.stopPropagation(); toggleMenu('item-menu-${item.id}')" class="p-1 hover:bg-gray-200 rounded">
-                                    <i data-lucide="more-vertical" class="w-4 h-4"></i>
-                                </button>
-                                <div id="item-menu-${item.id}" class="dropdown-menu">
-                                    <button onclick="editItem(${item.id})" class="dropdown-item">
-                                        <i data-lucide="edit" class="w-4 h-4 inline mr-2"></i>Edit
-                                    </button>
-                                    <button onclick="deleteItem(${item.id})" class="dropdown-item delete">
-                                        <i data-lucide="trash-2" class="w-4 h-4 inline mr-2"></i>Delete
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
+                    </div>
+                </div>
+            `;
                     grid.appendChild(itemDiv);
                 });
 
@@ -2679,6 +2720,7 @@
                 showToast('Error loading items', 'error');
             }
         }
+
 
         // ✅ NEW: Populate Current Issues Table
         async function populateCurrentIssuesTable() {
@@ -3029,27 +3071,58 @@
                 `;
             } else if (type === 'addItem') {
                 title.textContent = 'Add New Item';
+
+                // ✅ NEW: Get category properties to prefill
+                let categoryPropertiesHTML = '';
+                if (selectedCategory && selectedCategory.properties && selectedCategory.properties.length > 0) {
+                    categoryPropertiesHTML = selectedCategory.properties.map(prop => `
+            <div class="flex items-center gap-2 bg-green-50 p-2 rounded border">
+                <input type="text" value="${prop}" class="item-property-input flex-1 p-2 border rounded bg-green-50" readonly>
+                <span class="text-xs text-green-600">From Category</span>
+                <button type="button" onclick="removeItemProperty(this)" class="text-red-500 hover:bg-red-100 p-1 rounded" title="Remove this property">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+        `).join('');
+                }
+
                 content.innerHTML = `
-                    <div class="space-y-4">
-                        <div class="text-center">
-                            <label for="item-image-input" class="image-upload-area w-24 h-24 mx-auto rounded-lg overflow-hidden border-2 flex items-center justify-center bg-gray-50 cursor-pointer">
-                                <img id="item-image-preview" src="data:," class="w-full h-full object-cover hidden">
-                                <div id="item-image-placeholder" class="text-center">
-                                    <i data-lucide="image" class="w-8 h-8 mx-auto text-gray-400 mb-1"></i>
-                                    <p class="text-xs text-gray-500">Add Image</p>
-                                </div>
-                            </label>
-                            <input type="file" id="item-image-input" accept="image/*" class="hidden" onchange="handleItemImage(this)">
-                        </div>
-                        <input type="text" placeholder="Item Name" id="item-name" class="w-full p-2 border rounded" required />
-                        <input type="text" placeholder="Property (e.g., Voltage, Capacity)" id="item-property" class="w-full p-2 border rounded" />
-                        <input type="number" placeholder="Total Quantity" id="item-total" class="w-full p-2 border rounded" min="1" required />
-                        <p class="text-sm text-gray-500">Category: <strong>${selectedCategory ? selectedCategory.name : ''}</strong></p>
-                        <button onclick="addItem()" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">
-                            Add Item
+        <div class="space-y-4">
+            <div class="text-center">
+                <label for="item-image-input" class="image-upload-area w-24 h-24 mx-auto rounded-lg overflow-hidden border-2 flex items-center justify-center bg-gray-50 cursor-pointer">
+                    <img id="item-image-preview" src="data:," class="w-full h-full object-cover hidden">
+                    <div id="item-image-placeholder" class="text-center">
+                        <i data-lucide="image" class="w-8 h-8 mx-auto text-gray-400 mb-1"></i>
+                        <p class="text-xs text-gray-500">Add Image</p>
+                    </div>
+                </label>
+                <input type="file" id="item-image-input" accept="image/*" class="hidden" onchange="handleItemImage(this)">
+            </div>
+            <input type="text" placeholder="Item Name" id="item-name" class="w-full p-2 border rounded" required />
+            
+            <!-- ✅ NEW: Properties Section -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Item Properties:</label>
+                <div id="item-properties-list" class="space-y-2">
+                    ${categoryPropertiesHTML}
+                    <div class="flex items-center gap-2">
+                        <input type="text" class="item-property-input flex-1 p-2 border rounded" placeholder="Add custom property (e.g., 5V, 220Ω)">
+                        <button type="button" onclick="removeItemProperty(this)" class="text-red-500 hover:bg-red-100 p-1 rounded" title="Remove this property">
+                            <i data-lucide="x" class="w-4 h-4"></i>
                         </button>
                     </div>
-                `;
+                </div>
+                <button type="button" onclick="addItemProperty()" class="mt-2 text-blue-500 hover:underline text-sm">+ Add Property</button>
+            </div>
+            
+            <input type="number" placeholder="Total Quantity" id="item-total" class="w-full p-2 border rounded" min="1" required />
+            <p class="text-sm text-gray-500">Category: <strong>${selectedCategory ? selectedCategory.name : ''}</strong></p>
+            <button onclick="addItem()" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">
+                Add Item
+            </button>
+        </div>
+    `;
+
             } else if (type === 'issueItem') {
                 try {
                     const members = await fetchMembers();
@@ -3177,4 +3250,3 @@
 </body>
 
 </html>
-
