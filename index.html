@@ -23,6 +23,124 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
+        /* ✅ NEW: Enhanced Splash Screen Styling with Progress Bar */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .splash-logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 20px;
+            object-fit: contain;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: logoFloat 2s ease-in-out infinite alternate;
+        }
+
+        .splash-title {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .splash-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            margin-top: 8px;
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        /* ✅ NEW: Progress Bar Styling */
+        .progress-container {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            margin-top: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: white;
+            border-radius: 10px;
+            animation: progressFill 10s linear forwards;
+        }
+
+        .splash-loading-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            margin-top: 15px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .loading-spinner {
+            margin-top: 30px;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes logoFloat {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes progressFill {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        .fade-out {
+            opacity: 0 !important;
+        }
+
+        /* ✅ NEW: Search Result Highlighting */
+        mark {
+            background-color: #fef08a;
+            padding: 1px 2px;
+            border-radius: 2px;
+            font-weight: 500;
+        }
+
+        .search-indicator {
+            background: linear-gradient(45deg, #f59e0b, #f97316);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
         .toast-enter {
             transform: translateX(100%);
             opacity: 0;
@@ -227,7 +345,6 @@
             background: #dc2626;
         }
 
-        /* ✅ NEW: Return button styling */
         .confirm-btn.return {
             background: #3b82f6;
             color: white;
@@ -347,6 +464,16 @@
             font-size: 12px;
         }
 
+        /* ✅ NEW: Property Value Row Styling */
+        .property-value-row {
+            transition: all 0.2s ease;
+        }
+
+        .property-value-row:hover {
+            background-color: #f8fafc;
+            border-color: #3b82f6;
+        }
+
         /* ✅ NEW: Member Detail Page Styling */
         .member-detail-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -401,6 +528,20 @@
 </head>
 
 <body class="bg-gray-100">
+    <!-- ✅ NEW: Enhanced Splash Screen with Progress Bar -->
+    <div id="splash-screen">
+        <img src="images/logo.png" alt="Logo" class="splash-logo" 
+             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiByeD0iMjAiIGZpbGw9IiMzYjgyZjYiLz4KPHN2ZyB4PSIzMCIgeT0iMzAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiPgo8cGF0aCBkPSJtMyA5IDkgOS05LTl6TTIxIDlsLTkgOSA5LTl6Ii8+CjxwYXRoIGQ9Im0xNSAxNS05LTktOSA5Ii8+Cjwvc3ZnPgo8L3N2Zz4='">
+        <h1 class="splash-title">Inventory System</h1>
+        <p class="splash-subtitle">Advanced Management Solution</p>
+        
+        <!-- ✅ NEW: Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="splash-progress"></div>
+        </div>
+        <p class="splash-loading-text">Loading your workspace...</p>
+    </div>
+
     <!-- Loading overlay -->
     <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white p-6 rounded-lg">
@@ -423,7 +564,7 @@
     </div>
 
     <!-- Login/Signup Modal -->
-    <div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white p-8 rounded-lg w-96 max-w-full mx-4">
             <h2 class="text-2xl font-bold mb-6 text-center">Inventory System Login</h2>
 
@@ -477,7 +618,7 @@
             <div class="flex justify-between items-center mb-8">
                 <div class="flex items-center gap-3">
                     <!-- ✅ ADD YOUR LOGO HERE - आप assets/logo.png में अपना logo रख सकते हैं -->
-                    <img src="assets/logo.png" alt="Logo" class="app-logo" onerror="this.style.display='none'">
+                    <img src="images/logo.png" alt="Logo" class="app-logo" onerror="this.style.display='none'">
                     <h1 class="text-lg font-bold">Inventory System</h1>
                 </div>
                 <!-- ✅ NICE LOGOUT BUTTON -->
@@ -564,9 +705,9 @@
                         efficiently</p>
 
                     <!-- ✅ आप यहाँ अपनी attractive image रख सकते हैं -->
-                    <img src="assets/dashboard-welcome.jpg" alt="Inventory Management"
+                    <img src="images/dashboard-welcome.jpg" alt="Inventory Management"
                         class="dashboard-welcome-image mx-auto"
-                        onerror="this.src='https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'">
+                        onerror="this.src='https://t4.ftcdn.net/jpg/05/81/23/05/360_F_581230590_7bgkoYcnWN2qglejxuc9CswekwsDopMo.jpg'">
 
                     <div class="mt-6 flex justify-center gap-4">
                         <button onclick="setActiveSection('members')"
@@ -675,10 +816,11 @@
                         </button>
                     </div>
 
-                    <!-- ✅ NEW: Categories Search Box -->
+                    <!-- ✅ NEW: Enhanced Categories Search Box -->
                     <div class="mb-4">
-                        <input type="text" placeholder="Search categories..." id="search-categories"
+                        <input type="text" placeholder="Search categories or properties..." id="search-categories"
                             class="w-full p-3 border rounded-lg" oninput="searchCategories()">
+                        <p class="text-xs text-gray-500 mt-1">Search by category name, description, or properties (e.g., "voltage", "resistance")</p>
                     </div>
 
                     <!-- Categories Grid -->
@@ -703,9 +845,11 @@
                         </button>
                     </div>
 
+                    <!-- ✅ ENHANCED: Advanced Item Search Box -->
                     <div class="mb-4">
-                        <input type="text" placeholder="Search items..." id="search-items"
+                        <input type="text" placeholder="Search items globally..." id="search-items"
                             class="w-full p-3 border rounded-lg" oninput="searchItems()" />
+                        <p class="text-xs text-gray-500 mt-1">Search by name, properties, or values (e.g., "resistance 10k", "voltage 5V")</p>
                     </div>
 
                     <div id="items-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -877,6 +1021,391 @@
         // Initialization flags
         let isInitialized = false;
         let authListenerSetup = false;
+
+        // ✅ NEW: Enhanced Splash Screen Functions (10 seconds)
+        function hideSplashScreen() {
+            const splash = document.getElementById('splash-screen');
+            
+            // Add fade out animation
+            splash.classList.add('fade-out');
+            
+            // After animation completes, hide splash and check authentication
+            setTimeout(() => {
+                splash.style.display = 'none';
+                checkAuthAndShowApp();
+            }, 500); // Match CSS transition duration
+        }
+
+        async function checkAuthAndShowApp() {
+            try {
+                const { data: { user } } = await supabaseClient.auth.getUser();
+                
+                if (user) {
+                    currentUser = user;
+                    showMainApp();
+                    await init(); // Initialize app after showing main interface
+                } else {
+                    showAuthModal();
+                }
+            } catch (error) {
+                console.error('Auth check error:', error);
+                showAuthModal();
+            }
+        }
+
+        // ✅ UPDATED: Show Splash for 10 seconds instead of 3
+        function showSplashAndInit() {
+            const splash = document.getElementById('splash-screen');
+            splash.style.display = 'flex';
+            
+            // Show splash for 10 seconds, then hide and check auth
+            setTimeout(() => {
+                hideSplashScreen();
+            }, 10000); // ✅ Changed from 3000 to 10000 (10 seconds)
+        }
+
+        // ✅ NEW: Advanced Property Search Function
+        async function searchItemsByProperty(searchTerm) {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('items')
+                    .select(`
+                        *,
+                        categories(name, properties)
+                    `)
+                    .or(`
+                        name.ilike.%${searchTerm}%,
+                        property.ilike.%${searchTerm}%,
+                        property_values::text.ilike.%${searchTerm}%
+                    `);
+
+                if (error) throw error;
+                return data || [];
+            } catch (error) {
+                console.error('Error searching items by property:', error);
+                return [];
+            }
+        }
+
+        // ✅ NEW: Highlight Search Terms
+        function highlightSearchTerm(text, searchTerm) {
+            if (!searchTerm || !text) return text;
+            
+            const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return text.replace(regex, '<mark class="bg-yellow-200 px-1 rounded">$1</mark>');
+        }
+
+        // ✅ UPDATED: Enhanced Items Search Function with Global Search
+        async function searchItems() {
+            const searchTerm = document.getElementById('search-items').value.toLowerCase().trim();
+            
+            if (!searchTerm) {
+                // Show all items if search is empty
+                if (selectedCategory) {
+                    populateItems(selectedCategory.id);
+                }
+                return;
+            }
+
+            // First try local search in current category
+            const itemCards = document.querySelectorAll('#items-grid > div');
+            let hasVisibleCards = false;
+
+            itemCards.forEach(card => {
+                const itemNameEl = card.querySelector('h3');
+                const propertyEls = card.querySelectorAll('p');
+                
+                let shouldShow = false;
+                
+                if (itemNameEl) {
+                    const itemName = itemNameEl.textContent.toLowerCase();
+                    if (itemName.includes(searchTerm)) {
+                        shouldShow = true;
+                    }
+                }
+
+                // Check property text
+                propertyEls.forEach(p => {
+                    if (p.textContent.toLowerCase().includes(searchTerm)) {
+                        shouldShow = true;
+                    }
+                });
+
+                if (shouldShow) {
+                    card.style.display = 'block';
+                    hasVisibleCards = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // If no results found in current category, search globally
+            if (!hasVisibleCards) {
+                await performGlobalItemSearch(searchTerm);
+            }
+        }
+
+        // ✅ NEW: Global Item Search Across All Categories
+        async function performGlobalItemSearch(searchTerm) {
+            try {
+                showLoading(true);
+                const matchingItems = await searchItemsByProperty(searchTerm);
+
+                const itemsGrid = document.getElementById('items-grid');
+                itemsGrid.innerHTML = '';
+
+                if (matchingItems.length === 0) {
+                    itemsGrid.innerHTML = `
+                        <div class="col-span-full text-center p-8">
+                            <div class="text-6xl mb-4">🔍</div>
+                            <h3 class="text-xl font-semibold text-gray-600 mb-2">No Results Found</h3>
+                            <p class="text-gray-500">No items found matching "${searchTerm}"</p>
+                            <button onclick="clearItemSearch()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                                Show All Items
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Show search results with category info
+                itemsGrid.innerHTML = `
+                    <div class="col-span-full mb-4">
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                            <h3 class="font-semibold text-blue-800">Search Results for "${searchTerm}"</h3>
+                            <p class="text-blue-600 text-sm">Found ${matchingItems.length} items across all categories</p>
+                            <button onclick="clearItemSearch()" class="mt-2 text-blue-500 hover:underline text-sm">
+                                ← Back to ${selectedCategory ? selectedCategory.name : 'Current Category'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                matchingItems.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'border rounded-lg p-4 hover:shadow-md cursor-pointer transition-shadow hover-lift relative group';
+
+                    const displayImage = item.image ?
+                        `<img src="${item.image}" class="w-16 h-16 object-cover rounded mb-2 mx-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="text-3xl mb-2 text-center hidden">🔌</div>` :
+                        '<div class="text-3xl mb-2 text-center">🔌</div>';
+
+                    // Highlight matching text
+                    let propertyHTML = '';
+                    if (item.property) {
+                        const highlightedProperty = highlightSearchTerm(item.property, searchTerm);
+                        propertyHTML += `<p class="text-xs text-blue-600 mb-1">Property: ${highlightedProperty}</p>`;
+                    }
+
+                    // Show category name for context
+                    const categoryName = item.categories?.name || 'Unknown Category';
+
+                    itemDiv.innerHTML = `
+                        <div onclick="showItemDetailFromSearch(${JSON.stringify(item).replace(/"/g, '&quot;')})">
+                            ${displayImage}
+                            <h3 class="font-semibold mb-2 text-center">${highlightSearchTerm(item.name, searchTerm)}</h3>
+                            <p class="text-xs text-green-600 mb-1">Category: ${categoryName}</p>
+                            ${propertyHTML}
+                            <div class="text-sm text-gray-600 text-center">
+                                <p>Available: <span class="font-semibold text-green-600">${item.available}</span></p>
+                                <p>Total: <span class="font-semibold">${item.total}</span></p>
+                            </div>
+                        </div>
+                        <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div class="relative">
+                                <button onclick="event.stopPropagation(); toggleMenu('item-menu-${item.id}')" class="p-1 hover:bg-gray-200 rounded">
+                                    <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                                </button>
+                                <div id="item-menu-${item.id}" class="dropdown-menu">
+                                    <button onclick="editItem(${item.id})" class="dropdown-item">
+                                        <i data-lucide="edit" class="w-4 h-4 inline mr-2"></i>Edit
+                                    </button>
+                                    <button onclick="deleteItem(${item.id})" class="dropdown-item delete">
+                                        <i data-lucide="trash-2" class="w-4 h-4 inline mr-2"></i>Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    itemsGrid.appendChild(itemDiv);
+                });
+
+                lucide.createIcons();
+
+            } catch (error) {
+                console.error('Error in global item search:', error);
+                showToast('Error searching items', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // ✅ NEW: Clear Item Search
+        function clearItemSearch() {
+            document.getElementById('search-items').value = '';
+            if (selectedCategory) {
+                populateItems(selectedCategory.id);
+            }
+        }
+
+        // ✅ NEW: Show Item Detail from Search Results
+        function showItemDetailFromSearch(item) {
+            selectedItem = item;
+            
+            // Find and set the category
+            fetchCategories().then(categories => {
+                selectedCategory = categories.find(cat => cat.id === item.category_id);
+                showItemDetail(item);
+            });
+        }
+
+        // ✅ UPDATED: Enhanced Category Search with Property Search
+        async function searchCategories() {
+            const term = document.getElementById('search-categories').value.toLowerCase().trim();
+            
+            if (!term) {
+                // Show all categories if search is empty
+                populateCategories();
+                return;
+            }
+
+            const cards = document.querySelectorAll('#categories-grid > div');
+            let hasVisibleCards = false;
+
+            // Remove existing search indicators
+            document.querySelectorAll('.search-indicator').forEach(indicator => {
+                indicator.remove();
+            });
+
+            cards.forEach(card => {
+                const title = card.querySelector('h3')?.textContent.toLowerCase();
+                const description = card.querySelector('p')?.textContent.toLowerCase();
+                
+                let shouldShow = false;
+                
+                if (title?.includes(term) || description?.includes(term)) {
+                    shouldShow = true;
+                }
+
+                if (shouldShow) {
+                    card.style.display = 'block';
+                    hasVisibleCards = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // If no categories found, search in items and show relevant categories
+            if (!hasVisibleCards) {
+                await searchInItemsForCategories(term);
+            }
+        }
+
+        // ✅ NEW: Search Items to Find Relevant Categories
+        async function searchInItemsForCategories(searchTerm) {
+            try {
+                const matchingItems = await searchItemsByProperty(searchTerm);
+                const categoryIds = [...new Set(matchingItems.map(item => item.category_id))];
+                
+                const cards = document.querySelectorAll('#categories-grid > div');
+                let hasResults = false;
+
+                cards.forEach(card => {
+                    const categoryData = card.querySelector('[onclick*="showItemsView"]');
+                    if (categoryData) {
+                        const categoryInfo = JSON.parse(categoryData.getAttribute('onclick').match(/showItemsView\((.*?)\)/)[1].replace(/&quot;/g, '"'));
+                        
+                        if (categoryIds.includes(categoryInfo.id)) {
+                            card.style.display = 'block';
+                            hasResults = true;
+                            
+                            // Add search result indicator
+                            if (!card.querySelector('.search-indicator')) {
+                                const indicator = document.createElement('div');
+                                indicator.className = 'search-indicator absolute top-0 left-0 bg-yellow-400 text-black text-xs px-2 py-1 rounded-br-lg';
+                                indicator.innerHTML = `<i data-lucide="search" class="w-3 h-3 inline mr-1"></i>Match`;
+                                card.style.position = 'relative';
+                                card.appendChild(indicator);
+                            }
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+
+                if (!hasResults) {
+                    const grid = document.getElementById('categories-grid');
+                    grid.innerHTML = `
+                        <div class="col-span-full text-center p-8">
+                            <div class="text-6xl mb-4">🔍</div>
+                            <h3 class="text-xl font-semibold text-gray-600 mb-2">No Categories Found</h3>
+                            <p class="text-gray-500">No categories contain items matching "${searchTerm}"</p>
+                            <button onclick="populateCategories()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                                Show All Categories
+                            </button>
+                        </div>
+                    `;
+                }
+
+                lucide.createIcons();
+            } catch (error) {
+                console.error('Error searching in items for categories:', error);
+            }
+        }
+
+        // ✅ NEW: Add custom property value row
+        function addCustomPropertyValue() {
+            const container = document.getElementById('item-property-values-list');
+            const div = document.createElement('div');
+            div.className = 'flex items-center gap-2 bg-gray-50 p-2 rounded border property-value-row';
+            div.innerHTML = `
+                <input type="text" class="w-24 p-2 border rounded text-sm custom-property-name" placeholder="Property name">
+                <span class="text-sm">:</span>
+                <input type="text" class="item-property-value flex-1 p-2 border rounded" data-property-name="" placeholder="Enter value">
+                <button type="button" onclick="removePropertyValueRow(this)" class="text-red-500 hover:bg-red-100 p-1 rounded" title="Remove">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            `;
+            container.appendChild(div);
+            
+            // Update data-property-name when custom name is typed
+            const nameInput = div.querySelector('.custom-property-name');
+            const valueInput = div.querySelector('.item-property-value');
+            nameInput.addEventListener('input', () => {
+                valueInput.setAttribute('data-property-name', nameInput.value.trim());
+            });
+            
+            lucide.createIcons();
+        }
+
+        // ✅ NEW: Add custom property value row for edit
+        function addCustomPropertyValueEdit() {
+            const container = document.getElementById('edit-item-property-values-list');
+            const div = document.createElement('div');
+            div.className = 'flex items-center gap-2 bg-gray-50 p-2 rounded border property-value-row';
+            div.innerHTML = `
+                <input type="text" class="w-24 p-2 border rounded text-sm custom-property-name" placeholder="Property name">
+                <span class="text-sm">:</span>
+                <input type="text" class="item-property-value flex-1 p-2 border rounded" data-property-name="" placeholder="Enter value">
+                <button type="button" onclick="removePropertyValueRow(this)" class="text-red-500 hover:bg-red-100 p-1 rounded" title="Remove">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            `;
+            container.appendChild(div);
+            
+            // Update data-property-name when custom name is typed
+            const nameInput = div.querySelector('.custom-property-name');
+            const valueInput = div.querySelector('.item-property-value');
+            nameInput.addEventListener('input', () => {
+                valueInput.setAttribute('data-property-name', nameInput.value.trim());
+            });
+            
+            lucide.createIcons();
+        }
+
+        // ✅ NEW: Remove property value row
+        function removePropertyValueRow(button) {
+            button.closest('.property-value-row').remove();
+        }
 
         // ✅ NEW: Show Low Stock Page Function
         async function showLowStockPage() {
@@ -1377,7 +1906,7 @@
             }
         }
 
-        // ✅ NEW: Edit Item
+        // ✅ NEW: Edit Item with Property Values
         async function editItem(itemId) {
             try {
                 const { data, error } = await supabaseClient
@@ -1392,6 +1921,31 @@
                 document.getElementById('dialog-title').textContent = 'Edit Item';
                 const content = document.getElementById('dialog-content');
 
+                // ✅ NEW: Generate property value inputs with current values
+                let propertyValuesHTML = '';
+                const currentValues = data.property_values || [];
+                
+                if (selectedCategory && selectedCategory.properties) {
+                    selectedCategory.properties.forEach(prop => {
+                        const existingValue = currentValues.find(pv => pv.propertyName === prop);
+                        const value = existingValue ? existingValue.value : '';
+                        
+                        propertyValuesHTML += `
+                            <div class="flex items-center gap-2 bg-blue-50 p-2 rounded border property-value-row">
+                                <label class="w-24 text-sm font-medium">${prop}:</label>
+                                <input type="text" 
+                                       class="item-property-value flex-1 p-2 border rounded" 
+                                       data-property-name="${prop}" 
+                                       value="${value}"
+                                       placeholder="Enter ${prop} value">
+                                <button type="button" onclick="removePropertyValueRow(this)" class="text-red-500 hover:bg-red-100 p-1 rounded">
+                                    <i data-lucide="x" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        `;
+                    });
+                }
+
                 content.innerHTML = `
                     <div class="space-y-4">
                         <div class="text-center">
@@ -1405,10 +1959,18 @@
                             <input type="file" id="edit-item-image-input" accept="image/*" class="hidden" onchange="handleItemImage(this, 'edit')">
                         </div>
                         <input type="text" value="${data.name}" placeholder="Item Name" id="edit-item-name" class="w-full p-2 border rounded" required />
-                        <input type="text" value="${data.property || ''}" placeholder="Property (e.g., Voltage, Capacity)" id="edit-item-property" class="w-full p-2 border rounded" />
+                        
+                        <!-- ✅ NEW: Property Values Section for Edit -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Property Values:</label>
+                            <div id="edit-item-property-values-list" class="space-y-2">
+                                ${propertyValuesHTML}
+                            </div>
+                            <button type="button" onclick="addCustomPropertyValueEdit()" class="mt-2 text-blue-500 hover:underline text-sm">+ Add Custom Property</button>
+                        </div>
+                        
                         <input type="number" value="${data.total}" placeholder="Total Quantity" id="edit-item-total" class="w-full p-2 border rounded" min="1" required />
                         <p class="text-sm text-gray-500">Available Quantity: <strong>${data.available}</strong></p>
-                        <p class="text-sm text-gray-500">Category: <strong>${selectedCategory ? selectedCategory.name : 'Unknown'}</strong></p>
                         <button onclick="updateItem(${itemId})" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">
                             Update Item
                         </button>
@@ -1423,13 +1985,30 @@
             }
         }
 
-        // ✅ NEW: Update Item
+        // ✅ NEW: Update Item with Property Values
         async function updateItem(itemId) {
             const name = document.getElementById('edit-item-name').value.trim();
-            const property = document.getElementById('edit-item-property').value.trim();
             const total = parseInt(document.getElementById('edit-item-total').value);
             const imageEl = document.getElementById('edit-item-image-preview');
             const image = (imageEl && imageEl.src && imageEl.src !== 'data:,') ? imageEl.src : null;
+
+            // ✅ NEW: Get updated property values
+            const propertyValueInputs = document.querySelectorAll('#edit-item-property-values-list .item-property-value');
+            const propertyValues = [];
+            
+            propertyValueInputs.forEach(input => {
+                const propertyName = input.getAttribute('data-property-name');
+                const value = input.value.trim();
+                if (propertyName && value) {
+                    propertyValues.push({
+                        propertyName: propertyName,
+                        value: value
+                    });
+                }
+            });
+
+            // Create readable property string for display
+            const propertyString = propertyValues.map(pv => `${pv.propertyName}: ${pv.value}`).join(', ');
 
             if (!name || !total || total <= 0) {
                 showToast('Please enter valid item details', 'error');
@@ -1453,7 +2032,8 @@
                     .from('items')
                     .update({
                         name,
-                        property,
+                        property: propertyString,           // Display string
+                        property_values: propertyValues,   // ✅ NEW: Structured data
                         total,
                         available: newAvailable,
                         image
@@ -1599,7 +2179,7 @@
 
                 handleImageUpload(file, (imageSrc) => {
                     const previewId = mode === 'edit' ? 'edit-member-photo-preview' : 'member-photo-preview';
-                    const placeholderId = mode === 'edit' ? 'edit-member-photo-placeholder' : 'member-photo-placeholder';
+                                       const placeholderId = mode === 'edit' ? 'edit-member-photo-placeholder' : 'member-photo-placeholder';
 
                     const preview = document.getElementById(previewId);
                     const placeholder = document.getElementById(placeholderId);
@@ -1657,7 +2237,6 @@
 
             if (!toast || !toastMessage) return;
 
-            // ✅ UI/UX Improvement: No icons, just text
             toastMessage.textContent = message;
             toast.classList.remove('hidden', 'show', 'success', 'error');
 
@@ -2079,12 +2658,12 @@
             }
         }
 
+        // ✅ UPDATED: Add Item with Property Values
         async function addItem() {
             const getDialogInputValue = (id) => {
                 const element = document.querySelector(`#dialog-content input#${id}`);
                 if (!element) {
                     console.error(`❌ Dialog input not found: ${id}`);
-                    showToast(`Form field '${id}' not found`, 'error');
                     return null;
                 }
                 return element.value ? element.value.trim() : '';
@@ -2092,35 +2671,28 @@
 
             const name = getDialogInputValue('item-name');
             const totalStr = getDialogInputValue('item-total');
-
-            // ✅ NEW: Get all properties from inputs
-            const propertyInputs = document.querySelectorAll('#item-properties-list .item-property-input');
-            const properties = Array.from(propertyInputs)
-                .map(input => input.value.trim())
-                .filter(value => value.length > 0);
-
-            const property = properties.join(', '); // Join all properties
-
-            console.log('🔍 Form inputs found:', {
-                name: name,
-                property: property,
-                totalStr: totalStr,
-                selectedCategory: selectedCategory
+            
+            // ✅ NEW: Get property values as structured data
+            const propertyValueInputs = document.querySelectorAll('#item-property-values-list .item-property-value');
+            const propertyValues = [];
+            
+            propertyValueInputs.forEach(input => {
+                const propertyName = input.getAttribute('data-property-name');
+                const value = input.value.trim();
+                if (propertyName && value) {
+                    propertyValues.push({
+                        propertyName: propertyName,
+                        value: value
+                    });
+                }
             });
 
-            // ✅ Validation checks
-            if (name === null) {
-                showToast('Item name field not found in dialog', 'error');
-                return;
-            }
+            // Create readable property string for display
+            const propertyString = propertyValues.map(pv => `${pv.propertyName}: ${pv.value}`).join(', ');
 
+            // Validation
             if (!name || name.length === 0) {
                 showToast('Please enter item name', 'error');
-                return;
-            }
-
-            if (totalStr === null) {
-                showToast('Total quantity field not found in dialog', 'error');
                 return;
             }
 
@@ -2135,18 +2707,8 @@
                 return;
             }
 
-            // ✅ Get image from dialog
             const imageEl = document.querySelector('#dialog-content img#item-image-preview');
             const image = (imageEl && imageEl.src && imageEl.src !== 'data:,') ? imageEl.src : null;
-
-            console.log('📝 Final data to insert:', {
-                name: name,
-                property: property,
-                total: total,
-                available: total,
-                category_id: selectedCategory.id,
-                image: image ? 'Image present' : 'No image'
-            });
 
             showLoading(true);
 
@@ -2155,7 +2717,8 @@
                     .from('items')
                     .insert([{
                         name: name,
-                        property: property,
+                        property: propertyString,           // For display purposes
+                        property_values: propertyValues,   // ✅ NEW: Structured data for search
                         total: total,
                         available: total,
                         category_id: selectedCategory.id,
@@ -2163,21 +2726,12 @@
                     }])
                     .select();
 
-                console.log('✅ Supabase response:', { data, error });
-
                 if (error) {
                     console.error('❌ Supabase insert error:', error);
                     showToast('Database error: ' + error.message, 'error');
                     return;
                 }
 
-                if (!data || data.length === 0) {
-                    console.error('❌ No data returned from insert');
-                    showToast('Insert successful but no data returned', 'error');
-                    return;
-                }
-
-                // ✅ Success!
                 closeDialog();
                 await populateItems(selectedCategory.id);
                 await updateStats();
@@ -2189,26 +2743,6 @@
             } finally {
                 showLoading(false);
             }
-        }
-
-        // ✅ NEW: Add Item Property Input Field
-        function addItemProperty() {
-            const container = document.getElementById('item-properties-list');
-            const div = document.createElement('div');
-            div.className = 'flex items-center gap-2';
-            div.innerHTML = `
-        <input type="text" class="item-property-input flex-1 p-2 border rounded" placeholder="Add custom property">
-        <button type="button" onclick="removeItemProperty(this)" class="text-red-500 hover:bg-red-100 p-1 rounded" title="Remove this property">
-            <i data-lucide="x" class="w-4 h-4"></i>
-        </button>
-    `;
-            container.appendChild(div);
-            lucide.createIcons();
-        }
-
-        // ✅ NEW: Remove Item Property Input Field
-        function removeItemProperty(button) {
-            button.parentElement.remove();
         }
 
         // ✅ UPDATED: Issue Item Function (Same day merging)
@@ -2466,7 +3000,6 @@
                 } else if (section === 'dashboard') {
                     updateStats();
                 } else if (section === 'low-stock') {
-                    // ✅ NEW: Low stock section ko handle karna
                     showLowStockPage();
                 }
             } catch (error) {
@@ -2489,7 +3022,6 @@
             populateCategories();
         }
 
-        // ✅ UPDATED: Update Stats Function (Low Stock Count जोड़ना)
         // ✅ UPDATED: Update Stats Function (Low Stock Count जोड़ना)
         async function updateStats() {
             try {
@@ -2526,7 +3058,6 @@
                 console.error('Error updating stats:', error);
             }
         }
-
 
         async function populateMembersTable() {
             const tbody = document.getElementById('members-table-body');
@@ -2721,7 +3252,6 @@
             }
         }
 
-
         // ✅ NEW: Populate Current Issues Table
         async function populateCurrentIssuesTable() {
             const tbody = document.getElementById('current-issues-table');
@@ -2847,32 +3377,6 @@
                 row.style.display = (name.includes(term) || branch.includes(term)) ? '' : 'none';
             });
         };
-
-        const searchCategories = () => {
-            const term = document.getElementById('search-categories').value.toLowerCase();
-            const cards = document.querySelectorAll('#categories-grid > div');
-            cards.forEach(card => {
-                const title = card.querySelector('h3')?.textContent.toLowerCase();
-                card.style.display = title?.includes(term) ? 'block' : 'none';
-            });
-        };
-
-        function searchItems() {
-            const searchTerm = document.getElementById('search-items').value.toLowerCase();
-            const itemCards = document.querySelectorAll('#items-grid > div');
-
-            itemCards.forEach(card => {
-                const itemNameEl = card.querySelector('h3');
-                if (itemNameEl) {
-                    const itemName = itemNameEl.textContent.toLowerCase();
-                    if (itemName.includes(searchTerm)) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                }
-            });
-        }
 
         const searchIssues = () => {
             const term = document.getElementById('search-issues').value.toLowerCase();
@@ -3071,58 +3575,55 @@
                 `;
             } else if (type === 'addItem') {
                 title.textContent = 'Add New Item';
-
-                // ✅ NEW: Get category properties to prefill
+                
+                // ✅ NEW: Create property value input fields
                 let categoryPropertiesHTML = '';
                 if (selectedCategory && selectedCategory.properties && selectedCategory.properties.length > 0) {
                     categoryPropertiesHTML = selectedCategory.properties.map(prop => `
-            <div class="flex items-center gap-2 bg-green-50 p-2 rounded border">
-                <input type="text" value="${prop}" class="item-property-input flex-1 p-2 border rounded bg-green-50" readonly>
-                <span class="text-xs text-green-600">From Category</span>
-                <button type="button" onclick="removeItemProperty(this)" class="text-red-500 hover:bg-red-100 p-1 rounded" title="Remove this property">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
-            </div>
-        `).join('');
+                        <div class="flex items-center gap-2 bg-blue-50 p-2 rounded border property-value-row">
+                            <label class="w-24 text-sm font-medium">${prop}:</label>
+                            <input type="text" 
+                                   class="item-property-value flex-1 p-2 border rounded" 
+                                   data-property-name="${prop}" 
+                                   placeholder="Enter ${prop} value (e.g., 10k, 5V)">
+                            <button type="button" onclick="removePropertyValueRow(this)" class="text-red-500 hover:bg-red-100 p-1 rounded" title="Remove">
+                                <i data-lucide="x" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    `).join('');
                 }
-
+                
                 content.innerHTML = `
-        <div class="space-y-4">
-            <div class="text-center">
-                <label for="item-image-input" class="image-upload-area w-24 h-24 mx-auto rounded-lg overflow-hidden border-2 flex items-center justify-center bg-gray-50 cursor-pointer">
-                    <img id="item-image-preview" src="data:," class="w-full h-full object-cover hidden">
-                    <div id="item-image-placeholder" class="text-center">
-                        <i data-lucide="image" class="w-8 h-8 mx-auto text-gray-400 mb-1"></i>
-                        <p class="text-xs text-gray-500">Add Image</p>
-                    </div>
-                </label>
-                <input type="file" id="item-image-input" accept="image/*" class="hidden" onchange="handleItemImage(this)">
-            </div>
-            <input type="text" placeholder="Item Name" id="item-name" class="w-full p-2 border rounded" required />
-            
-            <!-- ✅ NEW: Properties Section -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Item Properties:</label>
-                <div id="item-properties-list" class="space-y-2">
-                    ${categoryPropertiesHTML}
-                    <div class="flex items-center gap-2">
-                        <input type="text" class="item-property-input flex-1 p-2 border rounded" placeholder="Add custom property (e.g., 5V, 220Ω)">
-                        <button type="button" onclick="removeItemProperty(this)" class="text-red-500 hover:bg-red-100 p-1 rounded" title="Remove this property">
-                            <i data-lucide="x" class="w-4 h-4"></i>
+                    <div class="space-y-4">
+                        <div class="text-center">
+                            <label for="item-image-input" class="image-upload-area w-24 h-24 mx-auto rounded-lg overflow-hidden border-2 flex items-center justify-center bg-gray-50 cursor-pointer">
+                                <img id="item-image-preview" src="data:," class="w-full h-full object-cover hidden">
+                                <div id="item-image-placeholder" class="text-center">
+                                    <i data-lucide="image" class="w-8 h-8 mx-auto text-gray-400 mb-1"></i>
+                                    <p class="text-xs text-gray-500">Add Image</p>
+                                </div>
+                            </label>
+                            <input type="file" id="item-image-input" accept="image/*" class="hidden" onchange="handleItemImage(this)">
+                        </div>
+                        <input type="text" placeholder="Item Name" id="item-name" class="w-full p-2 border rounded" required />
+                        
+                        <!-- ✅ UPDATED: Property Values Section -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Property Values:</label>
+                            <div id="item-property-values-list" class="space-y-2">
+                                ${categoryPropertiesHTML}
+                            </div>
+                            <button type="button" onclick="addCustomPropertyValue()" class="mt-2 text-blue-500 hover:underline text-sm">+ Add Custom Property</button>
+                        </div>
+                        
+                        <input type="number" placeholder="Total Quantity" id="item-total" class="w-full p-2 border rounded" min="1" required />
+                        <p class="text-sm text-gray-500">Category: <strong>${selectedCategory ? selectedCategory.name : ''}</strong></p>
+                        <button onclick="addItem()" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">
+                            Add Item
                         </button>
                     </div>
-                </div>
-                <button type="button" onclick="addItemProperty()" class="mt-2 text-blue-500 hover:underline text-sm">+ Add Property</button>
-            </div>
-            
-            <input type="number" placeholder="Total Quantity" id="item-total" class="w-full p-2 border rounded" min="1" required />
-            <p class="text-sm text-gray-500">Category: <strong>${selectedCategory ? selectedCategory.name : ''}</strong></p>
-            <button onclick="addItem()" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">
-                Add Item
-            </button>
-        </div>
-    `;
-
+                `;
+                
             } else if (type === 'issueItem') {
                 try {
                     const members = await fetchMembers();
@@ -3145,12 +3646,6 @@
                     console.error('Error loading members for issue dialog:', error);
                     content.innerHTML = '<div class="text-center text-red-500">Error loading members</div>';
                 }
-            } else if (type === 'smartReturn') {
-                // Content will be populated by smartReturn function
-            } else if (type === 'editCategory') {
-                // Content will be populated by editCategory function
-            } else if (type === 'editItem') {
-                // Content will be populated by editItem function
             }
 
             lucide.createIcons();
@@ -3195,15 +3690,6 @@
                 setupNavigationListeners();
                 setActiveSection('dashboard');
 
-                const { data: { user } } = await supabaseClient.auth.getUser();
-
-                if (user) {
-                    currentUser = user;
-                    showMainApp();
-                } else {
-                    showAuthModal();
-                }
-
                 if (!authListenerSetup) {
                     authListenerSetup = true;
                     supabaseClient.auth.onAuthStateChange((event, session) => {
@@ -3228,10 +3714,15 @@
             }
         }
 
+        // ✅ UPDATED: Page Load Handler with 10-second Splash Screen
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
+            document.addEventListener('DOMContentLoaded', () => {
+                lucide.createIcons();
+                showSplashAndInit();
+            });
         } else {
-            init();
+            lucide.createIcons();
+            showSplashAndInit();
         }
     </script>
     <script>
@@ -3250,3 +3741,4 @@
 </body>
 
 </html>
+
