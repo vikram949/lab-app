@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory Management System - Enhanced</title>
-    <!-- PWA Support - Phone Download के लिए -->
+    <!-- PWA Support -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#3b82f6">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" href="images/logo.png">
     <meta name="mobile-web-app-capable" content="yes">
 
-    <!-- ✅ LOGO SETUP - आप इन paths में अपने logos रख सकते हैं -->
+    <!-- Logo Setup -->
     <link rel="icon" type="image/png" href="images/logo-32.png">
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="apple-touch-icon" href="images/logo-32.png">
@@ -22,8 +22,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
     <style>
-        /* ✅ NEW: Enhanced Splash Screen Styling with Progress Bar */
+        /* Enhanced Splash Screen Styling */
         #splash-screen {
             position: fixed;
             top: 0;
@@ -37,6 +38,13 @@
             align-items: center;
             z-index: 9999;
             transition: opacity 0.5s ease-out;
+        }
+
+        #toast.detailed-error {
+            max-width: 400px !important;
+            text-align: left !important;
+            padding: 16px 24px !important;
+            line-height: 1.4 !important;
         }
 
         .splash-logo {
@@ -67,7 +75,6 @@
             animation: fadeIn 1.5s ease-in-out;
         }
 
-        /* ✅ NEW: Progress Bar Styling */
         .progress-container {
             width: 200px;
             height: 4px;
@@ -103,30 +110,110 @@
         }
 
         @keyframes logoFloat {
-            from { transform: translateY(0px); }
-            to { transform: translateY(-10px); }
+            from {
+                transform: translateY(0px);
+            }
+
+            to {
+                transform: translateY(-10px);
+            }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         @keyframes progressFill {
-            from { width: 0%; }
-            to { width: 100%; }
+            from {
+                width: 0%;
+            }
+
+            to {
+                width: 100%;
+            }
         }
 
         .fade-out {
             opacity: 0 !important;
         }
 
-        /* ✅ NEW: Search Result Highlighting */
+        /* ✅ Compact Table Styling */
+        .table-auto {
+            font-size: 0.875rem;
+            /* Smaller text */
+        }
+
+        .table-auto th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 8px !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-auto td {
+            vertical-align: middle;
+            border: 1px solid #e2e8f0;
+            padding: 6px !important;
+            /* Compact padding */
+            font-size: 0.75rem;
+        }
+
+        .table-auto tbody tr {
+            transition: all 0.2s ease;
+            height: 50px;
+            /* Fixed compact height */
+        }
+
+        .table-auto tbody tr:hover {
+            background-color: #f8fafc !important;
+            transform: scale(1.005);
+        }
+
+        .table-auto tbody tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        /* Property value styling */
+        .table-auto td:not(:first-child):not(:last-child):not(:nth-last-child(2)) {
+            text-align: center;
+            font-family: monospace;
+            font-weight: 500;
+            min-width: 80px;
+        }
+
+        /* Action buttons compact */
+        .table-auto .action-buttons {
+            display: flex;
+            gap: 2px;
+            justify-content: center;
+        }
+
+        .table-auto button {
+            padding: 4px !important;
+            font-size: 10px !important;
+        }
+
+        /* Search Result Highlighting */
         mark {
             background-color: #fef08a;
             padding: 1px 2px;
@@ -184,7 +271,6 @@
             background-color: #f8fafc;
         }
 
-        /* ✅ Circular Profile Images */
         .profile-image {
             width: 50px;
             height: 50px;
@@ -209,7 +295,6 @@
             border: 2px solid #e5e7eb;
         }
 
-        /* ✅ NICE LOGOUT BUTTON STYLING */
         .logout-btn {
             background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
@@ -232,7 +317,6 @@
             box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
         }
 
-        /* ✅ LOGO STYLING */
         .app-logo {
             width: 40px;
             height: 40px;
@@ -243,7 +327,6 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
-        /* ✅ DASHBOARD WELCOME IMAGE STYLING */
         .dashboard-welcome-image {
             width: 100%;
             max-width: 500px;
@@ -382,7 +465,6 @@
             background: #dc2626;
         }
 
-        /* ✅ ADMIN TABS STYLING */
         .admin-tab {
             padding: 10px 20px;
             border: none;
@@ -405,7 +487,7 @@
             background: #f8fafc;
         }
 
-        /* ✅ NEW: 3-Dots Menu Styling */
+        /* 3-Dots Menu Styling */
         .dropdown-menu {
             position: absolute;
             right: 0;
@@ -422,6 +504,22 @@
         .dropdown-menu.show {
             display: block;
         }
+/* Enhanced checkbox styling */
+.return-item-option input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #3b82f6;
+}
+
+.return-item-option input[type="checkbox"]:checked + label {
+    background-color: #eff6ff;
+    border-color: #3b82f6;
+}
+
+/* Selection counter styling */
+#selection-counter {
+    transition: all 0.3s ease;
+}
 
         .dropdown-item {
             padding: 8px 16px;
@@ -448,7 +546,6 @@
             background-color: #fef2f2;
         }
 
-        /* ✅ NEW: Property Input Styling */
         .property-input {
             margin-bottom: 8px;
         }
@@ -464,7 +561,6 @@
             font-size: 12px;
         }
 
-        /* ✅ NEW: Property Value Row Styling */
         .property-value-row {
             transition: all 0.2s ease;
         }
@@ -474,7 +570,6 @@
             border-color: #3b82f6;
         }
 
-        /* ✅ NEW: Member Detail Page Styling */
         .member-detail-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -494,7 +589,6 @@
             align-items: center;
         }
 
-        /* ✅ NEW: Smart Return Modal Styling */
         .return-item-option {
             display: flex;
             align-items: center;
@@ -515,7 +609,6 @@
             margin-right: 12px;
         }
 
-        /* ✅ NEW: Low Stock Items Styling */
         .low-stock-card {
             transition: all 0.3s ease;
         }
@@ -528,14 +621,12 @@
 </head>
 
 <body class="bg-gray-100">
-    <!-- ✅ NEW: Enhanced Splash Screen with Progress Bar -->
+    <!-- Enhanced Splash Screen -->
     <div id="splash-screen">
-        <img src="images/logo.png" alt="Logo" class="splash-logo" 
-             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiByeD0iMjAiIGZpbGw9IiMzYjgyZjYiLz4KPHN2ZyB4PSIzMCIgeT0iMzAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiPgo8cGF0aCBkPSJtMyA5IDkgOS05LTl6TTIxIDlsLTkgOSA5LTl6Ii8+CjxwYXRoIGQ9Im0xNSAxNS05LTktOSA5Ii8+Cjwvc3ZnPgo8L3N2Zz4='">
+        <img src="images/logo.png" alt="Logo" class="splash-logo"
+            onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiByeD0iMjAiIGZpbGw9IiMzYjgyZjYiLz4KPHN2ZyB4PSIzMCIgeT0iMzAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiPgo8cGF0aCBkPSJtMyA5IDkgOS05LTl6TTIxIDlsLTkgOSA5LTl6Ii8+CjxwYXRoIGQ9Im0xNSAxNS05LTktOSA5Ii8+Cjwvc3ZnPgo8L3N2Zz4='">
         <h1 class="splash-title">Inventory System</h1>
         <p class="splash-subtitle">Advanced Management Solution</p>
-        
-        <!-- ✅ NEW: Progress Bar -->
         <div class="progress-container">
             <div class="progress-bar" id="splash-progress"></div>
         </div>
@@ -614,14 +705,11 @@
     <div id="app" class="flex min-h-screen hidden">
         <!-- Sidebar -->
         <div class="w-64 bg-gray-800 text-white min-h-screen p-4">
-            <!-- ✅ UPDATED HEADER WITH LOGO AND NICE LOGOUT -->
             <div class="flex justify-between items-center mb-8">
                 <div class="flex items-center gap-3">
-                    <!-- ✅ ADD YOUR LOGO HERE - आप assets/logo.png में अपना logo रख सकते हैं -->
                     <img src="images/logo.png" alt="Logo" class="app-logo" onerror="this.style.display='none'">
                     <h1 class="text-lg font-bold">Inventory System</h1>
                 </div>
-                <!-- ✅ NICE LOGOUT BUTTON -->
                 <button onclick="signOut()" class="logout-btn" title="Logout">
                     <i data-lucide="log-out" class="w-4 h-4"></i>
                     <span>Logout</span>
@@ -667,11 +755,11 @@
 
         <!-- Main Content -->
         <div class="flex-1 p-8">
-            <!-- ✅ UPDATED DASHBOARD WITH ATTRACTIVE WELCOME IMAGE & LOW STOCK BOX -->
+            <!-- Dashboard Section -->
             <div id="dashboard-section" class="section">
                 <h1 class="text-3xl font-bold mb-8">Dashboard</h1>
 
-                <!-- Stats Cards - Updated with 5 boxes -->
+                <!-- Stats Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
                     <div class="bg-white p-6 rounded-lg shadow hover-lift">
                         <h3 class="text-lg font-semibold text-gray-700">Total Members</h3>
@@ -686,10 +774,9 @@
                         <p class="text-3xl font-bold text-orange-600" id="issued-items">0</p>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow hover-lift">
-                        <h3 class="text-lg font-semibold text-gray-700">Available Items</h3>
+                        <h3 class="text-lg font-semibold text-gray-700">Available</h3>
                         <p class="text-3xl font-bold text-purple-600" id="available-items">0</p>
                     </div>
-                    <!-- ✅ NEW: Low Stock Items Box -->
                     <div class="bg-white p-6 rounded-lg shadow hover-lift cursor-pointer transition-all hover:scale-105 low-stock-card"
                         onclick="showLowStockPage()">
                         <h3 class="text-lg font-semibold text-red-700">Low Stock Items</h3>
@@ -698,13 +785,12 @@
                     </div>
                 </div>
 
-                <!-- ✅ ATTRACTIVE WELCOME SECTION WITH IMAGE -->
+                <!-- Welcome Section -->
                 <div class="bg-white rounded-lg shadow p-8 text-center">
                     <h2 class="text-2xl font-bold text-gray-800 mb-4">Welcome to Inventory Management</h2>
                     <p class="text-gray-600 mb-6">Manage your components, track members, and monitor inventory
                         efficiently</p>
 
-                    <!-- ✅ आप यहाँ अपनी attractive image रख सकते हैं -->
                     <img src="images/dashboard-welcome.jpg" alt="Inventory Management"
                         class="dashboard-welcome-image mx-auto"
                         onerror="this.src='https://t4.ftcdn.net/jpg/05/81/23/05/360_F_581230590_7bgkoYcnWN2qglejxuc9CswekwsDopMo.jpg'">
@@ -724,7 +810,7 @@
                 </div>
             </div>
 
-            <!-- ✅ NEW: Low Stock Items Section -->
+            <!-- Low Stock Items Section -->
             <div id="low-stock-section" class="section hidden">
                 <button onclick="setActiveSection('dashboard')" class="mb-4 text-blue-500 hover:underline">
                     ← Back to Dashboard
@@ -740,7 +826,7 @@
                 </div>
             </div>
 
-            <!-- ✅ NEW: Member Detail Section -->
+            <!-- Member Detail Section -->
             <div id="member-detail-section" class="section hidden">
                 <button onclick="setActiveSection('members')" class="mb-4 text-blue-500 hover:underline">
                     ← Back to Members
@@ -763,7 +849,6 @@
                         </button>
                     </div>
 
-                    <!-- ✅ NEW: Members Search Box -->
                     <div class="mb-4">
                         <input type="text" placeholder="Search members..." id="search-members"
                             class="w-full p-3 border rounded-lg" oninput="searchMembers()">
@@ -816,11 +901,11 @@
                         </button>
                     </div>
 
-                    <!-- ✅ NEW: Enhanced Categories Search Box -->
                     <div class="mb-4">
                         <input type="text" placeholder="Search categories or properties..." id="search-categories"
                             class="w-full p-3 border rounded-lg" oninput="searchCategories()">
-                        <p class="text-xs text-gray-500 mt-1">Search by category name, description, or properties (e.g., "voltage", "resistance")</p>
+                        <p class="text-xs text-gray-500 mt-1">Search by category name, description, or properties (e.g.,
+                            "voltage", "resistance")</p>
                     </div>
 
                     <!-- Categories Grid -->
@@ -828,8 +913,7 @@
                         <div class="col-span-full text-center p-8">Loading categories...</div>
                     </div>
                 </div>
-
-                <!-- Items View -->
+                <!-- Items View - TABLE FORMAT -->
                 <div id="items-view" class="bg-white rounded-lg shadow p-6 hidden">
                     <div class="flex justify-between items-center mb-6">
                         <div>
@@ -845,17 +929,33 @@
                         </button>
                     </div>
 
-                    <!-- ✅ ENHANCED: Advanced Item Search Box -->
                     <div class="mb-4">
                         <input type="text" placeholder="Search items globally..." id="search-items"
                             class="w-full p-3 border rounded-lg" oninput="searchItems()" />
-                        <p class="text-xs text-gray-500 mt-1">Search by name, properties, or values (e.g., "resistance 10k", "voltage 5V")</p>
+                        <p class="text-xs text-gray-500 mt-1">Search by name, properties, or values</p>
                     </div>
 
-                    <div id="items-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <div class="col-span-full text-center p-8">Loading items...</div>
+                    <!-- 🔥 NEW TABLE FORMAT -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full table-auto border-collapse">
+                            <thead id="items-table-head">
+                                <tr class="bg-gray-50 border-b">
+                                    <th class="p-3 text-left border">Image</th>
+                                    <th class="p-3 text-left border">Name</th>
+                                    <!-- Dynamic property columns will be added here -->
+                                    <th class="p-3 text-left border">Available</th>
+                                    <th class="p-3 text-left border">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="items-table-body">
+                                <tr>
+                                    <td colspan="5" class="p-3 text-center">Loading items...</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+
 
                 <!-- Item Detail View -->
                 <div id="item-detail-view" class="bg-white rounded-lg shadow p-6 hidden">
@@ -894,13 +994,13 @@
                 </div>
             </div>
 
-            <!-- ✅ UPDATED ADMIN SECTION WITH HISTORY TABS -->
+            <!-- Admin Section -->
             <div id="admin-section" class="section hidden">
                 <div class="space-y-6">
                     <div class="bg-white rounded-lg shadow p-6">
                         <h2 class="text-2xl font-bold mb-6">Admin Panel</h2>
 
-                        <!-- ✅ ADMIN TABS - Current Issues + History -->
+                        <!-- Admin Tabs -->
                         <div class="flex space-x-4 mb-6 border-b">
                             <button class="admin-tab active" data-admin-tab="current"
                                 onclick="setActiveAdminTab('current')">
@@ -917,7 +1017,6 @@
                         <div id="current-issues-content" class="admin-tab-content">
                             <h3 class="text-lg font-semibold mb-4 text-green-600">Currently Issued Items</h3>
 
-                            <!-- ✅ NEW: Admin Issues Search Box -->
                             <div class="mb-4">
                                 <input type="text" placeholder="Search issues..." id="search-issues"
                                     class="w-full p-3 border rounded-lg" oninput="searchIssues()">
@@ -1017,33 +1116,288 @@
         let selectedItem = null;
         let selectedMember = null;
         let currentUser = null;
-
-        // Initialization flags
+        let subscriptions = [];
         let isInitialized = false;
         let authListenerSetup = false;
+        // ✅ CRITICAL FIX: Item Calculation Fixer
+        // ✅ BULLETPROOF: Advanced Calculation Fixer
+        // ✅ BULLETPROOF: Advanced Calculation Fixer
+        // ✅ BULLETPROOF: Advanced Calculation Fixer
+        // ✅ BULLETPROOF: Advanced Calculation Fixer
+        async function fixItemCalculations() {
+            try {
+                console.log('🔧 Starting ADVANCED calculation fix...');
+                showToast('🔧 Deep fixing all calculations...', 'success');
+                showLoading(true);
 
-        // ✅ NEW: Enhanced Splash Screen Functions (10 seconds)
+                // Step 1: Get ALL items with category info
+                const { data: items, error: itemsError } = await supabaseClient
+                    .from('items')
+                    .select(`
+                *,
+                categories(name)
+            `);
+
+                if (itemsError) throw itemsError;
+
+                // Step 2: Get ALL issued items in one query
+                const { data: allIssuedItems, error: issuedError } = await supabaseClient
+                    .from('issued_items')
+                    .select('item_id, quantity, status');
+
+                if (issuedError) throw issuedError;
+
+                let fixedCount = 0;
+                let totalChecked = 0;
+                const fixResults = [];
+
+                // Step 3: Process each item with FULL VERIFICATION
+                for (const item of items) {
+                    totalChecked++;
+                    console.log(`🔍 [${totalChecked}/${items.length}] Checking: ${item.name}`);
+
+                    // Calculate ACTUAL issued quantity
+                    const itemIssued = allIssuedItems
+                        .filter(issued => issued.item_id === item.id && issued.status === 'issued')
+                        .reduce((sum, issued) => sum + (issued.quantity || 0), 0);
+
+                    const correctAvailable = Math.max(0, item.total - itemIssued);
+
+                    // ✅ COMPREHENSIVE VALIDATION
+                    const needsFix = (
+                        item.available !== correctAvailable ||
+                        item.available > item.total ||
+                        item.available < 0 ||
+                        (item.total - item.available) !== itemIssued
+                    );
+
+                    if (needsFix) {
+                        console.log(`🔧 FIXING: ${item.name}`);
+                        console.log(`   Before: Total=${item.total}, Available=${item.available}, Calculated Issued=${item.total - item.available}`);
+                        console.log(`   Actual Issued in DB: ${itemIssued}`);
+                        console.log(`   After: Total=${item.total}, Available=${correctAvailable}, Issued=${itemIssued}`);
+
+                        // Update with ATOMIC operation
+                        const { error: updateError } = await supabaseClient
+                            .from('items')
+                            .update({
+                                available: correctAvailable,
+                                // Add timestamp for tracking
+                                last_calculated: new Date().toISOString()
+                            })
+                            .eq('id', item.id);
+
+                        if (updateError) {
+                            console.error(`❌ Failed to fix ${item.name}:`, updateError);
+                            fixResults.push({
+                                item: item.name,
+                                status: 'ERROR',
+                                error: updateError.message
+                            });
+                        } else {
+                            console.log(`✅ Fixed ${item.name}`);
+                            fixedCount++;
+                            fixResults.push({
+                                item: item.name,
+                                status: 'FIXED',
+                                before: `${item.available}`,
+                                after: `${correctAvailable}`
+                            });
+                        }
+                    } else {
+                        console.log(`✅ ${item.name} is PERFECT`);
+                        fixResults.push({
+                            item: item.name,
+                            status: 'OK'
+                        });
+                    }
+                }
+
+                // Step 4: VERIFICATION ROUND
+                console.log('🔍 Running verification...');
+                const { data: verifyItems } = await supabaseClient
+                    .from('items')
+                    .select('*');
+
+                let verificationPassed = true;
+                for (const item of verifyItems) {
+                    const itemIssued = allIssuedItems
+                        .filter(issued => issued.item_id === item.id && issued.status === 'issued')
+                        .reduce((sum, issued) => sum + issued.quantity, 0);
+
+                    if (item.available !== (item.total - itemIssued)) {
+                        verificationPassed = false;
+                        console.error(`❌ VERIFICATION FAILED for ${item.name}`);
+                    }
+                }
+
+                // Step 5: Results & Refresh
+                console.log('✅ CALCULATION FIX COMPLETED!');
+                console.log(`📊 Summary: ${fixedCount} fixed, ${totalChecked - fixedCount} already correct`);
+                console.log('🔍 Verification:', verificationPassed ? 'PASSED ✅' : 'FAILED ❌');
+
+                await updateStats();
+
+                // Show detailed results
+                const resultMessage = verificationPassed
+                    ? `✅ PERFECT! Fixed ${fixedCount}/${totalChecked} items. All calculations verified!`
+                    : `⚠️ Fixed ${fixedCount} items but verification failed. Please check console.`;
+
+                showToast(resultMessage, verificationPassed ? 'success' : 'error');
+
+                return { fixedCount, totalChecked, verificationPassed, details: fixResults };
+
+            } catch (error) {
+                console.error('💥 CRITICAL ERROR in calculation fix:', error);
+                showToast('💥 Calculation fix failed: ' + error.message, 'error');
+                return { error: error.message };
+            } finally {
+                showLoading(false);
+            }
+        }
+
+
+        // ✅ FIXED: Enhanced Error Messaging Function
+        function showDetailedError(title, details = '') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+
+            if (toast && toastMessage) {
+                const fullMessage = details ? `${title}<br><br><small>${details}</small>` : title;
+
+                toastMessage.innerHTML = fullMessage;
+                toast.classList.remove('hidden', 'show', 'success', 'error');
+                toast.classList.add('error', 'show', 'detailed-error');
+
+                // Longer duration for detailed errors (6 seconds)
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => {
+                        toast.classList.add('hidden');
+                        toast.classList.remove('detailed-error');
+                    }, 300);
+                }, 6000);
+            }
+
+            // Also log to console for debugging
+            console.error(`❌ ${title}${details ? '\nDetails: ' + details : ''}`);
+        }
+
+        // ✅ FIXED: Real-time Subscriptions Setup
+        async function setupRealtimeSubscriptions() {
+            try {
+                console.log('🔄 Setting up enhanced real-time subscriptions...');
+
+                // Cleanup existing subscriptions first
+                cleanupSubscriptions();
+
+                // ✅ Items table changes
+                // ✅ REAL-TIME TABLE REFRESH (Add to your existing setupRealtimeSubscriptions)
+                const itemsSubscription = supabaseClient
+                    .channel('items-changes-table')
+                    .on('postgres_changes',
+                        { event: '*', schema: 'public', table: 'items' },
+                        (payload) => {
+                            console.log('📦 Items updated:', payload.eventType);
+                            // ✅ Auto-refresh table if on components section
+                            if (activeSection === 'components' && selectedCategory) {
+                                populateItems(selectedCategory.id);
+                            }
+                        })
+                    .on('postgres_changes',
+                        { event: '*', schema: 'public', table: 'issued_items' },
+                        (payload) => {
+                            console.log('📋 Issued items updated:', payload.eventType);
+                            // ✅ Auto-refresh table for real-time updates
+                            if (activeSection === 'components' && selectedCategory) {
+                                populateItems(selectedCategory.id);
+                            }
+                        })
+                    .subscribe();
+
+
+                // ✅ Members table changes
+                const membersSubscription = supabaseClient
+                    .channel('members-changes')
+                    .on('postgres_changes',
+                        { event: '*', schema: 'public', table: 'members' },
+                        (payload) => {
+                            console.log('👥 Members updated:', payload.eventType);
+                            updateStats();
+                            if (activeSection === 'members') {
+                                populateMembersTable();
+                            }
+                        })
+                    .subscribe();
+
+                // ✅ Issued items changes
+                const issuedSubscription = supabaseClient
+                    .channel('issued-items-changes')
+                    .on('postgres_changes',
+                        { event: '*', schema: 'public', table: 'issued_items' },
+                        (payload) => {
+                            console.log('📋 Issued items updated:', payload.eventType);
+                            updateStats();
+                            if (activeSection === 'admin') {
+                                populateCurrentIssuesTable();
+                                populateHistoryTable();
+                            }
+                            if (selectedItem) {
+                                showItemDetail(selectedItem);
+                            }
+                        })
+                    .subscribe();
+
+                // ✅ Categories changes
+                const categoriesSubscription = supabaseClient
+                    .channel('categories-changes')
+                    .on('postgres_changes',
+                        { event: '*', schema: 'public', table: 'categories' },
+                        (payload) => {
+                            console.log('📁 Categories updated:', payload.eventType);
+                            if (activeSection === 'components') {
+                                populateCategories();
+                            }
+                        })
+                    .subscribe();
+
+                subscriptions.push(itemsSubscription, membersSubscription, issuedSubscription, categoriesSubscription);
+                console.log('✅ Real-time subscriptions setup completed');
+
+            } catch (error) {
+                console.error('❌ Real-time setup failed:', error);
+                showToast('Real-time updates may not work properly', 'error');
+            }
+        }
+
+        // ✅ FIXED: Cleanup Subscriptions
+        function cleanupSubscriptions() {
+            console.log('🧹 Cleaning up subscriptions...');
+            subscriptions.forEach(sub => {
+                if (sub && sub.unsubscribe) {
+                    sub.unsubscribe();
+                }
+            });
+            subscriptions = [];
+        }
+
+        // ✅ FIXED: Enhanced Splash Screen Functions
         function hideSplashScreen() {
             const splash = document.getElementById('splash-screen');
-            
-            // Add fade out animation
             splash.classList.add('fade-out');
-            
-            // After animation completes, hide splash and check authentication
             setTimeout(() => {
                 splash.style.display = 'none';
                 checkAuthAndShowApp();
-            }, 500); // Match CSS transition duration
+            }, 500);
         }
 
         async function checkAuthAndShowApp() {
             try {
                 const { data: { user } } = await supabaseClient.auth.getUser();
-                
                 if (user) {
                     currentUser = user;
                     showMainApp();
-                    await init(); // Initialize app after showing main interface
+                    await init();
                 } else {
                     showAuthModal();
                 }
@@ -1053,99 +1407,498 @@
             }
         }
 
-        // ✅ UPDATED: Show Splash for 10 seconds instead of 3
         function showSplashAndInit() {
             const splash = document.getElementById('splash-screen');
             splash.style.display = 'flex';
-            
-            // Show splash for 10 seconds, then hide and check auth
             setTimeout(() => {
                 hideSplashScreen();
-            }, 10000); // ✅ Changed from 3000 to 10000 (10 seconds)
+            }, 3000);
         }
 
-        // ✅ NEW: Advanced Property Search Function
-        async function searchItemsByProperty(searchTerm) {
+        // ✅ COMPLETE FIXED: Delete Item Function
+        async function deleteItem(itemId) {
             try {
-                const { data, error } = await supabaseClient
-                    .from('items')
-                    .select(`
-                        *,
-                        categories(name, properties)
-                    `)
-                    .or(`
-                        name.ilike.%${searchTerm}%,
-                        property.ilike.%${searchTerm}%,
-                        property_values::text.ilike.%${searchTerm}%
-                    `);
+                console.log(`🗑️ Attempting to delete item ID: ${itemId}`);
 
-                if (error) throw error;
-                return data || [];
+                // ✅ First check if itemId is valid
+                if (!itemId || isNaN(itemId)) {
+                    showToast('Invalid item ID', 'error');
+                    console.error('Invalid itemId:', itemId);
+                    return;
+                }
+
+                // ✅ Get item details first
+                const { data: itemData, error: itemFetchError } = await supabaseClient
+                    .from('items')
+                    .select('name, available, total')
+                    .eq('id', itemId)
+                    .single();
+
+                if (itemFetchError) {
+                    console.error('Error fetching item:', itemFetchError);
+                    showToast('Item not found', 'error');
+                    return;
+                }
+
+                if (!itemData) {
+                    showToast('Item not found in database', 'error');
+                    return;
+                }
+
+                // ✅ Check if item has any current issues
+                const { data: issuedItems, error: checkError } = await supabaseClient
+                    .from('issued_items')
+                    .select('id, quantity, members(name)')
+                    .eq('item_id', itemId)
+                    .eq('status', 'issued');
+
+                if (checkError) {
+                    console.error('Error checking issued items:', checkError);
+                    showToast('Error checking item status', 'error');
+                    return;
+                }
+
+                // ✅ Prevent deletion if items are currently issued
+                if (issuedItems && issuedItems.length > 0) {
+                    const totalIssued = issuedItems.reduce((sum, item) => sum + item.quantity, 0);
+                    const membersList = issuedItems.map(item => item.members?.name || 'Unknown').join(', ');
+
+                    showDetailedError(
+                        `❌ Cannot delete "${itemData.name}"`,
+                        `${totalIssued} units are currently issued to: ${membersList}.\n\nPlease return all items first, then try deleting.`
+                    );
+                    return;
+                }
+
+                // ✅ Show confirmation dialog with item details
+                const confirmed = await showConfirmDialog(
+                    `Are you sure you want to delete "${itemData.name}"?\n\nTotal Quantity: ${itemData.total}\nAvailable: ${itemData.available}\n\nThis action cannot be undone.`
+                );
+
+                if (!confirmed) {
+                    console.log('Delete cancelled by user');
+                    return;
+                }
+
+                showLoading(true);
+                console.log(`🗑️ Proceeding to delete item: ${itemData.name}`);
+
+                // ✅ Delete the item
+                const { error: deleteError } = await supabaseClient
+                    .from('items')
+                    .delete()
+                    .eq('id', itemId);
+
+                if (deleteError) {
+                    console.error('Delete error:', deleteError);
+                    throw deleteError;
+                }
+
+                // ✅ Success - update UI and stats
+                console.log(`✅ Item "${itemData.name}" deleted successfully`);
+
+                // Close any open menus
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+
+                // ✅ Refresh current view
+                if (selectedCategory) {
+                    await populateItems(selectedCategory.id);
+                } else {
+                    // If no category selected, refresh categories view
+                    await populateCategories();
+                }
+
+                // ✅ Update dashboard stats
+                await updateStats();
+
+                showToast(`✅ "${itemData.name}" deleted successfully`);
+
             } catch (error) {
-                console.error('Error searching items by property:', error);
-                return [];
+                console.error('💥 Critical error in deleteItem:', error);
+
+                // ✅ Show detailed error message
+                if (error.message.includes('foreign key')) {
+                    showDetailedError(
+                        '❌ Cannot delete item',
+                        'This item has related records in the system. Please check for any issued items or history records.'
+                    );
+                } else if (error.message.includes('permission')) {
+                    showDetailedError(
+                        '❌ Permission denied',
+                        'You do not have permission to delete this item. Please check your account privileges.'
+                    );
+                } else {
+                    showDetailedError(
+                        '❌ Delete failed',
+                        `Database error: ${error.message}`
+                    );
+                }
+            } finally {
+                showLoading(false);
             }
         }
 
-        // ✅ NEW: Highlight Search Terms
+        // ✅ FIXED: Delete Member Function
+        async function deleteMember(memberId) {
+            try {
+                const confirmed = await showConfirmDialog('Are you sure you want to delete this member? This action cannot be undone.');
+                if (!confirmed) return;
+
+                showLoading(true);
+
+                // ✅ Check if member has any issued items
+                const { data: issuedItems, error: checkError } = await supabaseClient
+                    .from('issued_items')
+                    .select('id')
+                    .eq('member_id', memberId)
+                    .eq('status', 'issued');
+
+                if (checkError) throw checkError;
+
+                if (issuedItems && issuedItems.length > 0) {
+                    showToast('Cannot delete member with issued items. Please return all items first.', 'error');
+                    return;
+                }
+
+                // ✅ Delete member
+                const { error } = await supabaseClient
+                    .from('members')
+                    .delete()
+                    .eq('id', memberId);
+
+                if (error) throw error;
+
+                // ✅ Refresh and update
+                populateMembersTable();
+                updateStats();
+                showToast('Member deleted successfully');
+
+            } catch (error) {
+                console.error('Error deleting member:', error);
+                showToast('Error deleting member: ' + error.message, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // ✅ FIXED: Delete Category Function
+        async function deleteCategory(categoryId) {
+            try {
+                const confirmed = await showConfirmDialog('Are you sure you want to delete this category? This will also delete all items in this category.');
+                if (!confirmed) return;
+
+                showLoading(true);
+
+                // ✅ Check if category has items
+                const { data: items, error: checkError } = await supabaseClient
+                    .from('items')
+                    .select('id')
+                    .eq('category_id', categoryId);
+
+                if (checkError) throw checkError;
+
+                if (items && items.length > 0) {
+                    const confirmed2 = await showConfirmDialog(`This category contains ${items.length} items. Delete anyway? This cannot be undone.`);
+                    if (!confirmed2) return;
+
+                    // ✅ First delete all items in category
+                    const { error: itemsError } = await supabaseClient
+                        .from('items')
+                        .delete()
+                        .eq('category_id', categoryId);
+
+                    if (itemsError) throw itemsError;
+                }
+
+                // ✅ Delete category
+                const { error } = await supabaseClient
+                    .from('categories')
+                    .delete()
+                    .eq('id', categoryId);
+
+                if (error) throw error;
+
+                // ✅ Refresh and update
+                populateCategories();
+                updateStats();
+                showToast('Category deleted successfully');
+
+            } catch (error) {
+                console.error('Error deleting category:', error);
+                showToast('Error deleting category: ' + error.message, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // ✅ FIXED: Toggle Menu Function
+        function toggleMenu(menuId, event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+
+            console.log(`🎯 Toggling menu: ${menuId}`);
+
+            const menu = document.getElementById(menuId);
+            const allMenus = document.querySelectorAll('.dropdown-menu');
+
+            // Close all other menus first
+            allMenus.forEach(m => {
+                if (m.id !== menuId) {
+                    m.classList.remove('show');
+                }
+            });
+
+            // Toggle current menu
+            if (menu) {
+                const isCurrentlyShown = menu.classList.contains('show');
+                if (isCurrentlyShown) {
+                    menu.classList.remove('show');
+                    console.log(`❌ Menu ${menuId} closed`);
+                } else {
+                    menu.classList.add('show');
+                    console.log(`✅ Menu ${menuId} opened`);
+                }
+            } else {
+                console.error(`❌ Menu not found: ${menuId}`);
+            }
+        }
+
+        // ✅ FIXED: Click Outside to Close Menus
+        document.addEventListener('click', function (event) {
+            if (!event.target.closest('.dropdown-menu') &&
+                !event.target.closest('[onclick*="toggleMenu"]') &&
+                !event.target.closest('button[onclick*="toggleMenu"]')) {
+
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    if (menu.classList.contains('show')) {
+                        menu.classList.remove('show');
+                        console.log(`🔒 Menu ${menu.id} closed by outside click`);
+                    }
+                });
+            }
+        });
+
+        // ✅ FIXED: Update Stats Function
+        async function updateStats() {
+            try {
+                console.log('📊 Fixing stats calculation...');
+
+                const members = await fetchMembers();
+                const items = await fetchItems();
+
+                // ✅ CORRECT: Direct database query for accurate issued quantity
+                const { data: currentIssues, error: issueError } = await supabaseClient
+                    .from('issued_items')
+                    .select('quantity')
+                    .eq('status', 'issued');
+
+                if (issueError) {
+                    console.error('Error fetching issued items:', issueError);
+                }
+
+                let totalQuantity = 0;
+                let availableQuantity = 0;
+                let lowStockItems = 0;
+                let issuedQuantity = 0;
+
+                // Calculate from items table
+                items.forEach(item => {
+                    totalQuantity += item.total || 0;
+                    availableQuantity += item.available || 0;
+                    if (item.available <= 5) {
+                        lowStockItems++;
+                    }
+                });
+
+                // ✅ CORRECT: Calculate issued quantity from database
+                if (currentIssues && currentIssues.length > 0) {
+                    issuedQuantity = currentIssues.reduce((sum, issue) => sum + (issue.quantity || 0), 0);
+                }
+
+                // ✅ VERIFICATION: Cross-check calculation
+                const calculatedIssued = totalQuantity - availableQuantity;
+                console.log(`📋 Verification - DB Issued: ${issuedQuantity}, Calculated: ${calculatedIssued}`);
+
+                // Update UI elements
+                const totalMembersEl = document.getElementById('total-members');
+                const totalItemsEl = document.getElementById('total-items');
+                const issuedItemsEl = document.getElementById('issued-items');
+                const availableItemsEl = document.getElementById('available-items');
+                const lowStockItemsEl = document.getElementById('low-stock-items');
+
+                if (totalMembersEl) totalMembersEl.textContent = members.length;
+                if (totalItemsEl) totalItemsEl.textContent = items.length;
+                if (issuedItemsEl) issuedItemsEl.textContent = issuedQuantity;
+                if (availableItemsEl) availableItemsEl.textContent = availableQuantity;
+                if (lowStockItemsEl) lowStockItemsEl.textContent = lowStockItems;
+
+                console.log(`✅ Stats Updated - Members: ${members.length}, Items: ${items.length}, Available: ${availableQuantity}, Issued: ${issuedQuantity}, Low Stock: ${lowStockItems}`);
+
+            } catch (error) {
+                console.error('Error updating stats:', error);
+                showToast('Error updating dashboard stats', 'error');
+            }
+        }
+
+        // ✅ FIXED: Issue Item Function
+        // ✅ FIXED: Issue Item Function
+        async function issueItem() {
+            const memberId = parseInt(document.getElementById('issue-member').value);
+            const quantity = parseInt(document.getElementById('issue-quantity').value);
+
+            // Validation
+            if (!memberId || !quantity || quantity <= 0) {
+                showToast('Please enter valid details', 'error');
+                return;
+            }
+
+            if (quantity > selectedItem.available) {
+                showToast(`❌ Cannot issue ${quantity}. Only ${selectedItem.available} available.`, 'error');
+                return;
+            }
+
+            showLoading(true);
+
+            try {
+                // 1. Insert issued record
+                const { error: issueError } = await supabaseClient
+                    .from('issued_items')
+                    .insert([{
+                        item_id: selectedItem.id,
+                        member_id: memberId,
+                        quantity: quantity,
+                        status: 'issued',
+                        issued_date: new Date().toISOString()
+                    }]);
+
+                if (issueError) throw issueError;
+
+                // 2. Update available quantity IMMEDIATELY
+                const newAvailable = Math.max(0, selectedItem.available - quantity);
+
+                const { error: updateError } = await supabaseClient
+                    .from('items')
+                    .update({ available: newAvailable })
+                    .eq('id', selectedItem.id);
+
+                if (updateError) throw updateError;
+
+                // 3. Update local selectedItem
+                selectedItem.available = newAvailable;
+
+                // 4. Refresh UI
+                closeDialog();
+                showItemDetail(selectedItem);
+                updateStats();
+
+                showToast(`✅ Issued ${quantity} items. Available: ${newAvailable}`, 'success');
+
+            } catch (error) {
+                console.error('Error issuing item:', error);
+                showToast('Error issuing item: ' + error.message, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+// ✅ UPDATED: Return Item Function (Keep existing confirmation for single returns)
+async function returnItem(issuedItemId, quantity) {
+    try {
+        const confirmed = await showConfirmDialog('Are you sure you want to return this item?', true);
+        if (!confirmed) return;
+
+        showLoading(true);
+
+        // ✅ Use the silent function for actual work
+        await returnItemSilent(issuedItemId, quantity);
+
+        // 5. Refresh all views
+        updateStats();
+        populateCurrentIssuesTable();
+        populateHistoryTable();
+
+        if (selectedItem) {
+            showItemDetail(selectedItem);
+        }
+
+        showToast(`✅ Item returned successfully!`, 'success');
+
+    } catch (error) {
+        console.error('Error returning item:', error);
+        showToast('Error returning item: ' + error.message, 'error');
+    } finally {
+        showLoading(false);
+    }
+}
+
+        
+
+        // Highlight Search Terms
         function highlightSearchTerm(text, searchTerm) {
             if (!searchTerm || !text) return text;
-            
+
             const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
             return text.replace(regex, '<mark class="bg-yellow-200 px-1 rounded">$1</mark>');
         }
 
-        // ✅ UPDATED: Enhanced Items Search Function with Global Search
+        // Enhanced Items Search Function
+        // ✅ Enhanced Items Search with Property Values
         async function searchItems() {
             const searchTerm = document.getElementById('search-items').value.toLowerCase().trim();
-            
+
             if (!searchTerm) {
-                // Show all items if search is empty
                 if (selectedCategory) {
                     populateItems(selectedCategory.id);
                 }
                 return;
             }
 
-            // First try local search in current category
-            const itemCards = document.querySelectorAll('#items-grid > div');
-            let hasVisibleCards = false;
+            // Search in table rows
+            const tableRows = document.querySelectorAll('#items-table-body tr');
+            let hasVisibleRows = false;
 
-            itemCards.forEach(card => {
-                const itemNameEl = card.querySelector('h3');
-                const propertyEls = card.querySelectorAll('p');
-                
+            tableRows.forEach(row => {
+                if (row.cells.length < 3) return;
+
                 let shouldShow = false;
-                
-                if (itemNameEl) {
-                    const itemName = itemNameEl.textContent.toLowerCase();
-                    if (itemName.includes(searchTerm)) {
-                        shouldShow = true;
-                    }
-                }
 
-                // Check property text
-                propertyEls.forEach(p => {
-                    if (p.textContent.toLowerCase().includes(searchTerm)) {
+                // Search in all cells (name, properties, etc.)
+                Array.from(row.cells).forEach(cell => {
+                    if (cell.textContent.toLowerCase().includes(searchTerm)) {
                         shouldShow = true;
                     }
                 });
 
                 if (shouldShow) {
-                    card.style.display = 'block';
-                    hasVisibleCards = true;
+                    row.style.display = '';
+                    hasVisibleRows = true;
                 } else {
-                    card.style.display = 'none';
+                    row.style.display = 'none';
                 }
             });
 
-            // If no results found in current category, search globally
-            if (!hasVisibleCards) {
-                await performGlobalItemSearch(searchTerm);
+            // If no rows found, show "no results"
+            if (!hasVisibleRows) {
+                const tableBody = document.getElementById('items-table-body');
+                tableBody.innerHTML = `
+            <tr>
+                <td colspan="10" class="p-4 text-center text-gray-500">
+                    <div class="text-lg">🔍</div>
+                    <p>No items found matching "${searchTerm}"</p>
+                    <button onclick="populateItems(selectedCategory.id)" class="mt-2 bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">
+                        Show All Items
+                    </button>
+                </td>
+            </tr>
+        `;
             }
         }
 
-        // ✅ NEW: Global Item Search Across All Categories
+        // Global Item Search
         async function performGlobalItemSearch(searchTerm) {
             try {
                 showLoading(true);
@@ -1168,7 +1921,6 @@
                     return;
                 }
 
-                // Show search results with category info
                 itemsGrid.innerHTML = `
                     <div class="col-span-full mb-4">
                         <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
@@ -1189,14 +1941,12 @@
                         `<img src="${item.image}" class="w-16 h-16 object-cover rounded mb-2 mx-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="text-3xl mb-2 text-center hidden">🔌</div>` :
                         '<div class="text-3xl mb-2 text-center">🔌</div>';
 
-                    // Highlight matching text
                     let propertyHTML = '';
                     if (item.property) {
                         const highlightedProperty = highlightSearchTerm(item.property, searchTerm);
                         propertyHTML += `<p class="text-xs text-blue-600 mb-1">Property: ${highlightedProperty}</p>`;
                     }
 
-                    // Show category name for context
                     const categoryName = item.categories?.name || 'Unknown Category';
 
                     itemDiv.innerHTML = `
@@ -1212,7 +1962,7 @@
                         </div>
                         <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
                             <div class="relative">
-                                <button onclick="event.stopPropagation(); toggleMenu('item-menu-${item.id}')" class="p-1 hover:bg-gray-200 rounded">
+                                <button onclick="event.stopPropagation(); toggleMenu('item-menu-${item.id}', event)" class="p-1 hover:bg-gray-200 rounded">
                                     <i data-lucide="more-vertical" class="w-4 h-4"></i>
                                 </button>
                                 <div id="item-menu-${item.id}" class="dropdown-menu">
@@ -1239,7 +1989,7 @@
             }
         }
 
-        // ✅ NEW: Clear Item Search
+        // Clear Item Search
         function clearItemSearch() {
             document.getElementById('search-items').value = '';
             if (selectedCategory) {
@@ -1247,23 +1997,21 @@
             }
         }
 
-        // ✅ NEW: Show Item Detail from Search Results
+        // Show Item Detail from Search Results
         function showItemDetailFromSearch(item) {
             selectedItem = item;
-            
-            // Find and set the category
+
             fetchCategories().then(categories => {
                 selectedCategory = categories.find(cat => cat.id === item.category_id);
                 showItemDetail(item);
             });
         }
 
-        // ✅ UPDATED: Enhanced Category Search with Property Search
+        // Enhanced Category Search
         async function searchCategories() {
             const term = document.getElementById('search-categories').value.toLowerCase().trim();
-            
+
             if (!term) {
-                // Show all categories if search is empty
                 populateCategories();
                 return;
             }
@@ -1271,7 +2019,6 @@
             const cards = document.querySelectorAll('#categories-grid > div');
             let hasVisibleCards = false;
 
-            // Remove existing search indicators
             document.querySelectorAll('.search-indicator').forEach(indicator => {
                 indicator.remove();
             });
@@ -1279,9 +2026,9 @@
             cards.forEach(card => {
                 const title = card.querySelector('h3')?.textContent.toLowerCase();
                 const description = card.querySelector('p')?.textContent.toLowerCase();
-                
+
                 let shouldShow = false;
-                
+
                 if (title?.includes(term) || description?.includes(term)) {
                     shouldShow = true;
                 }
@@ -1294,18 +2041,17 @@
                 }
             });
 
-            // If no categories found, search in items and show relevant categories
             if (!hasVisibleCards) {
                 await searchInItemsForCategories(term);
             }
         }
 
-        // ✅ NEW: Search Items to Find Relevant Categories
+        // Search Items to Find Relevant Categories
         async function searchInItemsForCategories(searchTerm) {
             try {
                 const matchingItems = await searchItemsByProperty(searchTerm);
                 const categoryIds = [...new Set(matchingItems.map(item => item.category_id))];
-                
+
                 const cards = document.querySelectorAll('#categories-grid > div');
                 let hasResults = false;
 
@@ -1313,12 +2059,11 @@
                     const categoryData = card.querySelector('[onclick*="showItemsView"]');
                     if (categoryData) {
                         const categoryInfo = JSON.parse(categoryData.getAttribute('onclick').match(/showItemsView\((.*?)\)/)[1].replace(/&quot;/g, '"'));
-                        
+
                         if (categoryIds.includes(categoryInfo.id)) {
                             card.style.display = 'block';
                             hasResults = true;
-                            
-                            // Add search result indicator
+
                             if (!card.querySelector('.search-indicator')) {
                                 const indicator = document.createElement('div');
                                 indicator.className = 'search-indicator absolute top-0 left-0 bg-yellow-400 text-black text-xs px-2 py-1 rounded-br-lg';
@@ -1352,7 +2097,7 @@
             }
         }
 
-        // ✅ NEW: Add custom property value row
+        // Add custom property value row
         function addCustomPropertyValue() {
             const container = document.getElementById('item-property-values-list');
             const div = document.createElement('div');
@@ -1366,18 +2111,17 @@
                 </button>
             `;
             container.appendChild(div);
-            
-            // Update data-property-name when custom name is typed
+
             const nameInput = div.querySelector('.custom-property-name');
             const valueInput = div.querySelector('.item-property-value');
             nameInput.addEventListener('input', () => {
                 valueInput.setAttribute('data-property-name', nameInput.value.trim());
             });
-            
+
             lucide.createIcons();
         }
 
-        // ✅ NEW: Add custom property value row for edit
+        // Add custom property value row for edit
         function addCustomPropertyValueEdit() {
             const container = document.getElementById('edit-item-property-values-list');
             const div = document.createElement('div');
@@ -1391,23 +2135,22 @@
                 </button>
             `;
             container.appendChild(div);
-            
-            // Update data-property-name when custom name is typed
+
             const nameInput = div.querySelector('.custom-property-name');
             const valueInput = div.querySelector('.item-property-value');
             nameInput.addEventListener('input', () => {
                 valueInput.setAttribute('data-property-name', nameInput.value.trim());
             });
-            
+
             lucide.createIcons();
         }
 
-        // ✅ NEW: Remove property value row
+        // Remove property value row
         function removePropertyValueRow(button) {
             button.closest('.property-value-row').remove();
         }
 
-        // ✅ NEW: Show Low Stock Page Function
+        // Show Low Stock Page Function
         async function showLowStockPage() {
             showLoading(true);
 
@@ -1415,7 +2158,6 @@
                 const items = await fetchItems();
                 const lowStockItems = items.filter(item => item.available <= 5);
 
-                // Show low stock section
                 document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
                 document.getElementById('low-stock-section').classList.remove('hidden');
 
@@ -1485,16 +2227,13 @@
             }
         }
 
-        // ✅ NEW: Show Item Detail from Low Stock Page
+        // Show Item Detail from Low Stock Page
         function showItemDetailFromLowStock(item) {
-            // Set the selected item and category
             selectedItem = item;
 
-            // Find the category for this item
             fetchCategories().then(categories => {
                 selectedCategory = categories.find(cat => cat.id === item.category_id);
 
-                // Show components section and item detail
                 setActiveSection('components');
                 setTimeout(() => {
                     showItemDetail(item);
@@ -1502,109 +2241,127 @@
             });
         }
 
-        // ✅ NEW: Show Member Details Page
-        async function showMemberDetails(memberId) {
-            showLoading(true);
+        // Show Member Details Page
+       // Show Member Details Page - WITH SEARCH FUNCTIONALITY
+async function showMemberDetails(memberId) {
+    showLoading(true);
 
-            try {
-                // Fetch member details
-                const { data: memberData, error: memberErr } = await supabaseClient
-                    .from('members')
-                    .select('*')
-                    .eq('id', memberId)
-                    .single();
+    try {
+        const { data: memberData, error: memberErr } = await supabaseClient
+            .from('members')
+            .select('*')
+            .eq('id', memberId)
+            .single();
 
-                if (memberErr) throw memberErr;
+        if (memberErr) throw memberErr;
 
-                // Fetch issued items for this member
-                const { data: issuedItems, error: issuedErr } = await supabaseClient
-                    .from('issued_items')
-                    .select(`
-                        *,
-                        items(name, image, property)
-                    `)
-                    .eq('member_id', memberId)
-                    .eq('status', 'issued');
+        const { data: issuedItems, error: issuedErr } = await supabaseClient
+            .from('issued_items')
+            .select(`
+                *,
+                items(name, image, property)
+            `)
+            .eq('member_id', memberId)
+            .eq('status', 'issued');
 
-                if (issuedErr) throw issuedErr;
+        if (issuedErr) throw issuedErr;
 
-                selectedMember = memberData;
+        selectedMember = memberData;
 
-                // Show member detail section
-                document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-                document.getElementById('member-detail-section').classList.remove('hidden');
+        document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+        document.getElementById('member-detail-section').classList.remove('hidden');
 
-                // Populate member detail content
-                const content = document.getElementById('member-detail-content');
-                const photoHTML = memberData.photo ?
-                    `<img src="${memberData.photo}" class="profile-image-large" alt="Member Photo">` :
-                    `<div class="profile-image-large bg-gray-200 flex items-center justify-center">
-                        <i data-lucide="user" class="w-8 h-8 text-gray-400"></i>
-                    </div>`;
+        const content = document.getElementById('member-detail-content');
+        const photoHTML = memberData.photo ?
+            `<img src="${memberData.photo}" class="profile-image-large" alt="Member Photo">` :
+            `<div class="profile-image-large bg-gray-200 flex items-center justify-center">
+                <i data-lucide="user" class="w-8 h-8 text-gray-400"></i>
+            </div>`;
 
-                content.innerHTML = `
-                    <div class="member-detail-card">
-                        <div class="flex items-center gap-6 mb-6">
-                            ${photoHTML}
+        content.innerHTML = `
+            <div class="member-detail-card">
+                <div class="flex items-center gap-6 mb-6">
+                    ${photoHTML}
+                    <div>
+                        <h1 class="text-3xl font-bold mb-2">${memberData.name}</h1>
+                        <div class="grid grid-cols-2 gap-4 text-sm opacity-90">
                             <div>
-                                <h1 class="text-3xl font-bold mb-2">${memberData.name}</h1>
-                                <div class="grid grid-cols-2 gap-4 text-sm opacity-90">
-                                    <div>
-                                        <p><strong>Batch:</strong> ${memberData.batch}</p>
-                                        <p><strong>Branch:</strong> ${memberData.branch}</p>
-                                    </div>
-                                    <div>
-                                        <p><strong>Year:</strong> ${memberData.year}</p>
-                                        <p><strong>Contact:</strong> ${memberData.contact}</p>
-                                    </div>
-                                </div>
-                                ${memberData.address ? `<p class="mt-2"><strong>Address:</strong> ${memberData.address}</p>` : ''}
+                                <p><strong>Batch:</strong> ${memberData.batch}</p>
+                                <p><strong>Branch:</strong> ${memberData.branch}</p>
+                            </div>
+                            <div>
+                                <p><strong>Year:</strong> ${memberData.year}</p>
+                                <p><strong>Contact:</strong> ${memberData.contact}</p>
                             </div>
                         </div>
+                        ${memberData.address ? `<p class="mt-2"><strong>Address:</strong> ${memberData.address}</p>` : ''}
                     </div>
+                </div>
+            </div>
 
-                    <div class="bg-white rounded-lg shadow p-6">
-                        <h2 class="text-xl font-bold mb-4 text-gray-800">Currently Issued Items (${issuedItems.length})</h2>
-                        
-                        ${issuedItems.length === 0 ?
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-xl font-bold mb-4 text-gray-800">Currently Issued Items (${issuedItems.length})</h2>
+                
+                <!-- ✅ NEW: SEARCH BOX -->
+                ${issuedItems.length > 0 ? `
+                    <div class="mb-4">
+                        <input type="text" placeholder="Search issued items..." id="search-member-items"
+                            class="w-full p-3 border rounded-lg" oninput="searchMemberItems()">
+                        <p class="text-xs text-gray-500 mt-1">Search by item name or properties</p>
+                    </div>
+                ` : ''}
+                
+                <div id="member-items-container">
+                    ${issuedItems.length === 0 ?
                         '<p class="text-gray-500 text-center py-8">No items currently issued to this member</p>' :
                         issuedItems.map(item => `
-                                <div class="member-issued-item">
-                                    <div class="flex items-center gap-4">
-                                        ${item.items?.image ?
-                                `<img src="${item.items.image}" class="w-12 h-12 object-cover rounded" alt="Item">` :
-                                `<div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
-                                                <i data-lucide="package" class="w-6 h-6 text-gray-400"></i>
-                                            </div>`
-                            }
-                                        <div>
-                                            <h3 class="font-semibold">${item.items?.name || 'Unknown Item'}</h3>
-                                            <p class="text-sm text-gray-600">Quantity: ${item.quantity}</p>
-                                            ${item.items?.property ? `<p class="text-sm text-blue-600">Property: ${item.items.property}</p>` : ''}
-                                            <p class="text-xs text-gray-500">Issued: ${new Date(item.issued_date).toLocaleDateString()}</p>
-                                        </div>
+                            <div class="member-issued-item searchable-item" data-search-text="${item.items?.name || 'Unknown Item'} ${item.items?.property || ''}">
+                                <div class="flex items-center gap-4">
+                                    ${item.items?.image ?
+                                        `<img src="${item.items.image}" class="w-12 h-12 object-cover rounded" alt="Item">` :
+                                        `<div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
+                                            <i data-lucide="package" class="w-6 h-6 text-gray-400"></i>
+                                        </div>`
+                                    }
+                                    <div>
+                                        <h3 class="font-semibold">${item.items?.name || 'Unknown Item'}</h3>
+                                        <p class="text-sm text-gray-600">Quantity: ${item.quantity}</p>
+                                        ${item.items?.property ? `<p class="text-sm text-blue-600">Property: ${item.items.property}</p>` : ''}
+                                        <p class="text-xs text-gray-500">Issued: ${new Date(item.issued_date).toLocaleDateString()}</p>
                                     </div>
-                                    <button onclick="smartReturnFromMember(${item.id}, ${item.quantity})" 
-                                            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-sm">
-                                        Return
-                                    </button>
                                 </div>
-                            `).join('')
+                                <button onclick="smartReturnFromMember(${item.id}, ${item.quantity})" 
+                                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-sm">
+                                    Return
+                                </button>
+                            </div>
+                        `).join('')
                     }
-                    </div>
-                `;
+                </div>
+                
+                <!-- ✅ NEW: NO RESULTS MESSAGE -->
+                <div id="no-results-message" class="hidden text-center py-8">
+                    <div class="text-4xl mb-2">🔍</div>
+                    <p class="text-gray-500">No items found matching your search</p>
+                    <button onclick="clearMemberItemsSearch()" class="mt-2 text-blue-500 hover:underline">
+                        Show All Items
+                    </button>
+                </div>
+            </div>
+        `;
 
-                lucide.createIcons();
+        lucide.createIcons();
 
-            } catch (error) {
-                console.error('Error loading member details:', error);
-                showToast('Error loading member details', 'error');
-            } finally {
-                showLoading(false);
-            }
-        }
+    } catch (error) {
+        console.error('Error loading member details:', error);
+        showToast('Error loading member details', 'error');
+    } finally {
+        showLoading(false);
+    }
+}
 
-        // ✅ NEW: Smart Return from Member Detail Page
+
+        // Smart Return from Member Detail Page
         async function smartReturnFromMember(issuedItemId, quantity) {
             const confirmed = await showConfirmDialog('Are you sure you want to return this item?', true);
             if (!confirmed) return;
@@ -1622,7 +2379,6 @@
 
                 if (returnError) throw returnError;
 
-                // Update item availability
                 const { data: issuedItemData } = await supabaseClient
                     .from('issued_items')
                     .select('item_id')
@@ -1646,7 +2402,6 @@
                     }
                 }
 
-                // Refresh member details
                 if (selectedMember) {
                     showMemberDetails(selectedMember.id);
                 }
@@ -1661,190 +2416,310 @@
                 showLoading(false);
             }
         }
+        // ✅ NEW: Search Member Items Function
+function searchMemberItems() {
+    const searchTerm = document.getElementById('search-member-items').value.toLowerCase().trim();
+    const items = document.querySelectorAll('.searchable-item');
+    const noResultsMsg = document.getElementById('no-results-message');
+    let hasVisibleItems = false;
 
-        // ✅ NEW: Smart Return System for Admin Panel
-        async function smartReturn(memberId, memberName) {
-            try {
-                // Fetch all issued items for this member
-                const { data: issuedItems, error } = await supabaseClient
-                    .from('issued_items')
-                    .select(`
-                        *,
-                        items(name, image)
-                    `)
-                    .eq('member_id', memberId)
-                    .eq('status', 'issued');
+    items.forEach(item => {
+        const searchText = item.getAttribute('data-search-text').toLowerCase();
+        
+        if (!searchTerm || searchText.includes(searchTerm)) {
+            item.style.display = 'flex';
+            hasVisibleItems = true;
+        } else {
+            item.style.display = 'none';
+        }
+    });
 
-                if (error) throw error;
+    // Show/hide no results message
+    if (noResultsMsg) {
+        if (!hasVisibleItems && searchTerm) {
+            noResultsMsg.classList.remove('hidden');
+        } else {
+            noResultsMsg.classList.add('hidden');
+        }
+    }
+}
 
-                if (issuedItems.length === 0) {
-                    showToast('No items to return for this member', 'error');
-                    return;
-                }
+// ✅ NEW: Clear Search Function
+function clearMemberItemsSearch() {
+    const searchInput = document.getElementById('search-member-items');
+    if (searchInput) {
+        searchInput.value = '';
+        searchMemberItems(); // Trigger search to show all items
+    }
+}
 
-                if (issuedItems.length === 1) {
-                    // Only one item, return directly
-                    await returnItem(issuedItems[0].id, issuedItems[0].quantity);
-                    return;
-                }
 
-                // Multiple items, show selection dialog
-                openDialog('smartReturn');
-                const title = document.getElementById('dialog-title');
-                const content = document.getElementById('dialog-content');
+        // Smart Return System for Admin Panel
+       // Smart Return System for Admin Panel - UPDATED FOR MULTIPLE SELECTION
+async function smartReturn(memberId, memberName) {
+    try {
+        const { data: issuedItems, error } = await supabaseClient
+            .from('issued_items')
+            .select(`
+                *,
+                items(name, image)
+            `)
+            .eq('member_id', memberId)
+            .eq('status', 'issued');
 
-                title.textContent = `Return Item - ${memberName}`;
-                content.innerHTML = `
-                    <div class="space-y-4">
-                        <p class="text-gray-600 mb-4">Select which item to return:</p>
-                        <form id="return-selection-form">
-                            ${issuedItems.map(item => `
-                                <div class="return-item-option">
-                                    <input type="radio" name="return-item" value="${item.id}" data-quantity="${item.quantity}" id="item-${item.id}">
-                                    <label for="item-${item.id}" class="flex items-center gap-3 flex-1 cursor-pointer">
-                                        ${item.items?.image ?
+        if (error) throw error;
+
+        if (issuedItems.length === 0) {
+            showToast('No items to return for this member', 'error');
+            return;
+        }
+
+        // ✅ ALWAYS SHOW DIALOG (even for single item) to allow multiple selection
+        openDialog('smartReturn');
+        const title = document.getElementById('dialog-title');
+        const content = document.getElementById('dialog-content');
+
+        title.textContent = `Return Items - ${memberName}`;
+        content.innerHTML = `
+            <div class="space-y-4">
+                <p class="text-gray-600 mb-4">Select items to return (multiple selection allowed):</p>
+                
+                <!-- ✅ SELECT ALL BUTTON -->
+                <div class="flex gap-2 mb-4">
+                    <button type="button" onclick="selectAllItems(true)" class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
+                        ✅ Select All
+                    </button>
+                    <button type="button" onclick="selectAllItems(false)" class="bg-gray-500 text-white px-3 py-1 rounded text-sm hover:bg-gray-600">
+                        ❌ Clear All
+                    </button>
+                </div>
+                
+                <form id="return-selection-form">
+                    ${issuedItems.map(item => `
+                        <div class="return-item-option">
+                            <!-- ✅ CHANGED: radio to checkbox -->
+                            <input type="checkbox" name="return-item" value="${item.id}" data-quantity="${item.quantity}" id="item-${item.id}">
+                            <label for="item-${item.id}" class="flex items-center gap-3 flex-1 cursor-pointer">
+                                ${item.items?.image ?
                         `<img src="${item.items.image}" class="w-10 h-10 object-cover rounded" alt="Item">` :
                         `<div class="w-10 h-10 bg-gray-200 rounded flex items-center justify-center">
                                                 <i data-lucide="package" class="w-5 h-5 text-gray-400"></i>
                                             </div>`
                     }
-                                        <div>
-                                            <p class="font-medium">${item.items?.name || 'Unknown Item'}</p>
-                                            <p class="text-sm text-gray-500">Quantity: ${item.quantity}</p>
-                                            <p class="text-xs text-gray-400">Issued: ${new Date(item.issued_date).toLocaleDateString()}</p>
-                                        </div>
-                                    </label>
-                                </div>
-                            `).join('')}
-                        </form>
-                        <div class="flex gap-3 mt-6">
-                            <button onclick="closeDialog()" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded hover:bg-gray-400">
-                                Cancel
-                            </button>
-                            <button onclick="processSmartReturn()" class="flex-1 bg-red-500 text-white py-2 rounded hover:bg-red-600">
-                                Return Selected
-                            </button>
-                        </div>
-                    </div>
-                `;
-
-                lucide.createIcons();
-
-            } catch (error) {
-                console.error('Error in smart return:', error);
-                showToast('Error loading items for return', 'error');
-            }
-        }
-
-        // ✅ NEW: Process Smart Return Selection
-        async function processSmartReturn() {
-            const form = document.getElementById('return-selection-form');
-            const selected = form.querySelector('input[name="return-item"]:checked');
-
-            if (!selected) {
-                showToast('Please select an item to return', 'error');
-                return;
-            }
-
-            const issuedItemId = parseInt(selected.value);
-            const quantity = parseInt(selected.dataset.quantity);
-
-            closeDialog();
-            await returnItem(issuedItemId, quantity);
-        }
-
-        // ✅ NEW: Toggle 3-dots Menu
-        function toggleMenu(menuId) {
-            const menu = document.getElementById(menuId);
-            const allMenus = document.querySelectorAll('.dropdown-menu');
-
-            // Close all other menus
-            allMenus.forEach(m => {
-                if (m.id !== menuId) {
-                    m.classList.remove('show');
-                }
-            });
-
-            // Toggle current menu
-            if (menu) {
-                menu.classList.toggle('show');
-            }
-        }
-
-        // ✅ NEW: Close all menus when clicking outside
-        document.addEventListener('click', function (event) {
-            if (!event.target.closest('.dropdown-menu') && !event.target.closest('button[onclick*="toggleMenu"]')) {
-                document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                    menu.classList.remove('show');
-                });
-            }
-        });
-
-        // ✅ NEW: Edit Category with Properties
-        async function editCategory(categoryId) {
-            try {
-                const { data, error } = await supabaseClient
-                    .from('categories')
-                    .select('*')
-                    .eq('id', categoryId)
-                    .single();
-
-                if (error) throw error;
-
-                openDialog('editCategory');
-                document.getElementById('dialog-title').textContent = 'Edit Category';
-                const content = document.getElementById('dialog-content');
-
-                const properties = data.properties || [];
-
-                content.innerHTML = `
-                    <div class="space-y-4">
-                        <div class="text-center">
-                            <label for="edit-category-image-input" class="image-upload-area w-20 h-20 mx-auto rounded-lg overflow-hidden border-2 flex items-center justify-center bg-gray-50 cursor-pointer">
-                                <img id="edit-category-image-preview" src="${data.image && (data.image.startsWith('data:') || data.image.startsWith('http')) ? data.image : 'data:,'}" class="w-full h-full object-cover ${data.image && (data.image.startsWith('data:') || data.image.startsWith('http')) ? '' : 'hidden'}">
-                                <div id="edit-category-image-placeholder" class="text-center ${data.image && (data.image.startsWith('data:') || data.image.startsWith('http')) ? 'hidden' : ''}">
-                                    <div class="text-2xl mb-1">${data.image && !data.image.startsWith('data:') && !data.image.startsWith('http') ? data.image : '📦'}</div>
-                                    <p class="text-xs text-gray-500">Change Icon</p>
+                                <div>
+                                    <p class="font-medium">${item.items?.name || 'Unknown Item'}</p>
+                                    <p class="text-sm text-gray-500">Quantity: ${item.quantity}</p>
+                                    <p class="text-xs text-gray-400">Issued: ${new Date(item.issued_date).toLocaleDateString()}</p>
                                 </div>
                             </label>
-                            <input type="file" id="edit-category-image-input" accept="image/*" class="hidden" onchange="handleCategoryImage(this, 'edit')">
                         </div>
-                        <input type="text" value="${data.name}" placeholder="Category Name" id="edit-category-name" class="w-full p-2 border rounded" required />
-                        <textarea placeholder="Description (optional)" id="edit-category-description" class="w-full p-2 border rounded" rows="3">${data.description || ''}</textarea>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Properties:</label>
-                            <div id="edit-properties-list" class="space-y-2">
-                                ${properties.map((prop, index) => `
-                                    <div class="flex items-center gap-2">
-                                        <input type="text" value="${prop}" class="property-input flex-1 p-2 border rounded" placeholder="Property name">
-                                        <button type="button" onclick="removePropertyInput(this)" class="property-remove-btn">×</button>
-                                    </div>
-                                `).join('')}
-                                <div class="flex items-center gap-2">
-                                    <input type="text" class="property-input flex-1 p-2 border rounded" placeholder="Add new property">
-                                    <button type="button" onclick="removePropertyInput(this)" class="property-remove-btn">×</button>
-                                </div>
-                            </div>
-                            <button type="button" onclick="addPropertyInput('edit-properties-list')" class="mt-2 text-blue-500 hover:underline text-sm">+ Add Property</button>
-                        </div>
-                        
-                        <p class="text-sm text-gray-500">Category Type: <strong>${data.type === 'consumable' ? 'Consumable' : 'Non-Consumable'}</strong></p>
-                        <button onclick="updateCategory(${categoryId})" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">
-                            Update Category
-                        </button>
-                    </div>
-                `;
+                    `).join('')}
+                </form>
+                
+                <!-- ✅ UPDATED BUTTONS -->
+                <div class="flex gap-3 mt-6">
+                    <button onclick="closeDialog()" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded hover:bg-gray-400">
+                        Cancel
+                    </button>
+                    <button onclick="processSmartReturn()" class="flex-1 bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+                        Return Selected Items
+                    </button>
+                </div>
+                
+                <!-- ✅ COUNTER DISPLAY -->
+                <div id="selection-counter" class="text-center text-sm text-gray-600 mt-2">
+                    0 items selected
+                </div>
+            </div>
+        `;
 
-                lucide.createIcons();
+        lucide.createIcons();
+        
+        // ✅ ADD COUNTER FUNCTIONALITY
+        setupSelectionCounter();
 
+    } catch (error) {
+        console.error('Error in smart return:', error);
+        showToast('Error loading items for return', 'error');
+    }
+}
+
+
+        // Process Smart Return Selection
+     // Process Smart Return Selection - UPDATED FOR MULTIPLE ITEMS
+// Process Smart Return Selection - SINGLE CONFIRMATION FOR ALL
+async function processSmartReturn() {
+    const form = document.getElementById('return-selection-form');
+    const selectedCheckboxes = form.querySelectorAll('input[name="return-item"]:checked');
+
+    if (selectedCheckboxes.length === 0) {
+        showToast('Please select at least one item to return', 'error');
+        return;
+    }
+
+    // ✅ SINGLE CONFIRMATION WITH ALL ITEM DETAILS
+    const itemNames = Array.from(selectedCheckboxes).map(checkbox => {
+        const label = document.querySelector(`label[for="item-${checkbox.value}"]`);
+        return label ? label.textContent.split('\n')[0].trim() : 'Unknown Item';
+    });
+
+    const itemList = itemNames.map(name => `• ${name}`).join('\n');
+    
+    const confirmed = await showConfirmDialog(
+        `Are you sure you want to return these ${selectedCheckboxes.length} items?\n\n${itemList}`, 
+        true
+    );
+    
+    if (!confirmed) return;
+
+    // ✅ PROCEED WITHOUT ASKING AGAIN
+    showLoading(true);
+    closeDialog();
+
+    let successCount = 0;
+    let failureCount = 0;
+    const results = [];
+
+    try {
+        // ✅ RETURN ALL ITEMS WITHOUT INDIVIDUAL CONFIRMATIONS
+        for (const checkbox of selectedCheckboxes) {
+            try {
+                const issuedItemId = parseInt(checkbox.value);
+                const quantity = parseInt(checkbox.dataset.quantity);
+                
+                console.log(`🔄 Returning item ID: ${issuedItemId}, Quantity: ${quantity}`);
+                
+                // ✅ CALL returnItemSilent (without confirmation)
+                await returnItemSilent(issuedItemId, quantity);
+                successCount++;
+                
+                results.push({
+                    id: issuedItemId,
+                    quantity: quantity,
+                    status: 'SUCCESS'
+                });
+                
             } catch (error) {
-                console.error('Error loading category for edit:', error);
-                showToast('Error loading category for edit', 'error');
+                console.error(`❌ Failed to return item:`, error);
+                failureCount++;
+                
+                results.push({
+                    id: parseInt(checkbox.value),
+                    quantity: parseInt(checkbox.dataset.quantity),
+                    status: 'FAILED',
+                    error: error.message
+                });
             }
         }
 
-        // ✅ NEW: Add Property Input Field
+        // ✅ SINGLE SUMMARY MESSAGE
+        if (successCount > 0 && failureCount === 0) {
+            showToast(`✅ Successfully returned all ${successCount} items!`, 'success');
+        } else if (successCount > 0 && failureCount > 0) {
+            showToast(`⚠️ Returned ${successCount} items, ${failureCount} failed`, 'error');
+        } else {
+            showToast(`❌ Failed to return all items`, 'error');
+        }
+
+        console.log('📊 Return Results:', results);
+
+    } catch (error) {
+        console.error('💥 Critical error in processSmartReturn:', error);
+        showToast('Error processing returns', 'error');
+    } finally {
+        showLoading(false);
+        updateStats();
+        populateCurrentIssuesTable();
+    }
+}
+// ✅ NEW: Silent Return (No Confirmation)
+async function returnItemSilent(issuedItemId, quantity) {
+    // 1. Get item info
+    const { data: issuedItemData, error: getError } = await supabaseClient
+        .from('issued_items')
+        .select('item_id')
+        .eq('id', issuedItemId)
+        .single();
+
+    if (getError) throw getError;
+
+    // 2. Update issued status
+    const { error: returnError } = await supabaseClient
+        .from('issued_items')
+        .update({
+            status: 'returned',
+            returned_date: new Date().toISOString()
+        })
+        .eq('id', issuedItemId);
+
+    if (returnError) throw returnError;
+
+    // 3. Update available quantity IMMEDIATELY
+    const { data: currentItem, error: itemError } = await supabaseClient
+        .from('items')
+        .select('available, total')
+        .eq('id', issuedItemData.item_id)
+        .single();
+
+    if (itemError) throw itemError;
+
+    const newAvailable = Math.min(currentItem.total, currentItem.available + quantity);
+
+    const { error: updateError } = await supabaseClient
+        .from('items')
+        .update({ available: newAvailable })
+        .eq('id', issuedItemData.item_id);
+
+    if (updateError) throw updateError;
+
+    // 4. Update selectedItem if same
+    if (selectedItem && selectedItem.id === issuedItemData.item_id) {
+        selectedItem.available = newAvailable;
+    }
+
+    return { itemId: issuedItemData.item_id, newAvailable };
+}
+
+
+        // ✅ SELECT ALL FUNCTIONALITY
+function selectAllItems(selectAll) {
+    const checkboxes = document.querySelectorAll('input[name="return-item"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = selectAll;
+    });
+    updateSelectionCounter();
+}
+
+// ✅ SELECTION COUNTER
+function setupSelectionCounter() {
+    const checkboxes = document.querySelectorAll('input[name="return-item"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateSelectionCounter);
+    });
+    updateSelectionCounter(); // Initial count
+}
+
+function updateSelectionCounter() {
+    const selectedCount = document.querySelectorAll('input[name="return-item"]:checked').length;
+    const totalCount = document.querySelectorAll('input[name="return-item"]').length;
+    const counter = document.getElementById('selection-counter');
+    
+    if (counter) {
+        if (selectedCount === 0) {
+            counter.textContent = 'No items selected';
+            counter.className = 'text-center text-sm text-gray-600 mt-2';
+        } else if (selectedCount === totalCount) {
+            counter.textContent = `All ${selectedCount} items selected`;
+            counter.className = 'text-center text-sm text-green-600 mt-2 font-semibold';
+        } else {
+            counter.textContent = `${selectedCount} of ${totalCount} items selected`;
+            counter.className = 'text-center text-sm text-blue-600 mt-2 font-semibold';
+        }
+    }
+}
+
+
+        // Add Property Input Field
         function addPropertyInput(containerId = 'properties-list') {
             const container = document.getElementById(containerId);
             const div = document.createElement('div');
@@ -1856,19 +2731,18 @@
             container.appendChild(div);
         }
 
-        // ✅ NEW: Remove Property Input Field
+        // Remove Property Input Field
         function removePropertyInput(button) {
             button.parentElement.remove();
         }
 
-        // ✅ NEW: Update Category with Properties
+        // Update Category with Properties
         async function updateCategory(categoryId) {
             const name = document.getElementById('edit-category-name').value.trim();
             const description = document.getElementById('edit-category-description').value.trim();
             const imageEl = document.getElementById('edit-category-image-preview');
             const image = (imageEl && imageEl.src && imageEl.src !== 'data:,') ? imageEl.src : '📦';
 
-            // Get all property inputs
             const propertyInputs = document.querySelectorAll('#edit-properties-list .property-input');
             const properties = Array.from(propertyInputs)
                 .map(input => input.value.trim())
@@ -1906,7 +2780,7 @@
             }
         }
 
-        // ✅ NEW: Edit Item with Property Values
+        // Edit Item with Property Values
         async function editItem(itemId) {
             try {
                 const { data, error } = await supabaseClient
@@ -1921,15 +2795,14 @@
                 document.getElementById('dialog-title').textContent = 'Edit Item';
                 const content = document.getElementById('dialog-content');
 
-                // ✅ NEW: Generate property value inputs with current values
                 let propertyValuesHTML = '';
                 const currentValues = data.property_values || [];
-                
+
                 if (selectedCategory && selectedCategory.properties) {
                     selectedCategory.properties.forEach(prop => {
                         const existingValue = currentValues.find(pv => pv.propertyName === prop);
                         const value = existingValue ? existingValue.value : '';
-                        
+
                         propertyValuesHTML += `
                             <div class="flex items-center gap-2 bg-blue-50 p-2 rounded border property-value-row">
                                 <label class="w-24 text-sm font-medium">${prop}:</label>
@@ -1960,7 +2833,6 @@
                         </div>
                         <input type="text" value="${data.name}" placeholder="Item Name" id="edit-item-name" class="w-full p-2 border rounded" required />
                         
-                        <!-- ✅ NEW: Property Values Section for Edit -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Property Values:</label>
                             <div id="edit-item-property-values-list" class="space-y-2">
@@ -1985,17 +2857,16 @@
             }
         }
 
-        // ✅ NEW: Update Item with Property Values
+        // Update Item with Property Values
         async function updateItem(itemId) {
             const name = document.getElementById('edit-item-name').value.trim();
-            const total = parseInt(document.getElementById('edit-item-total').value);
+            const newTotal = parseInt(document.getElementById('edit-item-total').value);
             const imageEl = document.getElementById('edit-item-image-preview');
             const image = (imageEl && imageEl.src && imageEl.src !== 'data:,') ? imageEl.src : null;
 
-            // ✅ NEW: Get updated property values
             const propertyValueInputs = document.querySelectorAll('#edit-item-property-values-list .item-property-value');
             const propertyValues = [];
-            
+
             propertyValueInputs.forEach(input => {
                 const propertyName = input.getAttribute('data-property-name');
                 const value = input.value.trim();
@@ -2007,10 +2878,9 @@
                 }
             });
 
-            // Create readable property string for display
             const propertyString = propertyValues.map(pv => `${pv.propertyName}: ${pv.value}`).join(', ');
 
-            if (!name || !total || total <= 0) {
+            if (!name || !newTotal || newTotal <= 0) {
                 showToast('Please enter valid item details', 'error');
                 return;
             }
@@ -2018,23 +2888,35 @@
             showLoading(true);
 
             try {
-                // Get current item data to calculate new available quantity
                 const { data: currentItem } = await supabaseClient
                     .from('items')
                     .select('total, available')
                     .eq('id', itemId)
                     .single();
 
+                if (!currentItem) {
+                    throw new Error('Item not found');
+                }
+
                 const issuedQuantity = currentItem.total - currentItem.available;
-                const newAvailable = Math.max(0, total - issuedQuantity);
+
+                if (newTotal < issuedQuantity) {
+                    showDetailedError(
+                        `❌ Cannot set total quantity to ${newTotal}`,
+                        `${issuedQuantity} items are currently issued. Total must be at least ${issuedQuantity}.`
+                    );
+                    return;
+                }
+
+                const newAvailable = newTotal - issuedQuantity;
 
                 const { error } = await supabaseClient
                     .from('items')
                     .update({
                         name,
-                        property: propertyString,           // Display string
-                        property_values: propertyValues,   // ✅ NEW: Structured data
-                        total,
+                        property: propertyString,
+                        property_values: propertyValues,
+                        total: newTotal,
                         available: newAvailable,
                         image
                     })
@@ -2043,23 +2925,20 @@
                 if (error) throw error;
 
                 closeDialog();
-                populateItems(selectedCategory.id);
-                updateStats();
-                showToast('Item updated successfully');
+                showToast(`✅ Item updated! Available: ${newAvailable}, Total: ${newTotal}`);
 
             } catch (error) {
                 console.error('Error updating item:', error);
-                showToast('Error updating item', 'error');
+                showToast('Error updating item: ' + error.message, 'error');
             } finally {
                 showLoading(false);
             }
         }
 
-        // ✅ NEW: Admin tab switching function
+        // Admin tab switching function
         function setActiveAdminTab(tab) {
             activeAdminTab = tab;
 
-            // Update tab buttons
             document.querySelectorAll('.admin-tab').forEach(btn => {
                 if (btn.dataset.adminTab === tab) {
                     btn.classList.add('active');
@@ -2068,7 +2947,6 @@
                 }
             });
 
-            // Show/hide content
             document.querySelectorAll('.admin-tab-content').forEach(content => {
                 content.classList.add('hidden');
             });
@@ -2179,7 +3057,7 @@
 
                 handleImageUpload(file, (imageSrc) => {
                     const previewId = mode === 'edit' ? 'edit-member-photo-preview' : 'member-photo-preview';
-                                       const placeholderId = mode === 'edit' ? 'edit-member-photo-placeholder' : 'member-photo-placeholder';
+                    const placeholderId = mode === 'edit' ? 'edit-member-photo-placeholder' : 'member-photo-placeholder';
 
                     const preview = document.getElementById(previewId);
                     const placeholder = document.getElementById(placeholderId);
@@ -2256,7 +3134,7 @@
             }, 3000);
         }
 
-        // ✅ UPDATED: Show Confirm Dialog with Return Button Support
+        // Show Confirm Dialog
         function showConfirmDialog(message, isReturn = false) {
             return new Promise((resolve) => {
                 const backdrop = document.getElementById('confirm-backdrop');
@@ -2267,7 +3145,6 @@
 
                 messageEl.textContent = message;
 
-                // ✅ Change button text and style based on action type
                 if (isReturn) {
                     deleteBtn.textContent = 'Return';
                     deleteBtn.className = 'confirm-btn return';
@@ -2390,6 +3267,7 @@
             } else {
                 currentUser = null;
                 isInitialized = false;
+                cleanupSubscriptions();
                 showAuthModal();
                 showToast('Successfully logged out');
             }
@@ -2512,7 +3390,7 @@
             }
         }
 
-        // ✅ NEW: Fetch current issued items
+        // Fetch current issued items
         async function fetchCurrentIssues() {
             try {
                 const { data, error } = await supabaseClient
@@ -2538,7 +3416,7 @@
             }
         }
 
-        // ✅ NEW: Fetch history (returned items)
+        // Fetch history (returned items)
         async function fetchHistory() {
             try {
                 const { data, error } = await supabaseClient
@@ -2610,7 +3488,7 @@
             }
         }
 
-        // ✅ NEW: Add Category with Properties
+        // Add Category with Properties
         async function addCategory() {
             const name = document.getElementById('category-name').value.trim();
             const description = document.getElementById('category-description').value.trim();
@@ -2618,7 +3496,6 @@
             const image = imageEl && imageEl.src !== 'data:,' ? imageEl.src : '📦';
             const type = activeTab;
 
-            // Get all property inputs
             const propertyInputs = document.querySelectorAll('#properties-list .property-input');
             const properties = Array.from(propertyInputs)
                 .map(input => input.value.trim())
@@ -2658,7 +3535,7 @@
             }
         }
 
-        // ✅ UPDATED: Add Item with Property Values
+        // Add Item with Property Values
         async function addItem() {
             const getDialogInputValue = (id) => {
                 const element = document.querySelector(`#dialog-content input#${id}`);
@@ -2671,11 +3548,10 @@
 
             const name = getDialogInputValue('item-name');
             const totalStr = getDialogInputValue('item-total');
-            
-            // ✅ NEW: Get property values as structured data
+
             const propertyValueInputs = document.querySelectorAll('#item-property-values-list .item-property-value');
             const propertyValues = [];
-            
+
             propertyValueInputs.forEach(input => {
                 const propertyName = input.getAttribute('data-property-name');
                 const value = input.value.trim();
@@ -2687,10 +3563,8 @@
                 }
             });
 
-            // Create readable property string for display
             const propertyString = propertyValues.map(pv => `${pv.propertyName}: ${pv.value}`).join(', ');
 
-            // Validation
             if (!name || name.length === 0) {
                 showToast('Please enter item name', 'error');
                 return;
@@ -2717,8 +3591,8 @@
                     .from('items')
                     .insert([{
                         name: name,
-                        property: propertyString,           // For display purposes
-                        property_values: propertyValues,   // ✅ NEW: Structured data for search
+                        property: propertyString,
+                        property_values: propertyValues,
                         total: total,
                         available: total,
                         category_id: selectedCategory.id,
@@ -2740,225 +3614,6 @@
             } catch (error) {
                 console.error('💥 Unexpected error:', error);
                 showToast('Unexpected error: ' + error.message, 'error');
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        // ✅ UPDATED: Issue Item Function (Same day merging)
-        async function issueItem() {
-            const memberId = parseInt(document.getElementById('issue-member').value);
-            const quantity = parseInt(document.getElementById('issue-quantity').value);
-
-            if (!memberId || !quantity || quantity <= 0) {
-                showToast('Please enter valid details', 'error');
-                return;
-            }
-
-            if (quantity > selectedItem.available) {
-                showToast('Cannot issue more than available quantity', 'error');
-                return;
-            }
-
-            showLoading(true);
-
-            try {
-                const today = new Date().toDateString(); // Today's date for comparison
-
-                // ✅ NEW: Check if there's already an issue for same member, same item, same day
-                const { data: existingIssues, error: checkError } = await supabaseClient
-                    .from('issued_items')
-                    .select('*')
-                    .eq('item_id', selectedItem.id)
-                    .eq('member_id', memberId)
-                    .eq('status', 'issued');
-
-                if (checkError) throw checkError;
-
-                // Check if any existing issue is from today
-                const todayIssue = existingIssues?.find(issue => {
-                    const issueDate = new Date(issue.issued_date).toDateString();
-                    return issueDate === today;
-                });
-
-                if (todayIssue) {
-                    // ✅ UPDATE existing today's entry instead of creating new one
-                    const newQuantity = todayIssue.quantity + quantity;
-
-                    const { error: updateError } = await supabaseClient
-                        .from('issued_items')
-                        .update({
-                            quantity: newQuantity,
-                            issued_date: new Date().toISOString() // Update timestamp
-                        })
-                        .eq('id', todayIssue.id);
-
-                    if (updateError) throw updateError;
-
-                    showToast(`Updated today's issue: +${quantity} (Total: ${newQuantity})`);
-                } else {
-                    // ✅ CREATE new entry (different day or first issue)
-                    const { error: issueError } = await supabaseClient
-                        .from('issued_items')
-                        .insert([{
-                            item_id: selectedItem.id,
-                            member_id: memberId,
-                            quantity: quantity
-                        }]);
-
-                    if (issueError) throw issueError;
-
-                    showToast('Item issued successfully');
-                }
-
-                // Update item availability
-                const { error: updateError } = await supabaseClient
-                    .from('items')
-                    .update({
-                        available: selectedItem.available - quantity
-                    })
-                    .eq('id', selectedItem.id);
-
-                if (updateError) throw updateError;
-
-                closeDialog();
-
-                const updatedItems = await fetchItems();
-                selectedItem = updatedItems.find(item => item.id === selectedItem.id);
-                if (selectedItem) {
-                    showItemDetail(selectedItem);
-                }
-
-                updateStats();
-
-            } catch (error) {
-                console.error('Error issuing item:', error);
-                showToast('Error issuing item', 'error');
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        async function returnItem(issuedItemId, quantity) {
-            const confirmed = await showConfirmDialog('Are you sure you want to return this item?', true);
-            if (!confirmed) return;
-
-            showLoading(true);
-
-            try {
-                const { error: returnError } = await supabaseClient
-                    .from('issued_items')
-                    .update({
-                        status: 'returned',
-                        returned_date: new Date().toISOString()
-                    })
-                    .eq('id', issuedItemId);
-
-                if (returnError) throw returnError;
-
-                if (selectedItem) {
-                    const { error: updateError } = await supabaseClient
-                        .from('items')
-                        .update({
-                            available: selectedItem.available + quantity
-                        })
-                        .eq('id', selectedItem.id);
-
-                    if (updateError) throw updateError;
-
-                    const updatedItems = await fetchItems();
-                    selectedItem = updatedItems.find(item => item.id === selectedItem.id);
-                    if (selectedItem) {
-                        showItemDetail(selectedItem);
-                    }
-                }
-
-                updateStats();
-                // Refresh both admin tables
-                populateCurrentIssuesTable();
-                populateHistoryTable();
-                showToast('Item returned successfully');
-
-            } catch (error) {
-                console.error('Error returning item:', error);
-                showToast('Error returning item', 'error');
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        async function deleteMember(memberId) {
-            const confirmed = await showConfirmDialog('Are you sure you want to delete this member?');
-            if (!confirmed) return;
-
-            showLoading(true);
-
-            try {
-                const { error } = await supabaseClient
-                    .from('members')
-                    .delete()
-                    .eq('id', memberId);
-
-                if (error) throw error;
-
-                populateMembersTable();
-                updateStats();
-                showToast('Member deleted successfully');
-
-            } catch (error) {
-                console.error('Error deleting member:', error);
-                showToast('Error deleting member', 'error');
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        async function deleteCategory(categoryId) {
-            const confirmed = await showConfirmDialog('Are you sure you want to delete this category?');
-            if (!confirmed) return;
-
-            showLoading(true);
-
-            try {
-                const { error } = await supabaseClient
-                    .from('categories')
-                    .delete()
-                    .eq('id', categoryId);
-
-                if (error) throw error;
-
-                populateCategories();
-                showToast('Category deleted successfully');
-
-            } catch (error) {
-                console.error('Error deleting category:', error);
-                showToast('Error deleting category', 'error');
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        async function deleteItem(itemId) {
-            const confirmed = await showConfirmDialog('Are you sure you want to delete this item?');
-            if (!confirmed) return;
-
-            showLoading(true);
-
-            try {
-                const { error } = await supabaseClient
-                    .from('items')
-                    .delete()
-                    .eq('id', itemId);
-
-                if (error) throw error;
-
-                populateItems(selectedCategory.id);
-                updateStats();
-                showToast('Item deleted successfully');
-
-            } catch (error) {
-                console.error('Error deleting item:', error);
-                showToast('Error deleting item', 'error');
             } finally {
                 showLoading(false);
             }
@@ -3020,43 +3675,6 @@
             });
 
             populateCategories();
-        }
-
-        // ✅ UPDATED: Update Stats Function (Low Stock Count जोड़ना)
-        async function updateStats() {
-            try {
-                const members = await fetchMembers();
-                const items = await fetchItems();
-                let totalQuantity = 0;
-                let availableQuantity = 0;
-                let lowStockItems = 0;
-
-                items.forEach(item => {
-                    totalQuantity += item.total || 0;
-                    availableQuantity += item.available || 0;
-                    if (item.available <= 5) {
-                        lowStockItems++;
-                    }
-                });
-
-                // ✅ FIX: Prevent negative values
-                const issuedItems = Math.max(0, totalQuantity - availableQuantity);
-
-                const totalMembersEl = document.getElementById('total-members');
-                const totalItemsEl = document.getElementById('total-items');
-                const issuedItemsEl = document.getElementById('issued-items');
-                const availableItemsEl = document.getElementById('available-items');
-                const lowStockItemsEl = document.getElementById('low-stock-items');
-
-                if (totalMembersEl) totalMembersEl.textContent = members.length;
-                if (totalItemsEl) totalItemsEl.textContent = items.length; // Item count
-                if (issuedItemsEl) issuedItemsEl.textContent = issuedItems; // ✅ Fixed
-                if (availableItemsEl) availableItemsEl.textContent = availableQuantity;
-                if (lowStockItemsEl) lowStockItemsEl.textContent = lowStockItems;
-
-            } catch (error) {
-                console.error('Error updating stats:', error);
-            }
         }
 
         async function populateMembersTable() {
@@ -3138,7 +3756,6 @@
                     const descriptionHTML = category.description ?
                         `<p class="text-xs text-gray-400 mb-2 line-clamp-2">${category.description}</p>` : '';
 
-                    // ✅ NEW: Show properties if available
                     const propertiesHTML = category.properties && category.properties.length > 0 ?
                         `<p class="text-xs text-blue-500 mb-2">Properties: ${category.properties.join(', ')}</p>` : '';
 
@@ -3152,7 +3769,7 @@
                         </div>
                         <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
                             <div class="relative">
-                                <button onclick="event.stopPropagation(); toggleMenu('category-menu-${category.id}')" class="p-1 hover:bg-gray-200 rounded">
+                                <button onclick="event.stopPropagation(); toggleMenu('category-menu-${category.id}', event)" class="p-1 hover:bg-gray-200 rounded">
                                     <i data-lucide="more-vertical" class="w-4 h-4"></i>
                                 </button>
                                 <div id="category-menu-${category.id}" class="dropdown-menu">
@@ -3178,81 +3795,213 @@
             }
         }
 
+        // ✅ FIXED: Populate Items with Fixed Menu
+        // 🔥 ENHANCED TABLE WITH PERFECT PROPERTY COLUMNS
         async function populateItems(categoryId) {
-            const grid = document.getElementById('items-grid');
-            if (!grid) return;
+            const tableBody = document.getElementById('items-table-body');
+            const tableHead = document.getElementById('items-table-head');
+            if (!tableBody || !tableHead) return;
 
-            grid.innerHTML = '<div class="col-span-full text-center p-8">Loading items...</div>';
+            // Show loading
+            tableBody.innerHTML = '<tr><td colspan="10" class="p-2 text-center text-sm">Loading items...</td></tr>';
 
             try {
+                // ✅ STEP 1: Get items with full data
                 const items = await fetchItems(categoryId);
-                grid.innerHTML = '';
 
                 if (items.length === 0) {
-                    grid.innerHTML = '<div class="col-span-full text-center p-8 text-gray-500">No items found in this category</div>';
+                    tableBody.innerHTML = '<tr><td colspan="10" class="p-2 text-center text-gray-500 text-sm">No items found in this category</td></tr>';
                     return;
                 }
 
-                items.forEach(item => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.className = 'border rounded-lg p-4 hover:shadow-md cursor-pointer transition-shadow hover-lift relative group';
+                // ✅ STEP 2: Get category properties (FIXED METHOD)
+                let categoryProperties = [];
 
-                    const displayImage = item.image ?
-                        `<img src="${item.image}" class="w-16 h-16 object-cover rounded mb-2 mx-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="text-3xl mb-2 text-center hidden">🔌</div>` :
-                        '<div class="text-3xl mb-2 text-center">🔌</div>';
+                if (selectedCategory && selectedCategory.properties && Array.isArray(selectedCategory.properties)) {
+                    categoryProperties = selectedCategory.properties;
+                    console.log('📝 Using category properties:', categoryProperties);
+                } else {
+                    // ✅ Fallback: Extract unique properties from items
+                    const allProperties = new Set();
+                    items.forEach(item => {
+                        if (item.property_values && Array.isArray(item.property_values)) {
+                            item.property_values.forEach(pv => {
+                                if (pv.propertyName) {
+                                    allProperties.add(pv.propertyName);
+                                }
+                            });
+                        }
+                        // Also check old 'property' field format
+                        if (item.property && typeof item.property === 'string') {
+                            const pairs = item.property.split(',');
+                            pairs.forEach(pair => {
+                                const [prop] = pair.split(':');
+                                if (prop && prop.trim()) {
+                                    allProperties.add(prop.trim());
+                                }
+                            });
+                        }
+                    });
+                    categoryProperties = Array.from(allProperties);
+                    console.log('🔄 Extracted properties from items:', categoryProperties);
+                }
 
-                    // ✅ UPDATED: Show both item property AND category properties
-                    let propertyHTML = '';
+                // ✅ STEP 3: Build dynamic table header
+                let headerHTML = `
+            <th class="p-2 text-left border bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold">
+                <i data-lucide="image" class="w-3 h-3 inline mr-1"></i>Image
+            </th>
+            <th class="p-2 text-left border bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold">
+                <i data-lucide="package" class="w-3 h-3 inline mr-1"></i>Name
+            </th>
+        `;
 
-                    // Item's own property
-                    if (item.property) {
-                        propertyHTML += `<p class="text-xs text-blue-600 mb-1">Property: ${item.property}</p>`;
-                    }
-
-                    // Category properties
-                    if (selectedCategory && selectedCategory.properties && selectedCategory.properties.length > 0) {
-                        propertyHTML += `<p class="text-xs text-green-600 mb-1">Category Properties: ${selectedCategory.properties.join(', ')}</p>`;
-                    }
-
-                    itemDiv.innerHTML = `
-                <div onclick="showItemDetail(${JSON.stringify(item).replace(/"/g, '&quot;')})">
-                    ${displayImage}
-                    <h3 class="font-semibold mb-2 text-center">${item.name}</h3>
-                    ${propertyHTML}
-                    <div class="text-sm text-gray-600 text-center">
-                        <p>Available: <span class="font-semibold text-green-600">${item.available}</span></p>
-                        <p>Total: <span class="font-semibold">${item.total}</span></p>
-                    </div>
-                </div>
-                <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div class="relative">
-                        <button onclick="event.stopPropagation(); toggleMenu('item-menu-${item.id}')" class="p-1 hover:bg-gray-200 rounded">
-                            <i data-lucide="more-vertical" class="w-4 h-4"></i>
-                        </button>
-                        <div id="item-menu-${item.id}" class="dropdown-menu">
-                            <button onclick="editItem(${item.id})" class="dropdown-item">
-                                <i data-lucide="edit" class="w-4 h-4 inline mr-2"></i>Edit
-                            </button>
-                            <button onclick="deleteItem(${item.id})" class="dropdown-item delete">
-                                <i data-lucide="trash-2" class="w-4 h-4 inline mr-2"></i>Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                // ✅ Add property columns with distinct colors
+                categoryProperties.forEach((prop, index) => {
+                    const colorClass = index % 3 === 0 ? 'from-green-500 to-green-600' :
+                        index % 3 === 1 ? 'from-purple-500 to-purple-600' :
+                            'from-yellow-500 to-yellow-600';
+                    headerHTML += `
+                <th class="p-2 text-left border bg-gradient-to-r ${colorClass} text-white text-xs font-bold">
+                    <i data-lucide="settings" class="w-3 h-3 inline mr-1"></i>${prop}
+                </th>
             `;
-                    grid.appendChild(itemDiv);
+                });
+
+                headerHTML += `
+            <th class="p-2 text-left border bg-gradient-to-r from-indigo-500 to-indigo-600 text-white text-xs font-bold">
+                <i data-lucide="check-circle" class="w-3 h-3 inline mr-1"></i>Available
+            </th>
+            <th class="p-2 text-left border bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold">
+                <i data-lucide="zap" class="w-3 h-3 inline mr-1"></i>Actions
+            </th>
+        `;
+
+                const headerRow = tableHead.querySelector('tr');
+                headerRow.innerHTML = headerHTML;
+
+                // ✅ STEP 4: Build table body with property values
+                tableBody.innerHTML = '';
+
+                items.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'border-b hover:bg-blue-50 cursor-pointer transition-all duration-200 hover:shadow-sm';
+
+                    // ✅ Image column
+                    const imageHTML = item.image ?
+                        `<img src="${item.image}" class="w-10 h-10 object-cover rounded-lg border-2 border-gray-200" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                 <div class="text-2xl text-center hidden">🔌</div>` :
+                        '<div class="text-2xl text-center">🔌</div>';
+
+                    // ✅ Get property values for this item (ENHANCED METHOD)
+                    const itemProperties = {};
+
+                    // Method 1: From property_values array (new format)
+                    if (item.property_values && Array.isArray(item.property_values)) {
+                        item.property_values.forEach(pv => {
+                            if (pv.propertyName && pv.value) {
+                                itemProperties[pv.propertyName] = pv.value;
+                            }
+                        });
+                    }
+
+                    // Method 2: From property string (old format) - as fallback
+                    if (item.property && typeof item.property === 'string') {
+                        const pairs = item.property.split(',');
+                        pairs.forEach(pair => {
+                            const [prop, val] = pair.split(':');
+                            if (prop && val) {
+                                const propName = prop.trim();
+                                const propValue = val.trim();
+                                if (!itemProperties[propName]) { // Don't overwrite new format
+                                    itemProperties[propName] = propValue;
+                                }
+                            }
+                        });
+                    }
+
+                    console.log(`🔍 Item "${item.name}" properties:`, itemProperties);
+
+                    // ✅ Build property columns with enhanced styling
+                    let propertyColumnsHTML = '';
+                    categoryProperties.forEach((prop, index) => {
+                        const value = itemProperties[prop] || '-';
+                        const bgColor = value === '-' ? 'bg-gray-100 text-gray-500' :
+                            index % 3 === 0 ? 'bg-green-100 text-green-800' :
+                                index % 3 === 1 ? 'bg-purple-100 text-purple-800' :
+                                    'bg-yellow-100 text-yellow-800';
+
+                        propertyColumnsHTML += `
+                    <td class="p-2 border text-center">
+                        <span class="${bgColor} px-2 py-1 rounded-full text-xs font-semibold">
+                            ${value}
+                        </span>
+                    </td>
+                `;
+                    });
+
+                    // ✅ Available status with enhanced styling
+                    const availableStatus = item.available <= 0 ?
+                        '<span class="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">OUT OF STOCK</span>' :
+                        item.available <= 5 ?
+                            `<span class="bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-bold">${item.available} (Low)</span>` :
+                            `<span class="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold">${item.available}</span>`;
+
+                    // ✅ Build complete row
+                    row.innerHTML = `
+                <td class="p-2 border text-center">${imageHTML}</td>
+                <td class="p-2 border">
+                    <div class="font-bold text-blue-700 text-sm">${item.name}</div>
+                    <div class="text-xs text-gray-500">Total: ${item.total}</div>
+                </td>
+                ${propertyColumnsHTML}
+                <td class="p-2 border text-center">${availableStatus}</td>
+                <td class="p-2 border">
+                    <div class="flex gap-1 justify-center">
+                        <button onclick="event.stopPropagation(); showItemDetail(${JSON.stringify(item).replace(/"/g, '&quot;')})" 
+                                class="bg-blue-500 text-white px-2 py-1 rounded-lg text-xs hover:bg-blue-600 transition-colors"
+                                title="Issue Item">
+                            <i data-lucide="zap" class="w-3 h-3"></i>
+                        </button>
+                        <button onclick="event.stopPropagation(); editItem(${item.id})" 
+                                class="bg-green-500 text-white px-2 py-1 rounded-lg text-xs hover:bg-green-600 transition-colors"
+                                title="Edit">
+                            <i data-lucide="edit" class="w-3 h-3"></i>
+                        </button>
+                        <button onclick="event.stopPropagation(); deleteItem(${item.id})" 
+                                class="bg-red-500 text-white px-2 py-1 rounded-lg text-xs hover:bg-red-600 transition-colors"
+                                title="Delete">
+                            <i data-lucide="trash-2" class="w-3 h-3"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+
+                    // ✅ Row click handler
+                    row.addEventListener('click', (e) => {
+                        if (!e.target.closest('button')) {
+                            selectedItem = item;
+                            showItemDetail(item);
+                        }
+                    });
+
+                    tableBody.appendChild(row);
                 });
 
                 lucide.createIcons();
 
+                console.log(`✅ Table generated with ${categoryProperties.length} property columns:`, categoryProperties);
+
             } catch (error) {
-                console.error('Error in populateItems:', error);
-                grid.innerHTML = '<div class="col-span-full text-center p-8 text-red-500">Error loading items</div>';
+                console.error('💥 Error in populateItems:', error);
+                tableBody.innerHTML = '<tr><td colspan="10" class="p-2 text-center text-red-500 text-sm">Error loading items</td></tr>';
                 showToast('Error loading items', 'error');
             }
         }
 
-        // ✅ NEW: Populate Current Issues Table
+
+
+        // Populate Current Issues Table
         async function populateCurrentIssuesTable() {
             const tbody = document.getElementById('current-issues-table');
             if (!tbody) return;
@@ -3307,7 +4056,7 @@
             }
         }
 
-        // ✅ NEW: Populate History Table
+        // Populate History Table
         async function populateHistoryTable() {
             const tbody = document.getElementById('history-table');
             if (!tbody) return;
@@ -3329,7 +4078,6 @@
                     const issueDate = new Date(issued.issued_date).toLocaleDateString('en-US');
                     const returnDate = new Date(issued.returned_date).toLocaleDateString('en-US');
 
-                    // Calculate duration
                     const issueDateObj = new Date(issued.issued_date);
                     const returnDateObj = new Date(issued.returned_date);
                     const diffTime = Math.abs(returnDateObj - issueDateObj);
@@ -3366,7 +4114,7 @@
             }
         }
 
-        // ✅ NEW: Search Functions
+        // Search Functions
         const searchMembers = () => {
             const term = document.getElementById('search-members').value.toLowerCase();
             const rows = document.querySelectorAll('#members-table-body tr');
@@ -3575,8 +4323,7 @@
                 `;
             } else if (type === 'addItem') {
                 title.textContent = 'Add New Item';
-                
-                // ✅ NEW: Create property value input fields
+
                 let categoryPropertiesHTML = '';
                 if (selectedCategory && selectedCategory.properties && selectedCategory.properties.length > 0) {
                     categoryPropertiesHTML = selectedCategory.properties.map(prop => `
@@ -3592,7 +4339,7 @@
                         </div>
                     `).join('');
                 }
-                
+
                 content.innerHTML = `
                     <div class="space-y-4">
                         <div class="text-center">
@@ -3607,7 +4354,6 @@
                         </div>
                         <input type="text" placeholder="Item Name" id="item-name" class="w-full p-2 border rounded" required />
                         
-                        <!-- ✅ UPDATED: Property Values Section -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Property Values:</label>
                             <div id="item-property-values-list" class="space-y-2">
@@ -3623,7 +4369,7 @@
                         </button>
                     </div>
                 `;
-                
+
             } else if (type === 'issueItem') {
                 try {
                     const members = await fetchMembers();
@@ -3680,33 +4426,42 @@
             });
         }
 
+        // ✅ FIXED: Init Function with Real-time Subscriptions
         async function init() {
             if (isInitialized) return;
             isInitialized = true;
 
             try {
-                console.log('🚀 Initializing enhanced inventory system with all new features - ONCE');
+                console.log('🚀 Initializing enhanced inventory system...');
                 lucide.createIcons();
                 setupNavigationListeners();
+
+                // ✅ Setup real-time immediately
+                await setupRealtimeSubscriptions();
+
                 setActiveSection('dashboard');
+                await updateStats(); // Initial stats load
 
                 if (!authListenerSetup) {
                     authListenerSetup = true;
-                    supabaseClient.auth.onAuthStateChange((event, session) => {
+                    supabaseClient.auth.onAuthStateChange(async (event, session) => {
                         console.log(`Auth state changed: ${event}`);
                         if (event === 'SIGNED_IN' && !currentUser) {
                             currentUser = session.user;
                             showMainApp();
+                            await setupRealtimeSubscriptions();
+                            await updateStats();
                         } else if (event === 'SIGNED_OUT') {
                             currentUser = null;
                             isInitialized = false;
                             authListenerSetup = false;
+                            cleanupSubscriptions();
                             showAuthModal();
                         }
                     });
                 }
 
-                console.log('✅ Enhanced inventory system with all new features initialized successfully!');
+                console.log('✅ System initialized successfully with real-time updates!');
             } catch (error) {
                 console.error('💥 Error initializing app:', error);
                 isInitialized = false;
@@ -3714,7 +4469,7 @@
             }
         }
 
-        // ✅ UPDATED: Page Load Handler with 10-second Splash Screen
+        // Page Load Handler
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
                 lucide.createIcons();
@@ -3725,6 +4480,7 @@
             showSplashAndInit();
         }
     </script>
+
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -3741,4 +4497,3 @@
 </body>
 
 </html>
-
