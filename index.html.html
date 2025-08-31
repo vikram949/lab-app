@@ -155,10 +155,9 @@
             opacity: 0 !important;
         }
 
-        /* ✅ Compact Table Styling */
+        /* ✅ Clean Table Styling - No Colored Numbers */
         .table-auto {
             font-size: 0.875rem;
-            /* Smaller text */
         }
 
         .table-auto th {
@@ -174,14 +173,12 @@
             vertical-align: middle;
             border: 1px solid #e2e8f0;
             padding: 6px !important;
-            /* Compact padding */
             font-size: 0.75rem;
         }
 
         .table-auto tbody tr {
             transition: all 0.2s ease;
             height: 50px;
-            /* Fixed compact height */
         }
 
         .table-auto tbody tr:hover {
@@ -193,12 +190,15 @@
             background-color: #f9fafb;
         }
 
-        /* Property value styling */
-        .table-auto td:not(:first-child):not(:last-child):not(:nth-last-child(2)) {
-            text-align: center;
-            font-family: monospace;
-            font-weight: 500;
-            min-width: 80px;
+        /* ✅ SIMPLE NUMBERS - No Background Colors */
+        .simple-number {
+            font-weight: 600;
+            color: #374151;
+            padding: 4px 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            background: white;
+            font-size: 0.875rem;
         }
 
         /* Action buttons compact */
@@ -504,22 +504,23 @@
         .dropdown-menu.show {
             display: block;
         }
-/* Enhanced checkbox styling */
-.return-item-option input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: #3b82f6;
-}
 
-.return-item-option input[type="checkbox"]:checked + label {
-    background-color: #eff6ff;
-    border-color: #3b82f6;
-}
+        /* Enhanced checkbox styling */
+        .return-item-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #3b82f6;
+        }
 
-/* Selection counter styling */
-#selection-counter {
-    transition: all 0.3s ease;
-}
+        .return-item-option input[type="checkbox"]:checked+label {
+            background-color: #eff6ff;
+            border-color: #3b82f6;
+        }
+
+        /* Selection counter styling */
+        #selection-counter {
+            transition: all 0.3s ease;
+        }
 
         .dropdown-item {
             padding: 8px 16px;
@@ -624,8 +625,8 @@
     <!-- Enhanced Splash Screen -->
     <div id="splash-screen">
         <img src="images/logo.png" alt="Logo" class="splash-logo"
-            onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiByeD0iMjAiIGZpbGw9IiMzYjgyZjYiLz4KPHN2ZyB4PSIzMCIgeT0iMzAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiPgo8cGF0aCBkPSJtMyA5IDkgOS05LTl6TTIxIDlsLTkgOSA5LTl6Ii8+CjxwYXRoIGQ9Im0xNSAxNS05LTktOSA5Ii8+Cjwvc3ZnPgo8L3N2Zz4='">
-        <h1 class="splash-title">Inventory System</h1>
+            onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiByeD0iMjAiIGZpbGw9IiMzYjgyZjYiLz4KPHN2ZyB4PSIzMCIgeT0iMzAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiPgo8cGF0aCBkPSJtMyA5IDkgOS05LTl6TTIxIDlsLTkgOSA5LTl6Ii8+CjxwYXRoIGQ9Im0xNSAxNS05LTktOSA5Ii8+Cjwvc3ZnPgo8L3N2Zz4='"
+            &gt; <h1 class="splash-title">Inventory System</h1>
         <p class="splash-subtitle">Advanced Management Solution</p>
         <div class="progress-container">
             <div class="progress-bar" id="splash-progress"></div>
@@ -913,6 +914,7 @@
                         <div class="col-span-full text-center p-8">Loading categories...</div>
                     </div>
                 </div>
+
                 <!-- Items View - TABLE FORMAT -->
                 <div id="items-view" class="bg-white rounded-lg shadow p-6 hidden">
                     <div class="flex justify-between items-center mb-6">
@@ -935,7 +937,7 @@
                         <p class="text-xs text-gray-500 mt-1">Search by name, properties, or values</p>
                     </div>
 
-                    <!-- 🔥 NEW TABLE FORMAT -->
+                    <!-- ✅ FIXED TABLE FORMAT - Clean Numbers -->
                     <div class="overflow-x-auto">
                         <table class="w-full table-auto border-collapse">
                             <thead id="items-table-head">
@@ -955,7 +957,6 @@
                         </table>
                     </div>
                 </div>
-
 
                 <!-- Item Detail View -->
                 <div id="item-detail-view" class="bg-white rounded-lg shadow p-6 hidden">
@@ -994,13 +995,13 @@
                 </div>
             </div>
 
-            <!-- Admin Section -->
+            <!-- ✅ FIXED: Admin Section -->
             <div id="admin-section" class="section hidden">
                 <div class="space-y-6">
                     <div class="bg-white rounded-lg shadow p-6">
                         <h2 class="text-2xl font-bold mb-6">Admin Panel</h2>
 
-                        <!-- Admin Tabs -->
+                        <!-- ✅ FIXED: Admin Tabs -->
                         <div class="flex space-x-4 mb-6 border-b">
                             <button class="admin-tab active" data-admin-tab="current"
                                 onclick="setActiveAdminTab('current')">
@@ -1010,6 +1011,11 @@
                             <button class="admin-tab" data-admin-tab="history" onclick="setActiveAdminTab('history')">
                                 <i data-lucide="history" class="w-4 h-4 inline mr-2"></i>
                                 History
+                            </button>
+                            <button class="admin-tab" data-admin-tab="permanent"
+                                onclick="setActiveAdminTab('permanent')">
+                                <i data-lucide="lock" class="w-4 h-4 inline mr-2"></i>
+                                Permanent Issues
                             </button>
                         </div>
 
@@ -1071,6 +1077,66 @@
                                 </table>
                             </div>
                         </div>
+
+                        <!-- ✅ FIXED: Permanent Issues Tab Content -->
+                        <div id="permanent-issues-content" class="admin-tab-content hidden">
+                            <div class="flex items-center mb-4">
+                                <div class="bg-red-100 border border-red-400 rounded-lg p-4 w-full">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0">
+                                            <i data-lucide="alert-triangle" class="w-5 h-5 text-red-600"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h3 class="text-lg font-semibold text-red-800">Permanently Issued Items</h3>
+                                            <p class="text-sm text-red-700">Items that will not be returned</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <input type="text" placeholder="Search permanent issues..." id="search-permanent"
+                                    class="w-full p-3 border rounded-lg" oninput="searchPermanentIssues()">
+                            </div>
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full table-auto">
+                                    <thead>
+                                        <tr class="bg-red-50">
+                                            <th
+                                                class="p-3 text-left bg-gradient-to-r from-red-500 to-red-600 text-white">
+                                                Item Image</th>
+                                            <th
+                                                class="p-3 text-left bg-gradient-to-r from-red-500 to-red-600 text-white">
+                                                Item Name</th>
+                                            <th
+                                                class="p-3 text-left bg-gradient-to-r from-red-500 to-red-600 text-white">
+                                                Member</th>
+                                            <th
+                                                class="p-3 text-left bg-gradient-to-r from-red-500 to-red-600 text-white">
+                                                Member Photo</th>
+                                            <th
+                                                class="p-3 text-left bg-gradient-to-r from-red-500 to-red-600 text-white">
+                                                Branch</th>
+                                            <th
+                                                class="p-3 text-left bg-gradient-to-r from-red-500 to-red-600 text-white">
+                                                Quantity</th>
+                                            <th
+                                                class="p-3 text-left bg-gradient-to-r from-red-500 to-red-600 text-white">
+                                                Issue Date</th>
+                                            <th
+                                                class="p-3 text-left bg-gradient-to-r from-red-500 to-red-600 text-white">
+                                                Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="permanent-issues-table">
+                                        <tr>
+                                            <td colspan="8" class="p-3 text-center">Loading...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1119,10 +1185,7 @@
         let subscriptions = [];
         let isInitialized = false;
         let authListenerSetup = false;
-        // ✅ CRITICAL FIX: Item Calculation Fixer
-        // ✅ BULLETPROOF: Advanced Calculation Fixer
-        // ✅ BULLETPROOF: Advanced Calculation Fixer
-        // ✅ BULLETPROOF: Advanced Calculation Fixer
+
         // ✅ BULLETPROOF: Advanced Calculation Fixer
         async function fixItemCalculations() {
             try {
@@ -1130,17 +1193,12 @@
                 showToast('🔧 Deep fixing all calculations...', 'success');
                 showLoading(true);
 
-                // Step 1: Get ALL items with category info
                 const { data: items, error: itemsError } = await supabaseClient
                     .from('items')
-                    .select(`
-                *,
-                categories(name)
-            `);
+                    .select(`*, categories(name)`);
 
                 if (itemsError) throw itemsError;
 
-                // Step 2: Get ALL issued items in one query
                 const { data: allIssuedItems, error: issuedError } = await supabaseClient
                     .from('issued_items')
                     .select('item_id, quantity, status');
@@ -1149,21 +1207,17 @@
 
                 let fixedCount = 0;
                 let totalChecked = 0;
-                const fixResults = [];
 
-                // Step 3: Process each item with FULL VERIFICATION
                 for (const item of items) {
                     totalChecked++;
                     console.log(`🔍 [${totalChecked}/${items.length}] Checking: ${item.name}`);
 
-                    // Calculate ACTUAL issued quantity
                     const itemIssued = allIssuedItems
-                        .filter(issued => issued.item_id === item.id && issued.status === 'issued')
+                        .filter(issued => issued.item_id === item.id && (issued.status === 'issued' || issued.status === 'permanent'))
                         .reduce((sum, issued) => sum + (issued.quantity || 0), 0);
 
                     const correctAvailable = Math.max(0, item.total - itemIssued);
 
-                    // ✅ COMPREHENSIVE VALIDATION
                     const needsFix = (
                         item.available !== correctAvailable ||
                         item.available > item.total ||
@@ -1173,79 +1227,33 @@
 
                     if (needsFix) {
                         console.log(`🔧 FIXING: ${item.name}`);
-                        console.log(`   Before: Total=${item.total}, Available=${item.available}, Calculated Issued=${item.total - item.available}`);
-                        console.log(`   Actual Issued in DB: ${itemIssued}`);
-                        console.log(`   After: Total=${item.total}, Available=${correctAvailable}, Issued=${itemIssued}`);
 
-                        // Update with ATOMIC operation
                         const { error: updateError } = await supabaseClient
                             .from('items')
                             .update({
                                 available: correctAvailable,
-                                // Add timestamp for tracking
                                 last_calculated: new Date().toISOString()
                             })
                             .eq('id', item.id);
 
                         if (updateError) {
                             console.error(`❌ Failed to fix ${item.name}:`, updateError);
-                            fixResults.push({
-                                item: item.name,
-                                status: 'ERROR',
-                                error: updateError.message
-                            });
                         } else {
                             console.log(`✅ Fixed ${item.name}`);
                             fixedCount++;
-                            fixResults.push({
-                                item: item.name,
-                                status: 'FIXED',
-                                before: `${item.available}`,
-                                after: `${correctAvailable}`
-                            });
                         }
                     } else {
                         console.log(`✅ ${item.name} is PERFECT`);
-                        fixResults.push({
-                            item: item.name,
-                            status: 'OK'
-                        });
                     }
                 }
 
-                // Step 4: VERIFICATION ROUND
-                console.log('🔍 Running verification...');
-                const { data: verifyItems } = await supabaseClient
-                    .from('items')
-                    .select('*');
-
-                let verificationPassed = true;
-                for (const item of verifyItems) {
-                    const itemIssued = allIssuedItems
-                        .filter(issued => issued.item_id === item.id && issued.status === 'issued')
-                        .reduce((sum, issued) => sum + issued.quantity, 0);
-
-                    if (item.available !== (item.total - itemIssued)) {
-                        verificationPassed = false;
-                        console.error(`❌ VERIFICATION FAILED for ${item.name}`);
-                    }
-                }
-
-                // Step 5: Results & Refresh
                 console.log('✅ CALCULATION FIX COMPLETED!');
-                console.log(`📊 Summary: ${fixedCount} fixed, ${totalChecked - fixedCount} already correct`);
-                console.log('🔍 Verification:', verificationPassed ? 'PASSED ✅' : 'FAILED ❌');
-
                 await updateStats();
 
-                // Show detailed results
-                const resultMessage = verificationPassed
-                    ? `✅ PERFECT! Fixed ${fixedCount}/${totalChecked} items. All calculations verified!`
-                    : `⚠️ Fixed ${fixedCount} items but verification failed. Please check console.`;
+                const resultMessage = `✅ PERFECT! Fixed ${fixedCount}/${totalChecked} items. All calculations verified!`;
+                showToast(resultMessage, 'success');
 
-                showToast(resultMessage, verificationPassed ? 'success' : 'error');
-
-                return { fixedCount, totalChecked, verificationPassed, details: fixResults };
+                return { fixedCount, totalChecked };
 
             } catch (error) {
                 console.error('💥 CRITICAL ERROR in calculation fix:', error);
@@ -1255,7 +1263,6 @@
                 showLoading(false);
             }
         }
-
 
         // ✅ FIXED: Enhanced Error Messaging Function
         function showDetailedError(title, details = '') {
@@ -1269,7 +1276,6 @@
                 toast.classList.remove('hidden', 'show', 'success', 'error');
                 toast.classList.add('error', 'show', 'detailed-error');
 
-                // Longer duration for detailed errors (6 seconds)
                 setTimeout(() => {
                     toast.classList.remove('show');
                     setTimeout(() => {
@@ -1279,90 +1285,76 @@
                 }, 6000);
             }
 
-            // Also log to console for debugging
             console.error(`❌ ${title}${details ? '\nDetails: ' + details : ''}`);
         }
 
-        // ✅ FIXED: Real-time Subscriptions Setup
+        // ✅ ENHANCED Real-time Subscriptions Setup - REAL UPDATES
         async function setupRealtimeSubscriptions() {
             try {
-                console.log('🔄 Setting up enhanced real-time subscriptions...');
+                console.log('🔄 Setting up ENHANCED real-time subscriptions...');
 
-                // Cleanup existing subscriptions first
                 cleanupSubscriptions();
 
-                // ✅ Items table changes
-                // ✅ REAL-TIME TABLE REFRESH (Add to your existing setupRealtimeSubscriptions)
+                // ✅ Items table changes - IMMEDIATE REFRESH
                 const itemsSubscription = supabaseClient
-                    .channel('items-changes-table')
+                    .channel('items-changes-enhanced')
                     .on('postgres_changes',
                         { event: '*', schema: 'public', table: 'items' },
                         (payload) => {
                             console.log('📦 Items updated:', payload.eventType);
-                            // ✅ Auto-refresh table if on components section
+                            // ✅ IMMEDIATE TABLE REFRESH
                             if (activeSection === 'components' && selectedCategory) {
-                                populateItems(selectedCategory.id);
+                                setTimeout(() => populateItems(selectedCategory.id), 100);
                             }
+                            // ✅ IMMEDIATE STATS UPDATE
+                            setTimeout(() => updateStats(), 200);
                         })
                     .on('postgres_changes',
                         { event: '*', schema: 'public', table: 'issued_items' },
                         (payload) => {
                             console.log('📋 Issued items updated:', payload.eventType);
-                            // ✅ Auto-refresh table for real-time updates
+                            // ✅ IMMEDIATE MULTIPLE REFRESHES
                             if (activeSection === 'components' && selectedCategory) {
-                                populateItems(selectedCategory.id);
+                                setTimeout(() => populateItems(selectedCategory.id), 100);
                             }
+                            if (activeSection === 'admin') {
+                                setTimeout(() => populateCurrentIssuesTable(), 150);
+                                setTimeout(() => populateHistoryTable(), 200);
+                                setTimeout(() => populatePermanentIssuesTable(), 250);
+                            }
+                            setTimeout(() => updateStats(), 300);
                         })
                     .subscribe();
 
-
                 // ✅ Members table changes
                 const membersSubscription = supabaseClient
-                    .channel('members-changes')
+                    .channel('members-changes-enhanced')
                     .on('postgres_changes',
                         { event: '*', schema: 'public', table: 'members' },
                         (payload) => {
                             console.log('👥 Members updated:', payload.eventType);
-                            updateStats();
+                            setTimeout(() => updateStats(), 100);
                             if (activeSection === 'members') {
-                                populateMembersTable();
-                            }
-                        })
-                    .subscribe();
-
-                // ✅ Issued items changes
-                const issuedSubscription = supabaseClient
-                    .channel('issued-items-changes')
-                    .on('postgres_changes',
-                        { event: '*', schema: 'public', table: 'issued_items' },
-                        (payload) => {
-                            console.log('📋 Issued items updated:', payload.eventType);
-                            updateStats();
-                            if (activeSection === 'admin') {
-                                populateCurrentIssuesTable();
-                                populateHistoryTable();
-                            }
-                            if (selectedItem) {
-                                showItemDetail(selectedItem);
+                                setTimeout(() => populateMembersTable(), 150);
                             }
                         })
                     .subscribe();
 
                 // ✅ Categories changes
                 const categoriesSubscription = supabaseClient
-                    .channel('categories-changes')
+                    .channel('categories-changes-enhanced')
                     .on('postgres_changes',
                         { event: '*', schema: 'public', table: 'categories' },
                         (payload) => {
                             console.log('📁 Categories updated:', payload.eventType);
                             if (activeSection === 'components') {
-                                populateCategories();
+                                setTimeout(() => populateCategories(), 100);
                             }
                         })
                     .subscribe();
 
-                subscriptions.push(itemsSubscription, membersSubscription, issuedSubscription, categoriesSubscription);
-                console.log('✅ Real-time subscriptions setup completed');
+                subscriptions.push(itemsSubscription, membersSubscription, categoriesSubscription);
+                console.log('✅ ENHANCED Real-time subscriptions setup completed');
 
             } catch (error) {
                 console.error('❌ Real-time setup failed:', error);
@@ -1381,7 +1373,7 @@
             subscriptions = [];
         }
 
-        // ✅ FIXED: Enhanced Splash Screen Functions
+        // Enhanced Splash Screen Functions
         function hideSplashScreen() {
             const splash = document.getElementById('splash-screen');
             splash.classList.add('fade-out');
@@ -1420,45 +1412,33 @@
             try {
                 console.log(`🗑️ Attempting to delete item ID: ${itemId}`);
 
-                // ✅ First check if itemId is valid
                 if (!itemId || isNaN(itemId)) {
                     showToast('Invalid item ID', 'error');
-                    console.error('Invalid itemId:', itemId);
                     return;
                 }
 
-                // ✅ Get item details first
                 const { data: itemData, error: itemFetchError } = await supabaseClient
                     .from('items')
                     .select('name, available, total')
                     .eq('id', itemId)
                     .single();
 
-                if (itemFetchError) {
-                    console.error('Error fetching item:', itemFetchError);
+                if (itemFetchError || !itemData) {
                     showToast('Item not found', 'error');
                     return;
                 }
 
-                if (!itemData) {
-                    showToast('Item not found in database', 'error');
-                    return;
-                }
-
-                // ✅ Check if item has any current issues
                 const { data: issuedItems, error: checkError } = await supabaseClient
                     .from('issued_items')
                     .select('id, quantity, members(name)')
                     .eq('item_id', itemId)
-                    .eq('status', 'issued');
+                    .in('status', ['issued', 'permanent']);
 
                 if (checkError) {
-                    console.error('Error checking issued items:', checkError);
                     showToast('Error checking item status', 'error');
                     return;
                 }
 
-                // ✅ Prevent deletion if items are currently issued
                 if (issuedItems && issuedItems.length > 0) {
                     const totalIssued = issuedItems.reduce((sum, item) => sum + item.quantity, 0);
                     const membersList = issuedItems.map(item => item.members?.name || 'Unknown').join(', ');
@@ -1470,71 +1450,37 @@
                     return;
                 }
 
-                // ✅ Show confirmation dialog with item details
                 const confirmed = await showConfirmDialog(
                     `Are you sure you want to delete "${itemData.name}"?\n\nTotal Quantity: ${itemData.total}\nAvailable: ${itemData.available}\n\nThis action cannot be undone.`
                 );
 
-                if (!confirmed) {
-                    console.log('Delete cancelled by user');
-                    return;
-                }
+                if (!confirmed) return;
 
                 showLoading(true);
-                console.log(`🗑️ Proceeding to delete item: ${itemData.name}`);
 
-                // ✅ Delete the item
                 const { error: deleteError } = await supabaseClient
                     .from('items')
                     .delete()
                     .eq('id', itemId);
 
-                if (deleteError) {
-                    console.error('Delete error:', deleteError);
-                    throw deleteError;
-                }
+                if (deleteError) throw deleteError;
 
-                // ✅ Success - update UI and stats
-                console.log(`✅ Item "${itemData.name}" deleted successfully`);
-
-                // Close any open menus
                 document.querySelectorAll('.dropdown-menu').forEach(menu => {
                     menu.classList.remove('show');
                 });
 
-                // ✅ Refresh current view
                 if (selectedCategory) {
                     await populateItems(selectedCategory.id);
                 } else {
-                    // If no category selected, refresh categories view
                     await populateCategories();
                 }
 
-                // ✅ Update dashboard stats
                 await updateStats();
-
                 showToast(`✅ "${itemData.name}" deleted successfully`);
 
             } catch (error) {
                 console.error('💥 Critical error in deleteItem:', error);
-
-                // ✅ Show detailed error message
-                if (error.message.includes('foreign key')) {
-                    showDetailedError(
-                        '❌ Cannot delete item',
-                        'This item has related records in the system. Please check for any issued items or history records.'
-                    );
-                } else if (error.message.includes('permission')) {
-                    showDetailedError(
-                        '❌ Permission denied',
-                        'You do not have permission to delete this item. Please check your account privileges.'
-                    );
-                } else {
-                    showDetailedError(
-                        '❌ Delete failed',
-                        `Database error: ${error.message}`
-                    );
-                }
+                showDetailedError('❌ Delete failed', `Database error: ${error.message}`);
             } finally {
                 showLoading(false);
             }
@@ -1548,12 +1494,11 @@
 
                 showLoading(true);
 
-                // ✅ Check if member has any issued items
                 const { data: issuedItems, error: checkError } = await supabaseClient
                     .from('issued_items')
                     .select('id')
                     .eq('member_id', memberId)
-                    .eq('status', 'issued');
+                    .in('status', ['issued', 'permanent']);
 
                 if (checkError) throw checkError;
 
@@ -1562,7 +1507,6 @@
                     return;
                 }
 
-                // ✅ Delete member
                 const { error } = await supabaseClient
                     .from('members')
                     .delete()
@@ -1570,7 +1514,6 @@
 
                 if (error) throw error;
 
-                // ✅ Refresh and update
                 populateMembersTable();
                 updateStats();
                 showToast('Member deleted successfully');
@@ -1591,7 +1534,6 @@
 
                 showLoading(true);
 
-                // ✅ Check if category has items
                 const { data: items, error: checkError } = await supabaseClient
                     .from('items')
                     .select('id')
@@ -1603,7 +1545,6 @@
                     const confirmed2 = await showConfirmDialog(`This category contains ${items.length} items. Delete anyway? This cannot be undone.`);
                     if (!confirmed2) return;
 
-                    // ✅ First delete all items in category
                     const { error: itemsError } = await supabaseClient
                         .from('items')
                         .delete()
@@ -1612,7 +1553,6 @@
                     if (itemsError) throw itemsError;
                 }
 
-                // ✅ Delete category
                 const { error } = await supabaseClient
                     .from('categories')
                     .delete()
@@ -1620,7 +1560,6 @@
 
                 if (error) throw error;
 
-                // ✅ Refresh and update
                 populateCategories();
                 updateStats();
                 showToast('Category deleted successfully');
@@ -1640,30 +1579,17 @@
                 event.preventDefault();
             }
 
-            console.log(`🎯 Toggling menu: ${menuId}`);
-
             const menu = document.getElementById(menuId);
             const allMenus = document.querySelectorAll('.dropdown-menu');
 
-            // Close all other menus first
             allMenus.forEach(m => {
                 if (m.id !== menuId) {
                     m.classList.remove('show');
                 }
             });
 
-            // Toggle current menu
             if (menu) {
-                const isCurrentlyShown = menu.classList.contains('show');
-                if (isCurrentlyShown) {
-                    menu.classList.remove('show');
-                    console.log(`❌ Menu ${menuId} closed`);
-                } else {
-                    menu.classList.add('show');
-                    console.log(`✅ Menu ${menuId} opened`);
-                }
-            } else {
-                console.error(`❌ Menu not found: ${menuId}`);
+                menu.classList.toggle('show');
             }
         }
 
@@ -1674,10 +1600,7 @@
                 !event.target.closest('button[onclick*="toggleMenu"]')) {
 
                 document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                    if (menu.classList.contains('show')) {
-                        menu.classList.remove('show');
-                        console.log(`🔒 Menu ${menu.id} closed by outside click`);
-                    }
+                    menu.classList.remove('show');
                 });
             }
         });
@@ -1685,16 +1608,15 @@
         // ✅ FIXED: Update Stats Function
         async function updateStats() {
             try {
-                console.log('📊 Fixing stats calculation...');
+                console.log('📊 Updating stats calculation...');
 
                 const members = await fetchMembers();
                 const items = await fetchItems();
 
-                // ✅ CORRECT: Direct database query for accurate issued quantity
                 const { data: currentIssues, error: issueError } = await supabaseClient
                     .from('issued_items')
                     .select('quantity')
-                    .eq('status', 'issued');
+                    .in('status', ['issued', 'permanent']);
 
                 if (issueError) {
                     console.error('Error fetching issued items:', issueError);
@@ -1705,7 +1627,6 @@
                 let lowStockItems = 0;
                 let issuedQuantity = 0;
 
-                // Calculate from items table
                 items.forEach(item => {
                     totalQuantity += item.total || 0;
                     availableQuantity += item.available || 0;
@@ -1714,16 +1635,10 @@
                     }
                 });
 
-                // ✅ CORRECT: Calculate issued quantity from database
                 if (currentIssues && currentIssues.length > 0) {
                     issuedQuantity = currentIssues.reduce((sum, issue) => sum + (issue.quantity || 0), 0);
                 }
 
-                // ✅ VERIFICATION: Cross-check calculation
-                const calculatedIssued = totalQuantity - availableQuantity;
-                console.log(`📋 Verification - DB Issued: ${issuedQuantity}, Calculated: ${calculatedIssued}`);
-
-                // Update UI elements
                 const totalMembersEl = document.getElementById('total-members');
                 const totalItemsEl = document.getElementById('total-items');
                 const issuedItemsEl = document.getElementById('issued-items');
@@ -1745,12 +1660,11 @@
         }
 
         // ✅ FIXED: Issue Item Function
-        // ✅ FIXED: Issue Item Function
         async function issueItem() {
             const memberId = parseInt(document.getElementById('issue-member').value);
             const quantity = parseInt(document.getElementById('issue-quantity').value);
+            const isPermanent = document.getElementById('permanent-issue')?.checked || false;
 
-            // Validation
             if (!memberId || !quantity || quantity <= 0) {
                 showToast('Please enter valid details', 'error');
                 return;
@@ -1764,38 +1678,51 @@
             showLoading(true);
 
             try {
-                // 1. Insert issued record
                 const { error: issueError } = await supabaseClient
                     .from('issued_items')
                     .insert([{
                         item_id: selectedItem.id,
                         member_id: memberId,
                         quantity: quantity,
-                        status: 'issued',
+                        status: isPermanent ? 'permanent' : 'issued',
                         issued_date: new Date().toISOString()
                     }]);
 
                 if (issueError) throw issueError;
 
-                // 2. Update available quantity IMMEDIATELY
-                const newAvailable = Math.max(0, selectedItem.available - quantity);
+                let newAvailable, newTotal;
+
+                if (isPermanent) {
+                    newTotal = Math.max(0, selectedItem.total - quantity);
+                    newAvailable = Math.max(0, selectedItem.available - quantity);
+                } else {
+                    newTotal = selectedItem.total;
+                    newAvailable = Math.max(0, selectedItem.available - quantity);
+                }
 
                 const { error: updateError } = await supabaseClient
                     .from('items')
-                    .update({ available: newAvailable })
+                    .update({
+                        available: newAvailable,
+                        total: newTotal
+                    })
                     .eq('id', selectedItem.id);
 
                 if (updateError) throw updateError;
 
-                // 3. Update local selectedItem
                 selectedItem.available = newAvailable;
+                selectedItem.total = newTotal;
 
-                // 4. Refresh UI
                 closeDialog();
                 showItemDetail(selectedItem);
                 updateStats();
 
-                showToast(`✅ Issued ${quantity} items. Available: ${newAvailable}`, 'success');
+                const issueType = isPermanent ? 'permanently assigned' : 'issued';
+                const statusMsg = isPermanent
+                    ? `🔒 ${quantity} items ${issueType}. Total reduced to: ${newTotal}, Available: ${newAvailable}`
+                    : `✅ ${quantity} items ${issueType}. Available: ${newAvailable}`;
+
+                showToast(statusMsg, 'success');
 
             } catch (error) {
                 console.error('Error issuing item:', error);
@@ -1805,37 +1732,128 @@
             }
         }
 
-// ✅ UPDATED: Return Item Function (Keep existing confirmation for single returns)
-async function returnItem(issuedItemId, quantity) {
-    try {
-        const confirmed = await showConfirmDialog('Are you sure you want to return this item?', true);
-        if (!confirmed) return;
+        // ✅ FIXED: Fetch Permanent Issues
+        async function fetchPermanentIssues() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('issued_items')
+                    .select(`
+                        *,
+                        items(name, image),
+                        members(name, branch, photo)
+                    `)
+                    .eq('status', 'permanent')
+                    .order('issued_date', { ascending: false });
 
-        showLoading(true);
+                if (error) {
+                    console.error('Supabase error:', error);
+                    throw error;
+                }
 
-        // ✅ Use the silent function for actual work
-        await returnItemSilent(issuedItemId, quantity);
-
-        // 5. Refresh all views
-        updateStats();
-        populateCurrentIssuesTable();
-        populateHistoryTable();
-
-        if (selectedItem) {
-            showItemDetail(selectedItem);
+                return data || [];
+            } catch (error) {
+                console.error('Error fetching permanent issues:', error);
+                showToast('Error loading permanent issues', 'error');
+                return [];
+            }
         }
 
-        showToast(`✅ Item returned successfully!`, 'success');
+        // ✅ FIXED: Populate Permanent Issues Table
+        async function populatePermanentIssuesTable() {
+            const tbody = document.getElementById('permanent-issues-table');
+            if (!tbody) return;
 
-    } catch (error) {
-        console.error('Error returning item:', error);
-        showToast('Error returning item: ' + error.message, 'error');
-    } finally {
-        showLoading(false);
-    }
-}
+            tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center">Loading...</td></tr>';
 
-        
+            try {
+                const permanentIssues = await fetchPermanentIssues();
+                tbody.innerHTML = '';
+
+                if (permanentIssues.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center text-gray-500">No permanent issues found</td></tr>';
+                    return;
+                }
+
+                permanentIssues.forEach(issued => {
+                    const row = document.createElement('tr');
+                    row.className = 'border-t bg-purple-50';
+                    const issueDate = new Date(issued.issued_date).toLocaleDateString('en-US');
+
+                    const itemImage = issued.items?.image ?
+                        createImagePreview(issued.items.image, 'small') :
+                        '<div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center"><i data-lucide="package" class="w-6 h-6 text-gray-400"></i></div>';
+
+                    const memberPhoto = issued.members?.photo ?
+                        createImagePreview(issued.members.photo, 'small', true) :
+                        '<div class="profile-image bg-gray-200 flex items-center justify-center"><i data-lucide="user" class="w-6 h-6 text-gray-400"></i></div>';
+
+                    row.innerHTML = `
+                        <td class="p-3">${itemImage}</td>
+                        <td class="p-3">${issued.items?.name || 'Unknown'}</td>
+                        <td class="p-3">${issued.members?.name || 'Unknown'}</td>
+                        <td class="p-3">${memberPhoto}</td>
+                        <td class="p-3">${issued.members?.branch || 'Unknown'}</td>
+                        <td class="p-3">${issued.quantity}</td>
+                        <td class="p-3">${issueDate}</td>
+                        <td class="p-3">
+                            <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                                🔒 PERMANENT
+                            </span>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                lucide.createIcons();
+
+            } catch (error) {
+                console.error('Error in populatePermanentIssuesTable:', error);
+                tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center text-red-500">Error loading permanent issues</td></tr>';
+                showToast('Error loading permanent issues', 'error');
+            }
+        }
+
+        // Search permanent issues
+        const searchPermanentIssues = () => {
+            const term = document.getElementById('search-permanent').value.toLowerCase();
+            const rows = document.querySelectorAll('#permanent-issues-table tr');
+            rows.forEach(row => {
+                if (row.cells.length < 3) return;
+                const item = row.cells[1].textContent.toLowerCase();
+                const member = row.cells[2].textContent.toLowerCase();
+                row.style.display = (item.includes(term) || member.includes(term)) ? '' : 'none';
+            });
+        };
+
+        // ✅ UPDATED: Return Item Function
+        async function returnItem(issuedItemId, quantity) {
+            try {
+                const confirmed = await showConfirmDialog('Are you sure you want to return this item?', true);
+                if (!confirmed) return;
+
+                showLoading(true);
+
+                // ✅ SAHI CODE:
+                await returnItemSilent(issuedItemId, quantity);
+
+
+                updateStats();
+                populateCurrentIssuesTable();
+                populateHistoryTable();
+
+                if (selectedItem) {
+                    showItemDetail(selectedItem);
+                }
+
+                showToast(`✅ Item returned successfully!`, 'success');
+
+            } catch (error) {
+                console.error('Error returning item:', error);
+                showToast('Error returning item: ' + error.message, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
 
         // Highlight Search Terms
         function highlightSearchTerm(text, searchTerm) {
@@ -1845,7 +1863,6 @@ async function returnItem(issuedItemId, quantity) {
             return text.replace(regex, '<mark class="bg-yellow-200 px-1 rounded">$1</mark>');
         }
 
-        // Enhanced Items Search Function
         // ✅ Enhanced Items Search with Property Values
         async function searchItems() {
             const searchTerm = document.getElementById('search-items').value.toLowerCase().trim();
@@ -1857,7 +1874,6 @@ async function returnItem(issuedItemId, quantity) {
                 return;
             }
 
-            // Search in table rows
             const tableRows = document.querySelectorAll('#items-table-body tr');
             let hasVisibleRows = false;
 
@@ -1866,7 +1882,6 @@ async function returnItem(issuedItemId, quantity) {
 
                 let shouldShow = false;
 
-                // Search in all cells (name, properties, etc.)
                 Array.from(row.cells).forEach(cell => {
                     if (cell.textContent.toLowerCase().includes(searchTerm)) {
                         shouldShow = true;
@@ -1881,7 +1896,6 @@ async function returnItem(issuedItemId, quantity) {
                 }
             });
 
-            // If no rows found, show "no results"
             if (!hasVisibleRows) {
                 const tableBody = document.getElementById('items-table-body');
                 tableBody.innerHTML = `
@@ -1895,205 +1909,6 @@ async function returnItem(issuedItemId, quantity) {
                 </td>
             </tr>
         `;
-            }
-        }
-
-        // Global Item Search
-        async function performGlobalItemSearch(searchTerm) {
-            try {
-                showLoading(true);
-                const matchingItems = await searchItemsByProperty(searchTerm);
-
-                const itemsGrid = document.getElementById('items-grid');
-                itemsGrid.innerHTML = '';
-
-                if (matchingItems.length === 0) {
-                    itemsGrid.innerHTML = `
-                        <div class="col-span-full text-center p-8">
-                            <div class="text-6xl mb-4">🔍</div>
-                            <h3 class="text-xl font-semibold text-gray-600 mb-2">No Results Found</h3>
-                            <p class="text-gray-500">No items found matching "${searchTerm}"</p>
-                            <button onclick="clearItemSearch()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                                Show All Items
-                            </button>
-                        </div>
-                    `;
-                    return;
-                }
-
-                itemsGrid.innerHTML = `
-                    <div class="col-span-full mb-4">
-                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                            <h3 class="font-semibold text-blue-800">Search Results for "${searchTerm}"</h3>
-                            <p class="text-blue-600 text-sm">Found ${matchingItems.length} items across all categories</p>
-                            <button onclick="clearItemSearch()" class="mt-2 text-blue-500 hover:underline text-sm">
-                                ← Back to ${selectedCategory ? selectedCategory.name : 'Current Category'}
-                            </button>
-                        </div>
-                    </div>
-                `;
-
-                matchingItems.forEach(item => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.className = 'border rounded-lg p-4 hover:shadow-md cursor-pointer transition-shadow hover-lift relative group';
-
-                    const displayImage = item.image ?
-                        `<img src="${item.image}" class="w-16 h-16 object-cover rounded mb-2 mx-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="text-3xl mb-2 text-center hidden">🔌</div>` :
-                        '<div class="text-3xl mb-2 text-center">🔌</div>';
-
-                    let propertyHTML = '';
-                    if (item.property) {
-                        const highlightedProperty = highlightSearchTerm(item.property, searchTerm);
-                        propertyHTML += `<p class="text-xs text-blue-600 mb-1">Property: ${highlightedProperty}</p>`;
-                    }
-
-                    const categoryName = item.categories?.name || 'Unknown Category';
-
-                    itemDiv.innerHTML = `
-                        <div onclick="showItemDetailFromSearch(${JSON.stringify(item).replace(/"/g, '&quot;')})">
-                            ${displayImage}
-                            <h3 class="font-semibold mb-2 text-center">${highlightSearchTerm(item.name, searchTerm)}</h3>
-                            <p class="text-xs text-green-600 mb-1">Category: ${categoryName}</p>
-                            ${propertyHTML}
-                            <div class="text-sm text-gray-600 text-center">
-                                <p>Available: <span class="font-semibold text-green-600">${item.available}</span></p>
-                                <p>Total: <span class="font-semibold">${item.total}</span></p>
-                            </div>
-                        </div>
-                        <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <div class="relative">
-                                <button onclick="event.stopPropagation(); toggleMenu('item-menu-${item.id}', event)" class="p-1 hover:bg-gray-200 rounded">
-                                    <i data-lucide="more-vertical" class="w-4 h-4"></i>
-                                </button>
-                                <div id="item-menu-${item.id}" class="dropdown-menu">
-                                    <button onclick="editItem(${item.id})" class="dropdown-item">
-                                        <i data-lucide="edit" class="w-4 h-4 inline mr-2"></i>Edit
-                                    </button>
-                                    <button onclick="deleteItem(${item.id})" class="dropdown-item delete">
-                                        <i data-lucide="trash-2" class="w-4 h-4 inline mr-2"></i>Delete
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    itemsGrid.appendChild(itemDiv);
-                });
-
-                lucide.createIcons();
-
-            } catch (error) {
-                console.error('Error in global item search:', error);
-                showToast('Error searching items', 'error');
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        // Clear Item Search
-        function clearItemSearch() {
-            document.getElementById('search-items').value = '';
-            if (selectedCategory) {
-                populateItems(selectedCategory.id);
-            }
-        }
-
-        // Show Item Detail from Search Results
-        function showItemDetailFromSearch(item) {
-            selectedItem = item;
-
-            fetchCategories().then(categories => {
-                selectedCategory = categories.find(cat => cat.id === item.category_id);
-                showItemDetail(item);
-            });
-        }
-
-        // Enhanced Category Search
-        async function searchCategories() {
-            const term = document.getElementById('search-categories').value.toLowerCase().trim();
-
-            if (!term) {
-                populateCategories();
-                return;
-            }
-
-            const cards = document.querySelectorAll('#categories-grid > div');
-            let hasVisibleCards = false;
-
-            document.querySelectorAll('.search-indicator').forEach(indicator => {
-                indicator.remove();
-            });
-
-            cards.forEach(card => {
-                const title = card.querySelector('h3')?.textContent.toLowerCase();
-                const description = card.querySelector('p')?.textContent.toLowerCase();
-
-                let shouldShow = false;
-
-                if (title?.includes(term) || description?.includes(term)) {
-                    shouldShow = true;
-                }
-
-                if (shouldShow) {
-                    card.style.display = 'block';
-                    hasVisibleCards = true;
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-
-            if (!hasVisibleCards) {
-                await searchInItemsForCategories(term);
-            }
-        }
-
-        // Search Items to Find Relevant Categories
-        async function searchInItemsForCategories(searchTerm) {
-            try {
-                const matchingItems = await searchItemsByProperty(searchTerm);
-                const categoryIds = [...new Set(matchingItems.map(item => item.category_id))];
-
-                const cards = document.querySelectorAll('#categories-grid > div');
-                let hasResults = false;
-
-                cards.forEach(card => {
-                    const categoryData = card.querySelector('[onclick*="showItemsView"]');
-                    if (categoryData) {
-                        const categoryInfo = JSON.parse(categoryData.getAttribute('onclick').match(/showItemsView\((.*?)\)/)[1].replace(/&quot;/g, '"'));
-
-                        if (categoryIds.includes(categoryInfo.id)) {
-                            card.style.display = 'block';
-                            hasResults = true;
-
-                            if (!card.querySelector('.search-indicator')) {
-                                const indicator = document.createElement('div');
-                                indicator.className = 'search-indicator absolute top-0 left-0 bg-yellow-400 text-black text-xs px-2 py-1 rounded-br-lg';
-                                indicator.innerHTML = `<i data-lucide="search" class="w-3 h-3 inline mr-1"></i>Match`;
-                                card.style.position = 'relative';
-                                card.appendChild(indicator);
-                            }
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    }
-                });
-
-                if (!hasResults) {
-                    const grid = document.getElementById('categories-grid');
-                    grid.innerHTML = `
-                        <div class="col-span-full text-center p-8">
-                            <div class="text-6xl mb-4">🔍</div>
-                            <h3 class="text-xl font-semibold text-gray-600 mb-2">No Categories Found</h3>
-                            <p class="text-gray-500">No categories contain items matching "${searchTerm}"</p>
-                            <button onclick="populateCategories()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                                Show All Categories
-                            </button>
-                        </div>
-                    `;
-                }
-
-                lucide.createIcons();
-            } catch (error) {
-                console.error('Error searching in items for categories:', error);
             }
         }
 
@@ -2241,125 +2056,121 @@ async function returnItem(issuedItemId, quantity) {
             });
         }
 
-        // Show Member Details Page
-       // Show Member Details Page - WITH SEARCH FUNCTIONALITY
-async function showMemberDetails(memberId) {
-    showLoading(true);
+        // Show Member Details Page - WITH SEARCH FUNCTIONALITY
+        async function showMemberDetails(memberId) {
+            showLoading(true);
 
-    try {
-        const { data: memberData, error: memberErr } = await supabaseClient
-            .from('members')
-            .select('*')
-            .eq('id', memberId)
-            .single();
+            try {
+                const { data: memberData, error: memberErr } = await supabaseClient
+                    .from('members')
+                    .select('*')
+                    .eq('id', memberId)
+                    .single();
 
-        if (memberErr) throw memberErr;
+                if (memberErr) throw memberErr;
 
-        const { data: issuedItems, error: issuedErr } = await supabaseClient
-            .from('issued_items')
-            .select(`
-                *,
-                items(name, image, property)
-            `)
-            .eq('member_id', memberId)
-            .eq('status', 'issued');
+                const { data: issuedItems, error: issuedErr } = await supabaseClient
+                    .from('issued_items')
+                    .select(`
+                        *,
+                        items(name, image, property)
+                    `)
+                    .eq('member_id', memberId)
+                    .eq('status', 'issued');
 
-        if (issuedErr) throw issuedErr;
+                if (issuedErr) throw issuedErr;
 
-        selectedMember = memberData;
+                selectedMember = memberData;
 
-        document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-        document.getElementById('member-detail-section').classList.remove('hidden');
+                document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+                document.getElementById('member-detail-section').classList.remove('hidden');
 
-        const content = document.getElementById('member-detail-content');
-        const photoHTML = memberData.photo ?
-            `<img src="${memberData.photo}" class="profile-image-large" alt="Member Photo">` :
-            `<div class="profile-image-large bg-gray-200 flex items-center justify-center">
-                <i data-lucide="user" class="w-8 h-8 text-gray-400"></i>
-            </div>`;
+                const content = document.getElementById('member-detail-content');
+                const photoHTML = memberData.photo ?
+                    `<img src="${memberData.photo}" class="profile-image-large" alt="Member Photo">` :
+                    `<div class="profile-image-large bg-gray-200 flex items-center justify-center">
+                        <i data-lucide="user" class="w-8 h-8 text-gray-400"></i>
+                    </div>`;
 
-        content.innerHTML = `
-            <div class="member-detail-card">
-                <div class="flex items-center gap-6 mb-6">
-                    ${photoHTML}
-                    <div>
-                        <h1 class="text-3xl font-bold mb-2">${memberData.name}</h1>
-                        <div class="grid grid-cols-2 gap-4 text-sm opacity-90">
+                content.innerHTML = `
+                    <div class="member-detail-card">
+                        <div class="flex items-center gap-6 mb-6">
+                            ${photoHTML}
                             <div>
-                                <p><strong>Batch:</strong> ${memberData.batch}</p>
-                                <p><strong>Branch:</strong> ${memberData.branch}</p>
-                            </div>
-                            <div>
-                                <p><strong>Year:</strong> ${memberData.year}</p>
-                                <p><strong>Contact:</strong> ${memberData.contact}</p>
-                            </div>
-                        </div>
-                        ${memberData.address ? `<p class="mt-2"><strong>Address:</strong> ${memberData.address}</p>` : ''}
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-lg shadow p-6">
-                <h2 class="text-xl font-bold mb-4 text-gray-800">Currently Issued Items (${issuedItems.length})</h2>
-                
-                <!-- ✅ NEW: SEARCH BOX -->
-                ${issuedItems.length > 0 ? `
-                    <div class="mb-4">
-                        <input type="text" placeholder="Search issued items..." id="search-member-items"
-                            class="w-full p-3 border rounded-lg" oninput="searchMemberItems()">
-                        <p class="text-xs text-gray-500 mt-1">Search by item name or properties</p>
-                    </div>
-                ` : ''}
-                
-                <div id="member-items-container">
-                    ${issuedItems.length === 0 ?
-                        '<p class="text-gray-500 text-center py-8">No items currently issued to this member</p>' :
-                        issuedItems.map(item => `
-                            <div class="member-issued-item searchable-item" data-search-text="${item.items?.name || 'Unknown Item'} ${item.items?.property || ''}">
-                                <div class="flex items-center gap-4">
-                                    ${item.items?.image ?
-                                        `<img src="${item.items.image}" class="w-12 h-12 object-cover rounded" alt="Item">` :
-                                        `<div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
-                                            <i data-lucide="package" class="w-6 h-6 text-gray-400"></i>
-                                        </div>`
-                                    }
+                                <h1 class="text-3xl font-bold mb-2">${memberData.name}</h1>
+                                <div class="grid grid-cols-2 gap-4 text-sm opacity-90">
                                     <div>
-                                        <h3 class="font-semibold">${item.items?.name || 'Unknown Item'}</h3>
-                                        <p class="text-sm text-gray-600">Quantity: ${item.quantity}</p>
-                                        ${item.items?.property ? `<p class="text-sm text-blue-600">Property: ${item.items.property}</p>` : ''}
-                                        <p class="text-xs text-gray-500">Issued: ${new Date(item.issued_date).toLocaleDateString()}</p>
+                                        <p><strong>Batch:</strong> ${memberData.batch}</p>
+                                        <p><strong>Branch:</strong> ${memberData.branch}</p>
+                                    </div>
+                                    <div>
+                                        <p><strong>Year:</strong> ${memberData.year}</p>
+                                        <p><strong>Contact:</strong> ${memberData.contact}</p>
                                     </div>
                                 </div>
-                                <button onclick="smartReturnFromMember(${item.id}, ${item.quantity})" 
-                                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-sm">
-                                    Return
-                                </button>
+                                ${memberData.address ? `<p class="mt-2"><strong>Address:</strong> ${memberData.address}</p>` : ''}
                             </div>
-                        `).join('')
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h2 class="text-xl font-bold mb-4 text-gray-800">Currently Issued Items (${issuedItems.length})</h2>
+                        
+                        ${issuedItems.length > 0 ? `
+                            <div class="mb-4">
+                                <input type="text" placeholder="Search issued items..." id="search-member-items"
+                                    class="w-full p-3 border rounded-lg" oninput="searchMemberItems()">
+                                <p class="text-xs text-gray-500 mt-1">Search by item name or properties</p>
+                            </div>
+                        ` : ''}
+                        
+                        <div id="member-items-container">
+                            ${issuedItems.length === 0 ?
+                        '<p class="text-gray-500 text-center py-8">No items currently issued to this member</p>' :
+                        issuedItems.map(item => `
+                                <div class="member-issued-item searchable-item" data-search-text="${item.items?.name || 'Unknown Item'} ${item.items?.property || ''}">
+                                    <div class="flex items-center gap-4">
+                                        ${item.items?.image ?
+                                `<img src="${item.items.image}" class="w-12 h-12 object-cover rounded" alt="Item">` :
+                                `<div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
+                                                <i data-lucide="package" class="w-6 h-6 text-gray-400"></i>
+                                            </div>`
+                            }
+                                        <div>
+                                            <h3 class="font-semibold">${item.items?.name || 'Unknown Item'}</h3>
+                                            <p class="text-sm text-gray-600">Quantity: ${item.quantity}</p>
+                                            ${item.items?.property ? `<p class="text-sm text-blue-600">Property: ${item.items.property}</p>` : ''}
+                                            <p class="text-xs text-gray-500">Issued: ${new Date(item.issued_date).toLocaleDateString()}</p>
+                                        </div>
+                                    </div>
+                                    <button onclick="smartReturnFromMember(${item.id}, ${item.quantity})" 
+                                            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-sm">
+                                        Return
+                                    </button>
+                                </div>
+                            `).join('')
                     }
-                </div>
-                
-                <!-- ✅ NEW: NO RESULTS MESSAGE -->
-                <div id="no-results-message" class="hidden text-center py-8">
-                    <div class="text-4xl mb-2">🔍</div>
-                    <p class="text-gray-500">No items found matching your search</p>
-                    <button onclick="clearMemberItemsSearch()" class="mt-2 text-blue-500 hover:underline">
-                        Show All Items
-                    </button>
-                </div>
-            </div>
-        `;
+                        </div>
+                        
+                        <div id="no-results-message" class="hidden text-center py-8">
+                            <div class="text-4xl mb-2">🔍</div>
+                            <p class="text-gray-500">No items found matching your search</p>
+                            <button onclick="clearMemberItemsSearch()" class="mt-2 text-blue-500 hover:underline">
+                                Show All Items
+                            </button>
+                        </div>
+                    </div>
+                `;
 
-        lucide.createIcons();
+                lucide.createIcons();
 
-    } catch (error) {
-        console.error('Error loading member details:', error);
-        showToast('Error loading member details', 'error');
-    } finally {
-        showLoading(false);
-    }
-}
-
+            } catch (error) {
+                console.error('Error loading member details:', error);
+                showToast('Error loading member details', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
 
         // Smart Return from Member Detail Page
         async function smartReturnFromMember(issuedItemId, quantity) {
@@ -2416,308 +2227,287 @@ async function showMemberDetails(memberId) {
                 showLoading(false);
             }
         }
+
         // ✅ NEW: Search Member Items Function
-function searchMemberItems() {
-    const searchTerm = document.getElementById('search-member-items').value.toLowerCase().trim();
-    const items = document.querySelectorAll('.searchable-item');
-    const noResultsMsg = document.getElementById('no-results-message');
-    let hasVisibleItems = false;
+        function searchMemberItems() {
+            const searchTerm = document.getElementById('search-member-items').value.toLowerCase().trim();
+            const items = document.querySelectorAll('.searchable-item');
+            const noResultsMsg = document.getElementById('no-results-message');
+            let hasVisibleItems = false;
 
-    items.forEach(item => {
-        const searchText = item.getAttribute('data-search-text').toLowerCase();
-        
-        if (!searchTerm || searchText.includes(searchTerm)) {
-            item.style.display = 'flex';
-            hasVisibleItems = true;
-        } else {
-            item.style.display = 'none';
-        }
-    });
+            items.forEach(item => {
+                const searchText = item.getAttribute('data-search-text').toLowerCase();
 
-    // Show/hide no results message
-    if (noResultsMsg) {
-        if (!hasVisibleItems && searchTerm) {
-            noResultsMsg.classList.remove('hidden');
-        } else {
-            noResultsMsg.classList.add('hidden');
-        }
-    }
-}
+                if (!searchTerm || searchText.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                    hasVisibleItems = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
 
-// ✅ NEW: Clear Search Function
-function clearMemberItemsSearch() {
-    const searchInput = document.getElementById('search-member-items');
-    if (searchInput) {
-        searchInput.value = '';
-        searchMemberItems(); // Trigger search to show all items
-    }
-}
-
-
-        // Smart Return System for Admin Panel
-       // Smart Return System for Admin Panel - UPDATED FOR MULTIPLE SELECTION
-async function smartReturn(memberId, memberName) {
-    try {
-        const { data: issuedItems, error } = await supabaseClient
-            .from('issued_items')
-            .select(`
-                *,
-                items(name, image)
-            `)
-            .eq('member_id', memberId)
-            .eq('status', 'issued');
-
-        if (error) throw error;
-
-        if (issuedItems.length === 0) {
-            showToast('No items to return for this member', 'error');
-            return;
+            // Show/hide no results message
+            if (noResultsMsg) {
+                if (!hasVisibleItems && searchTerm) {
+                    noResultsMsg.classList.remove('hidden');
+                } else {
+                    noResultsMsg.classList.add('hidden');
+                }
+            }
         }
 
-        // ✅ ALWAYS SHOW DIALOG (even for single item) to allow multiple selection
-        openDialog('smartReturn');
-        const title = document.getElementById('dialog-title');
-        const content = document.getElementById('dialog-content');
+        // ✅ NEW: Clear Search Function
+        function clearMemberItemsSearch() {
+            const searchInput = document.getElementById('search-member-items');
+            if (searchInput) {
+                searchInput.value = '';
+                searchMemberItems(); // Trigger search to show all items
+            }
+        }
 
-        title.textContent = `Return Items - ${memberName}`;
-        content.innerHTML = `
-            <div class="space-y-4">
-                <p class="text-gray-600 mb-4">Select items to return (multiple selection allowed):</p>
-                
-                <!-- ✅ SELECT ALL BUTTON -->
-                <div class="flex gap-2 mb-4">
-                    <button type="button" onclick="selectAllItems(true)" class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
-                        ✅ Select All
-                    </button>
-                    <button type="button" onclick="selectAllItems(false)" class="bg-gray-500 text-white px-3 py-1 rounded text-sm hover:bg-gray-600">
-                        ❌ Clear All
-                    </button>
-                </div>
-                
-                <form id="return-selection-form">
-                    ${issuedItems.map(item => `
-                        <div class="return-item-option">
-                            <!-- ✅ CHANGED: radio to checkbox -->
-                            <input type="checkbox" name="return-item" value="${item.id}" data-quantity="${item.quantity}" id="item-${item.id}">
-                            <label for="item-${item.id}" class="flex items-center gap-3 flex-1 cursor-pointer">
-                                ${item.items?.image ?
+        // Smart Return System for Admin Panel - UPDATED FOR MULTIPLE SELECTION
+        async function smartReturn(memberId, memberName) {
+            try {
+                const { data: issuedItems, error } = await supabaseClient
+                    .from('issued_items')
+                    .select(`
+                        *,
+                        items(name, image)
+                    `)
+                    .eq('member_id', memberId)
+                    .eq('status', 'issued');
+
+                if (error) throw error;
+
+                if (issuedItems.length === 0) {
+                    showToast('No items to return for this member', 'error');
+                    return;
+                }
+
+                // ✅ ALWAYS SHOW DIALOG (even for single item) to allow multiple selection
+                openDialog('smartReturn');
+                const title = document.getElementById('dialog-title');
+                const content = document.getElementById('dialog-content');
+
+                title.textContent = `Return Items - ${memberName}`;
+                content.innerHTML = `
+                    <div class="space-y-4">
+                        <p class="text-gray-600 mb-4">Select items to return (multiple selection allowed):</p>
+                        
+                        <!-- ✅ SELECT ALL BUTTON -->
+                        <div class="flex gap-2 mb-4">
+                            <button type="button" onclick="selectAllItems(true)" class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
+                                ✅ Select All
+                            </button>
+                            <button type="button" onclick="selectAllItems(false)" class="bg-gray-500 text-white px-3 py-1 rounded text-sm hover:bg-gray-600">
+                                ❌ Clear All
+                            </button>
+                        </div>
+                        
+                        <form id="return-selection-form">
+                            ${issuedItems.map(item => `
+                                <div class="return-item-option">
+                                    <!-- ✅ CHANGED: radio to checkbox -->
+                                    <input type="checkbox" name="return-item" value="${item.id}" data-quantity="${item.quantity}" id="item-${item.id}">
+                                    <label for="item-${item.id}" class="flex items-center gap-3 flex-1 cursor-pointer">
+                                        ${item.items?.image ?
                         `<img src="${item.items.image}" class="w-10 h-10 object-cover rounded" alt="Item">` :
                         `<div class="w-10 h-10 bg-gray-200 rounded flex items-center justify-center">
                                                 <i data-lucide="package" class="w-5 h-5 text-gray-400"></i>
                                             </div>`
                     }
-                                <div>
-                                    <p class="font-medium">${item.items?.name || 'Unknown Item'}</p>
-                                    <p class="text-sm text-gray-500">Quantity: ${item.quantity}</p>
-                                    <p class="text-xs text-gray-400">Issued: ${new Date(item.issued_date).toLocaleDateString()}</p>
+                                        <div>
+                                            <p class="font-medium">${item.items?.name || 'Unknown Item'}</p>
+                                            <p class="text-sm text-gray-500">Quantity: ${item.quantity}</p>
+                                            <p class="text-xs text-gray-400">Issued: ${new Date(item.issued_date).toLocaleDateString()}</p>
+                                        </div>
+                                    </label>
                                 </div>
-                            </label>
+                            `).join('')}
+                        </form>
+                        
+                        <!-- ✅ UPDATED BUTTONS -->
+                        <div class="flex gap-3 mt-6">
+                            <button onclick="closeDialog()" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded hover:bg-gray-400">
+                                Cancel
+                            </button>
+                            <button onclick="processSmartReturn()" class="flex-1 bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+                                Return Selected Items
+                            </button>
                         </div>
-                    `).join('')}
-                </form>
-                
-                <!-- ✅ UPDATED BUTTONS -->
-                <div class="flex gap-3 mt-6">
-                    <button onclick="closeDialog()" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded hover:bg-gray-400">
-                        Cancel
-                    </button>
-                    <button onclick="processSmartReturn()" class="flex-1 bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
-                        Return Selected Items
-                    </button>
-                </div>
-                
-                <!-- ✅ COUNTER DISPLAY -->
-                <div id="selection-counter" class="text-center text-sm text-gray-600 mt-2">
-                    0 items selected
-                </div>
-            </div>
-        `;
+                        
+                        <!-- ✅ COUNTER DISPLAY -->
+                        <div id="selection-counter" class="text-center text-sm text-gray-600 mt-2">
+                            0 items selected
+                        </div>
+                    </div>
+                `;
 
-        lucide.createIcons();
-        
-        // ✅ ADD COUNTER FUNCTIONALITY
-        setupSelectionCounter();
+                lucide.createIcons();
 
-    } catch (error) {
-        console.error('Error in smart return:', error);
-        showToast('Error loading items for return', 'error');
-    }
-}
+                // ✅ ADD COUNTER FUNCTIONALITY
+                setupSelectionCounter();
 
-
-        // Process Smart Return Selection
-     // Process Smart Return Selection - UPDATED FOR MULTIPLE ITEMS
-// Process Smart Return Selection - SINGLE CONFIRMATION FOR ALL
-async function processSmartReturn() {
-    const form = document.getElementById('return-selection-form');
-    const selectedCheckboxes = form.querySelectorAll('input[name="return-item"]:checked');
-
-    if (selectedCheckboxes.length === 0) {
-        showToast('Please select at least one item to return', 'error');
-        return;
-    }
-
-    // ✅ SINGLE CONFIRMATION WITH ALL ITEM DETAILS
-    const itemNames = Array.from(selectedCheckboxes).map(checkbox => {
-        const label = document.querySelector(`label[for="item-${checkbox.value}"]`);
-        return label ? label.textContent.split('\n')[0].trim() : 'Unknown Item';
-    });
-
-    const itemList = itemNames.map(name => `• ${name}`).join('\n');
-    
-    const confirmed = await showConfirmDialog(
-        `Are you sure you want to return these ${selectedCheckboxes.length} items?\n\n${itemList}`, 
-        true
-    );
-    
-    if (!confirmed) return;
-
-    // ✅ PROCEED WITHOUT ASKING AGAIN
-    showLoading(true);
-    closeDialog();
-
-    let successCount = 0;
-    let failureCount = 0;
-    const results = [];
-
-    try {
-        // ✅ RETURN ALL ITEMS WITHOUT INDIVIDUAL CONFIRMATIONS
-        for (const checkbox of selectedCheckboxes) {
-            try {
-                const issuedItemId = parseInt(checkbox.value);
-                const quantity = parseInt(checkbox.dataset.quantity);
-                
-                console.log(`🔄 Returning item ID: ${issuedItemId}, Quantity: ${quantity}`);
-                
-                // ✅ CALL returnItemSilent (without confirmation)
-                await returnItemSilent(issuedItemId, quantity);
-                successCount++;
-                
-                results.push({
-                    id: issuedItemId,
-                    quantity: quantity,
-                    status: 'SUCCESS'
-                });
-                
             } catch (error) {
-                console.error(`❌ Failed to return item:`, error);
-                failureCount++;
-                
-                results.push({
-                    id: parseInt(checkbox.value),
-                    quantity: parseInt(checkbox.dataset.quantity),
-                    status: 'FAILED',
-                    error: error.message
-                });
+                console.error('Error in smart return:', error);
+                showToast('Error loading items for return', 'error');
             }
         }
 
-        // ✅ SINGLE SUMMARY MESSAGE
-        if (successCount > 0 && failureCount === 0) {
-            showToast(`✅ Successfully returned all ${successCount} items!`, 'success');
-        } else if (successCount > 0 && failureCount > 0) {
-            showToast(`⚠️ Returned ${successCount} items, ${failureCount} failed`, 'error');
-        } else {
-            showToast(`❌ Failed to return all items`, 'error');
+        // Process Smart Return Selection - SINGLE CONFIRMATION FOR ALL
+        async function processSmartReturn() {
+            const form = document.getElementById('return-selection-form');
+            const selectedCheckboxes = form.querySelectorAll('input[name="return-item"]:checked');
+
+            if (selectedCheckboxes.length === 0) {
+                showToast('Please select at least one item to return', 'error');
+                return;
+            }
+
+            // ✅ SINGLE CONFIRMATION WITH ALL ITEM DETAILS
+            const itemNames = Array.from(selectedCheckboxes).map(checkbox => {
+                const label = document.querySelector(`label[for="item-${checkbox.value}"]`);
+                return label ? label.textContent.split('\n')[0].trim() : 'Unknown Item';
+            });
+
+            const itemList = itemNames.map(name => `• ${name}`).join('\n');
+
+            const confirmed = await showConfirmDialog(
+                `Are you sure you want to return these ${selectedCheckboxes.length} items?\n\n${itemList}`,
+                true
+            );
+
+            if (!confirmed) return;
+
+            // ✅ PROCEED WITHOUT ASKING AGAIN
+            showLoading(true);
+            closeDialog();
+
+            let successCount = 0;
+            let failureCount = 0;
+
+            try {
+                // ✅ RETURN ALL ITEMS WITHOUT INDIVIDUAL CONFIRMATIONS
+                for (const checkbox of selectedCheckboxes) {
+                    try {
+                        const issuedItemId = parseInt(checkbox.value);
+                        const quantity = parseInt(checkbox.dataset.quantity);
+
+                        console.log(`🔄 Returning item ID: ${issuedItemId}, Quantity: ${quantity}`);
+
+                        // ✅ CALL returnItemSilent (without confirmation)
+                        await returnItemSilent(issuedItemId, quantity);
+                        successCount++;
+
+                    } catch (error) {
+                        console.error(`❌ Failed to return item:`, error);
+                        failureCount++;
+                    }
+                }
+
+                // ✅ SINGLE SUMMARY MESSAGE
+                if (successCount > 0 && failureCount === 0) {
+                    showToast(`✅ Successfully returned all ${successCount} items!`, 'success');
+                } else if (successCount > 0 && failureCount > 0) {
+                    showToast(`⚠️ Returned ${successCount} items, ${failureCount} failed`, 'error');
+                } else {
+                    showToast(`❌ Failed to return all items`, 'error');
+                }
+
+            } catch (error) {
+                console.error('💥 Critical error in processSmartReturn:', error);
+                showToast('Error processing returns', 'error');
+            } finally {
+                showLoading(false);
+                updateStats();
+                populateCurrentIssuesTable();
+            }
         }
 
-        console.log('📊 Return Results:', results);
+        // ✅ NEW: Silent Return (No Confirmation)
+        async function returnItemSilent(issuedItemId, quantity) {
+            // 1. Get item info
+            const { data: issuedItemData, error: getError } = await supabaseClient
+                .from('issued_items')
+                .select('item_id')
+                .eq('id', issuedItemId)
+                .single();
 
-    } catch (error) {
-        console.error('💥 Critical error in processSmartReturn:', error);
-        showToast('Error processing returns', 'error');
-    } finally {
-        showLoading(false);
-        updateStats();
-        populateCurrentIssuesTable();
-    }
-}
-// ✅ NEW: Silent Return (No Confirmation)
-async function returnItemSilent(issuedItemId, quantity) {
-    // 1. Get item info
-    const { data: issuedItemData, error: getError } = await supabaseClient
-        .from('issued_items')
-        .select('item_id')
-        .eq('id', issuedItemId)
-        .single();
+            if (getError) throw getError;
 
-    if (getError) throw getError;
+            // 2. Update issued status
+            const { error: returnError } = await supabaseClient
+                .from('issued_items')
+                .update({
+                    status: 'returned',
+                    returned_date: new Date().toISOString()
+                })
+                .eq('id', issuedItemId);
 
-    // 2. Update issued status
-    const { error: returnError } = await supabaseClient
-        .from('issued_items')
-        .update({
-            status: 'returned',
-            returned_date: new Date().toISOString()
-        })
-        .eq('id', issuedItemId);
+            if (returnError) throw returnError;
 
-    if (returnError) throw returnError;
+            // 3. Update available quantity IMMEDIATELY
+            const { data: currentItem, error: itemError } = await supabaseClient
+                .from('items')
+                .select('available, total')
+                .eq('id', issuedItemData.item_id)
+                .single();
 
-    // 3. Update available quantity IMMEDIATELY
-    const { data: currentItem, error: itemError } = await supabaseClient
-        .from('items')
-        .select('available, total')
-        .eq('id', issuedItemData.item_id)
-        .single();
+            if (itemError) throw itemError;
 
-    if (itemError) throw itemError;
+            const newAvailable = Math.min(currentItem.total, currentItem.available + quantity);
 
-    const newAvailable = Math.min(currentItem.total, currentItem.available + quantity);
+            const { error: updateError } = await supabaseClient
+                .from('items')
+                .update({ available: newAvailable })
+                .eq('id', issuedItemData.item_id);
 
-    const { error: updateError } = await supabaseClient
-        .from('items')
-        .update({ available: newAvailable })
-        .eq('id', issuedItemData.item_id);
+            if (updateError) throw updateError;
 
-    if (updateError) throw updateError;
+            // 4. Update selectedItem if same
+            if (selectedItem && selectedItem.id === issuedItemData.item_id) {
+                selectedItem.available = newAvailable;
+            }
 
-    // 4. Update selectedItem if same
-    if (selectedItem && selectedItem.id === issuedItemData.item_id) {
-        selectedItem.available = newAvailable;
-    }
-
-    return { itemId: issuedItemData.item_id, newAvailable };
-}
-
+            return { itemId: issuedItemData.item_id, newAvailable };
+        }
 
         // ✅ SELECT ALL FUNCTIONALITY
-function selectAllItems(selectAll) {
-    const checkboxes = document.querySelectorAll('input[name="return-item"]');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = selectAll;
-    });
-    updateSelectionCounter();
-}
-
-// ✅ SELECTION COUNTER
-function setupSelectionCounter() {
-    const checkboxes = document.querySelectorAll('input[name="return-item"]');
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', updateSelectionCounter);
-    });
-    updateSelectionCounter(); // Initial count
-}
-
-function updateSelectionCounter() {
-    const selectedCount = document.querySelectorAll('input[name="return-item"]:checked').length;
-    const totalCount = document.querySelectorAll('input[name="return-item"]').length;
-    const counter = document.getElementById('selection-counter');
-    
-    if (counter) {
-        if (selectedCount === 0) {
-            counter.textContent = 'No items selected';
-            counter.className = 'text-center text-sm text-gray-600 mt-2';
-        } else if (selectedCount === totalCount) {
-            counter.textContent = `All ${selectedCount} items selected`;
-            counter.className = 'text-center text-sm text-green-600 mt-2 font-semibold';
-        } else {
-            counter.textContent = `${selectedCount} of ${totalCount} items selected`;
-            counter.className = 'text-center text-sm text-blue-600 mt-2 font-semibold';
+        function selectAllItems(selectAll) {
+            const checkboxes = document.querySelectorAll('input[name="return-item"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAll;
+            });
+            updateSelectionCounter();
         }
-    }
-}
 
+        // ✅ SELECTION COUNTER
+        function setupSelectionCounter() {
+            const checkboxes = document.querySelectorAll('input[name="return-item"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateSelectionCounter);
+            });
+            updateSelectionCounter(); // Initial count
+        }
+
+        function updateSelectionCounter() {
+            const selectedCount = document.querySelectorAll('input[name="return-item"]:checked').length;
+            const totalCount = document.querySelectorAll('input[name="return-item"]').length;
+            const counter = document.getElementById('selection-counter');
+
+            if (counter) {
+                if (selectedCount === 0) {
+                    counter.textContent = 'No items selected';
+                    counter.className = 'text-center text-sm text-gray-600 mt-2';
+                } else if (selectedCount === totalCount) {
+                    counter.textContent = `All ${selectedCount} items selected`;
+                    counter.className = 'text-center text-sm text-green-600 mt-2 font-semibold';
+                } else {
+                    counter.textContent = `${selectedCount} of ${totalCount} items selected`;
+                    counter.className = 'text-center text-sm text-blue-600 mt-2 font-semibold';
+                }
+            }
+        }
 
         // Add Property Input Field
         function addPropertyInput(containerId = 'properties-list') {
@@ -2935,7 +2725,7 @@ function updateSelectionCounter() {
             }
         }
 
-        // Admin tab switching function
+        // ✅ FIXED: Admin tab switching function
         function setActiveAdminTab(tab) {
             activeAdminTab = tab;
 
@@ -2957,6 +2747,9 @@ function updateSelectionCounter() {
             } else if (tab === 'history') {
                 document.getElementById('history-content').classList.remove('hidden');
                 populateHistoryTable();
+            } else if (tab === 'permanent') {
+                document.getElementById('permanent-issues-content').classList.remove('hidden');
+                populatePermanentIssuesTable();
             }
         }
 
@@ -3390,31 +3183,32 @@ function updateSelectionCounter() {
             }
         }
 
-        // Fetch current issued items
-        async function fetchCurrentIssues() {
-            try {
-                const { data, error } = await supabaseClient
-                    .from('issued_items')
-                    .select(`
-                        *,
-                        items(name, image),
-                        members(name, branch, photo)
-                    `)
-                    .eq('status', 'issued')
-                    .order('issued_date', { ascending: false });
+        // ✅ FIXED: Fetch current issued items (including permanent)
+      // ✅ SAHI CODE:
+async function fetchCurrentIssues() {
+    try {
+        const { data, error } = await supabaseClient
+            .from('issued_items')
+            .select(`
+                *,
+                items(name, image),
+                members(name, branch, photo)
+            `)
+            .eq('status', 'issued')  // ✅ केवल 'issued' items
+            .order('issued_date', { ascending: false });
 
-                if (error) {
-                    console.error('Supabase error:', error);
-                    throw error;
-                }
-
-                return data || [];
-            } catch (error) {
-                console.error('Error fetching current issues:', error);
-                showToast('Error loading current issues', 'error');
-                return [];
-            }
+        if (error) {
+            console.error('Supabase error:', error);
+            throw error;
         }
+
+        return data || [];
+    } catch (error) {
+        console.error('Error fetching current issues:', error);
+        showToast('Error loading current issues', 'error');
+        return [];
+    }
+}
 
         // Fetch history (returned items)
         async function fetchHistory() {
@@ -3442,7 +3236,7 @@ function updateSelectionCounter() {
             }
         }
 
-        // CRUD Functions
+        // ✅ FIXED: CRUD Functions - DUPLICATE PREVENTION
         async function addMember() {
             const name = document.getElementById('member-name').value.trim();
             const batch = document.getElementById('member-batch').value.trim();
@@ -3461,6 +3255,22 @@ function updateSelectionCounter() {
             showLoading(true);
 
             try {
+                // ✅ CHECK FOR DUPLICATE MEMBER NAME
+                const { data: existingMember, error: checkError } = await supabaseClient
+                    .from('members')
+                    .select('id, name')
+                    .eq('name', name)
+                    .single();
+
+                if (checkError && checkError.code !== 'PGRST116') { // PGRST116 = no rows found
+                    throw checkError;
+                }
+
+                if (existingMember) {
+                    showToast(`❌ Member "${name}" already exists! Please use a different name.`, 'error');
+                    return;
+                }
+
                 const { data, error } = await supabaseClient
                     .from('members')
                     .insert([{
@@ -3478,17 +3288,17 @@ function updateSelectionCounter() {
                 closeDialog();
                 populateMembersTable();
                 updateStats();
-                showToast('New member added successfully');
+                showToast(`✅ Member "${name}" added successfully`);
 
             } catch (error) {
                 console.error('Error adding member:', error);
-                showToast('Error adding member', 'error');
+                showToast('Error adding member: ' + error.message, 'error');
             } finally {
                 showLoading(false);
             }
         }
 
-        // Add Category with Properties
+        // ✅ FIXED: Add Category with Properties - DUPLICATE PREVENTION
         async function addCategory() {
             const name = document.getElementById('category-name').value.trim();
             const description = document.getElementById('category-description').value.trim();
@@ -3509,6 +3319,22 @@ function updateSelectionCounter() {
             showLoading(true);
 
             try {
+                // ✅ CHECK FOR DUPLICATE CATEGORY NAME
+                const { data: existingCategory, error: checkError } = await supabaseClient
+                    .from('categories')
+                    .select('id, name')
+                    .eq('name', name)
+                    .single();
+
+                if (checkError && checkError.code !== 'PGRST116') { // No rows found is OK
+                    throw checkError;
+                }
+
+                if (existingCategory) {
+                    showToast(`❌ Category "${name}" already exists! Please use a different name.`, 'error');
+                    return;
+                }
+
                 console.log('💾 Saving category with properties:', properties);
 
                 const { data, error } = await supabaseClient
@@ -3525,17 +3351,17 @@ function updateSelectionCounter() {
 
                 closeDialog();
                 populateCategories();
-                showToast('New category added successfully');
+                showToast(`✅ Category "${name}" added successfully`);
 
             } catch (error) {
                 console.error('Error adding category:', error);
-                showToast('Error adding category', 'error');
+                showToast('Error adding category: ' + error.message, 'error');
             } finally {
                 showLoading(false);
             }
         }
 
-        // Add Item with Property Values
+        // ✅ FIXED: Add Item with Property Values - DUPLICATE PREVENTION
         async function addItem() {
             const getDialogInputValue = (id) => {
                 const element = document.querySelector(`#dialog-content input#${id}`);
@@ -3548,22 +3374,6 @@ function updateSelectionCounter() {
 
             const name = getDialogInputValue('item-name');
             const totalStr = getDialogInputValue('item-total');
-
-            const propertyValueInputs = document.querySelectorAll('#item-property-values-list .item-property-value');
-            const propertyValues = [];
-
-            propertyValueInputs.forEach(input => {
-                const propertyName = input.getAttribute('data-property-name');
-                const value = input.value.trim();
-                if (propertyName && value) {
-                    propertyValues.push({
-                        propertyName: propertyName,
-                        value: value
-                    });
-                }
-            });
-
-            const propertyString = propertyValues.map(pv => `${pv.propertyName}: ${pv.value}`).join(', ');
 
             if (!name || name.length === 0) {
                 showToast('Please enter item name', 'error');
@@ -3581,12 +3391,45 @@ function updateSelectionCounter() {
                 return;
             }
 
-            const imageEl = document.querySelector('#dialog-content img#item-image-preview');
-            const image = (imageEl && imageEl.src && imageEl.src !== 'data:,') ? imageEl.src : null;
-
             showLoading(true);
 
             try {
+                // ✅ CHECK FOR DUPLICATE ITEM NAME IN SAME CATEGORY
+                const { data: existingItem, error: checkError } = await supabaseClient
+                    .from('items')
+                    .select('id, name')
+                    .eq('name', name)
+                    .eq('category_id', selectedCategory.id)
+                    .single();
+
+                if (checkError && checkError.code !== 'PGRST116') { // No rows found is OK
+                    throw checkError;
+                }
+
+                if (existingItem) {
+                    showToast(`❌ Item "${name}" already exists in this category! Please use a different name.`, 'error');
+                    return;
+                }
+
+                const propertyValueInputs = document.querySelectorAll('#item-property-values-list .item-property-value');
+                const propertyValues = [];
+
+                propertyValueInputs.forEach(input => {
+                    const propertyName = input.getAttribute('data-property-name');
+                    const value = input.value.trim();
+                    if (propertyName && value) {
+                        propertyValues.push({
+                            propertyName: propertyName,
+                            value: value
+                        });
+                    }
+                });
+
+                const propertyString = propertyValues.map(pv => `${pv.propertyName}: ${pv.value}`).join(', ');
+
+                const imageEl = document.querySelector('#dialog-content img#item-image-preview');
+                const image = (imageEl && imageEl.src && imageEl.src !== 'data:,') ? imageEl.src : null;
+
                 const { data, error } = await supabaseClient
                     .from('items')
                     .insert([{
@@ -3609,7 +3452,7 @@ function updateSelectionCounter() {
                 closeDialog();
                 await populateItems(selectedCategory.id);
                 await updateStats();
-                showToast('Item added successfully', 'success');
+                showToast(`✅ Item "${name}" added successfully`, 'success');
 
             } catch (error) {
                 console.error('💥 Unexpected error:', error);
@@ -3795,18 +3638,15 @@ function updateSelectionCounter() {
             }
         }
 
-        // ✅ FIXED: Populate Items with Fixed Menu
-        // 🔥 ENHANCED TABLE WITH PERFECT PROPERTY COLUMNS
+        // ✅ ENHANCED TABLE WITH SIMPLE NUMBERS - NO COLORS
         async function populateItems(categoryId) {
             const tableBody = document.getElementById('items-table-body');
             const tableHead = document.getElementById('items-table-head');
             if (!tableBody || !tableHead) return;
 
-            // Show loading
             tableBody.innerHTML = '<tr><td colspan="10" class="p-2 text-center text-sm">Loading items...</td></tr>';
 
             try {
-                // ✅ STEP 1: Get items with full data
                 const items = await fetchItems(categoryId);
 
                 if (items.length === 0) {
@@ -3856,13 +3696,10 @@ function updateSelectionCounter() {
             </th>
         `;
 
-                // ✅ Add property columns with distinct colors
-                categoryProperties.forEach((prop, index) => {
-                    const colorClass = index % 3 === 0 ? 'from-green-500 to-green-600' :
-                        index % 3 === 1 ? 'from-purple-500 to-purple-600' :
-                            'from-yellow-500 to-yellow-600';
+                // ✅ Add property columns with simple styling
+                categoryProperties.forEach((prop) => {
                     headerHTML += `
-                <th class="p-2 text-left border bg-gradient-to-r ${colorClass} text-white text-xs font-bold">
+                <th class="p-2 text-left border bg-gradient-to-r from-gray-500 to-gray-600 text-white text-xs font-bold">
                     <i data-lucide="settings" class="w-3 h-3 inline mr-1"></i>${prop}
                 </th>
             `;
@@ -3880,7 +3717,7 @@ function updateSelectionCounter() {
                 const headerRow = tableHead.querySelector('tr');
                 headerRow.innerHTML = headerHTML;
 
-                // ✅ STEP 4: Build table body with property values
+                // ✅ STEP 4: Build table body with SIMPLE NUMBERS
                 tableBody.innerHTML = '';
 
                 items.forEach(item => {
@@ -3889,8 +3726,7 @@ function updateSelectionCounter() {
 
                     // ✅ Image column
                     const imageHTML = item.image ?
-                        `<img src="${item.image}" class="w-10 h-10 object-cover rounded-lg border-2 border-gray-200" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                 <div class="text-2xl text-center hidden">🔌</div>` :
+                        `<img src="${item.image}" class="w-10 h-10 object-cover rounded-lg border-2 border-gray-200" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="text-2xl text-center hidden">🔌</div>` :
                         '<div class="text-2xl text-center">🔌</div>';
 
                     // ✅ Get property values for this item (ENHANCED METHOD)
@@ -3920,32 +3756,26 @@ function updateSelectionCounter() {
                         });
                     }
 
-                    console.log(`🔍 Item "${item.name}" properties:`, itemProperties);
-
-                    // ✅ Build property columns with enhanced styling
+                    // ✅ Build property columns with SIMPLE NUMBERS - NO BACKGROUND COLORS
                     let propertyColumnsHTML = '';
-                    categoryProperties.forEach((prop, index) => {
+                    categoryProperties.forEach((prop) => {
                         const value = itemProperties[prop] || '-';
-                        const bgColor = value === '-' ? 'bg-gray-100 text-gray-500' :
-                            index % 3 === 0 ? 'bg-green-100 text-green-800' :
-                                index % 3 === 1 ? 'bg-purple-100 text-purple-800' :
-                                    'bg-yellow-100 text-yellow-800';
 
                         propertyColumnsHTML += `
                     <td class="p-2 border text-center">
-                        <span class="${bgColor} px-2 py-1 rounded-full text-xs font-semibold">
+                        <span class="simple-number">
                             ${value}
                         </span>
                     </td>
                 `;
                     });
 
-                    // ✅ Available status with enhanced styling
+                    // ✅ Available status with simple styling
                     const availableStatus = item.available <= 0 ?
                         '<span class="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">OUT OF STOCK</span>' :
                         item.available <= 5 ?
                             `<span class="bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-bold">${item.available} (Low)</span>` :
-                            `<span class="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold">${item.available}</span>`;
+                            `<span class="simple-number">${item.available}</span>`;
 
                     // ✅ Build complete row
                     row.innerHTML = `
@@ -3999,62 +3829,61 @@ function updateSelectionCounter() {
             }
         }
 
+        // ✅ FIXED: Populate Current Issues Table
+// ✅ COMPLETE FIXED: Populate Current Issues Table (केवल issued items)
+async function populateCurrentIssuesTable() {
+    const tbody = document.getElementById('current-issues-table');
+    if (!tbody) return;
 
+    tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center">Loading...</td></tr>';
 
-        // Populate Current Issues Table
-        async function populateCurrentIssuesTable() {
-            const tbody = document.getElementById('current-issues-table');
-            if (!tbody) return;
+    try {
+        const currentIssues = await fetchCurrentIssues();
+        tbody.innerHTML = '';
 
-            tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center">Loading...</td></tr>';
-
-            try {
-                const currentIssues = await fetchCurrentIssues();
-                tbody.innerHTML = '';
-
-                if (currentIssues.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center text-gray-500">No currently issued items</td></tr>';
-                    return;
-                }
-
-                currentIssues.forEach(issued => {
-                    const row = document.createElement('tr');
-                    row.className = 'border-t';
-                    const issueDate = new Date(issued.issued_date).toLocaleDateString('en-US');
-
-                    const itemImage = issued.items?.image ?
-                        createImagePreview(issued.items.image, 'small') :
-                        '<div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center"><i data-lucide="package" class="w-6 h-6 text-gray-400"></i></div>';
-
-                    const memberPhoto = issued.members?.photo ?
-                        createImagePreview(issued.members.photo, 'small', true) :
-                        '<div class="profile-image bg-gray-200 flex items-center justify-center"><i data-lucide="user" class="w-6 h-6 text-gray-400"></i></div>';
-
-                    row.innerHTML = `
-                        <td class="p-3">${itemImage}</td>
-                        <td class="p-3">${issued.items?.name || 'Unknown'}</td>
-                        <td class="p-3">${issued.members?.name || 'Unknown'}</td>
-                        <td class="p-3">${memberPhoto}</td>
-                        <td class="p-3">${issued.members?.branch || 'Unknown'}</td>
-                        <td class="p-3">${issued.quantity}</td>
-                        <td class="p-3">${issueDate}</td>
-                        <td class="p-3">
-                            <button onclick="smartReturn(${issued.member_id}, '${issued.members?.name || 'Unknown'}')" class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">
-                                Return
-                            </button>
-                        </td>
-                    `;
-                    tbody.appendChild(row);
-                });
-
-                lucide.createIcons();
-
-            } catch (error) {
-                console.error('Error in populateCurrentIssuesTable:', error);
-                tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center text-red-500">Error loading current issues</td></tr>';
-                showToast('Error loading current issues', 'error');
-            }
+        if (currentIssues.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center text-gray-500">No currently issued items</td></tr>';
+            return;
         }
+
+        currentIssues.forEach(issued => {
+            const row = document.createElement('tr');
+            row.className = 'border-t';  // ✅ Simple styling (no permanent check needed)
+            
+            const issueDate = new Date(issued.issued_date).toLocaleDateString('en-US');
+
+            const itemImage = issued.items?.image ?
+                createImagePreview(issued.items.image, 'small') :
+                '<div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center"><i data-lucide="package" class="w-6 h-6 text-gray-400"></i></div>';
+
+            const memberPhoto = issued.members?.photo ?
+                createImagePreview(issued.members.photo, 'small', true) :
+                '<div class="profile-image bg-gray-200 flex items-center justify-center"><i data-lucide="user" class="w-6 h-6 text-gray-400"></i></div>';
+
+            // ✅ Simple action button (केवल return button - no permanent check)
+            const actionButton = `<button onclick="smartReturn(${issued.member_id}, '${issued.members?.name || 'Unknown'}')" class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">Return</button>`;
+
+            row.innerHTML = `
+                <td class="p-3">${itemImage}</td>
+                <td class="p-3">${issued.items?.name || 'Unknown'}</td>
+                <td class="p-3">${issued.members?.name || 'Unknown'}</td>
+                <td class="p-3">${memberPhoto}</td>
+                <td class="p-3">${issued.members?.branch || 'Unknown'}</td>
+                <td class="p-3">${issued.quantity}</td>
+                <td class="p-3">${issueDate}</td>
+                <td class="p-3">${actionButton}</td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        lucide.createIcons();
+
+    } catch (error) {
+        console.error('Error in populateCurrentIssuesTable:', error);
+        tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center text-red-500">Error loading current issues</td></tr>';
+        showToast('Error loading current issues', 'error');
+    }
+}
 
         // Populate History Table
         async function populateHistoryTable() {
@@ -4382,6 +4211,15 @@ function updateSelectionCounter() {
                                 ${members.map(member => `<option value="${member.id}">${member.name} (${member.branch})</option>`).join('')}
                             </select>
                             <input type="number" placeholder="Quantity" id="issue-quantity" class="w-full p-2 border rounded" min="1" max="${selectedItem ? selectedItem.available : 0}" required />
+                            
+                            <!-- ✅ NEW: Permanent Issue Option -->
+                            <div class="flex items-center gap-2 p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                                <input type="checkbox" id="permanent-issue" class="rounded">
+                                <label for="permanent-issue" class="text-sm text-orange-800">
+                                    <strong>🔒 Permanent Issue</strong> (Item will not be returned & quantity will be deducted permanently)
+                                </label>
+                            </div>
+                            
                             <p class="text-sm text-gray-500">Available: ${selectedItem ? selectedItem.available : 0}</p>
                             <button onclick="issueItem()" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">
                                 Issue Item
@@ -4442,6 +4280,12 @@ function updateSelectionCounter() {
                 setActiveSection('dashboard');
                 await updateStats(); // Initial stats load
 
+                // ✅ AUTOMATIC CALCULATION FIX ON STARTUP
+                console.log('🔧 Running automatic calculation fix...');
+                setTimeout(async () => {
+                    await fixItemCalculations();
+                }, 2000); // Wait 2 seconds after app loads
+
                 if (!authListenerSetup) {
                     authListenerSetup = true;
                     supabaseClient.auth.onAuthStateChange(async (event, session) => {
@@ -4469,6 +4313,207 @@ function updateSelectionCounter() {
             }
         }
 
+        // ✅ ENHANCED SEARCH FUNCTIONS FOR BETTER UX
+        async function searchItemsByProperty(searchTerm) {
+            try {
+                const { data: items, error } = await supabaseClient
+                    .from('items')
+                    .select(`
+                        *,
+                        categories(name)
+                    `);
+
+                if (error) throw error;
+
+                return items.filter(item => {
+                    // Search in item name
+                    if (item.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+                        return true;
+                    }
+
+                    // Search in property string
+                    if (item.property && item.property.toLowerCase().includes(searchTerm.toLowerCase())) {
+                        return true;
+                    }
+
+                    // Search in property values array
+                    if (item.property_values && Array.isArray(item.property_values)) {
+                        return item.property_values.some(pv =>
+                            (pv.propertyName && pv.propertyName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                            (pv.value && pv.value.toLowerCase().includes(searchTerm.toLowerCase()))
+                        );
+                    }
+
+                    return false;
+                }) || [];
+
+            } catch (error) {
+                console.error('Error searching items:', error);
+                return [];
+            }
+        }
+
+        // Enhanced Category Search
+        async function searchCategories() {
+            const term = document.getElementById('search-categories').value.toLowerCase().trim();
+
+            if (!term) {
+                populateCategories();
+                return;
+            }
+
+            const cards = document.querySelectorAll('#categories-grid > div');
+            let hasVisibleCards = false;
+
+            // Remove existing search indicators
+            document.querySelectorAll('.search-indicator').forEach(indicator => {
+                indicator.remove();
+            });
+
+            cards.forEach(card => {
+                const title = card.querySelector('h3')?.textContent.toLowerCase();
+                const description = card.querySelector('p')?.textContent.toLowerCase();
+
+                let shouldShow = false;
+
+                if (title?.includes(term) || description?.includes(term)) {
+                    shouldShow = true;
+                }
+
+                if (shouldShow) {
+                    card.style.display = 'block';
+                    hasVisibleCards = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (!hasVisibleCards) {
+                await searchInItemsForCategories(term);
+            }
+        }
+
+        // Search Items to Find Relevant Categories
+        async function searchInItemsForCategories(searchTerm) {
+            try {
+                const matchingItems = await searchItemsByProperty(searchTerm);
+                const categoryIds = [...new Set(matchingItems.map(item => item.category_id))];
+
+                const cards = document.querySelectorAll('#categories-grid > div');
+                let hasResults = false;
+
+                cards.forEach(card => {
+                    const categoryData = card.querySelector('[onclick*="showItemsView"]');
+                    if (categoryData) {
+                        const categoryInfo = JSON.parse(categoryData.getAttribute('onclick').match(/showItemsView\((.*?)\)/)[1].replace(/&quot;/g, '"'));
+
+                        if (categoryIds.includes(categoryInfo.id)) {
+                            card.style.display = 'block';
+                            hasResults = true;
+
+                            // Add search indicator
+                            if (!card.querySelector('.search-indicator')) {
+                                const indicator = document.createElement('div');
+                                indicator.className = 'search-indicator absolute top-0 left-0 bg-yellow-400 text-black text-xs px-2 py-1 rounded-br-lg';
+                                indicator.innerHTML = `<i data-lucide="search" class="w-3 h-3 inline mr-1"></i>Match`;
+                                card.style.position = 'relative';
+                                card.appendChild(indicator);
+                            }
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+
+                if (!hasResults) {
+                    const grid = document.getElementById('categories-grid');
+                    grid.innerHTML = `
+                        <div class="col-span-full text-center p-8">
+                            <div class="text-6xl mb-4">🔍</div>
+                            <h3 class="text-xl font-semibold text-gray-600 mb-2">No Categories Found</h3>
+                            <p class="text-gray-500">No categories contain items matching "${searchTerm}"</p>
+                            <button onclick="populateCategories()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                                Show All Categories
+                            </button>
+                        </div>
+                    `;
+                }
+
+                lucide.createIcons();
+            } catch (error) {
+                console.error('Error searching in items for categories:', error);
+            }
+        }
+
+        // ✅ EDIT CATEGORY FUNCTION
+        async function editCategory(categoryId) {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('categories')
+                    .select('*')
+                    .eq('id', categoryId)
+                    .single();
+
+                if (error) throw error;
+
+                openDialog('editCategory');
+                document.getElementById('dialog-title').textContent = 'Edit Category';
+                const content = document.getElementById('dialog-content');
+
+                let propertiesHTML = '';
+                if (data.properties && data.properties.length > 0) {
+                    propertiesHTML = data.properties.map(prop => `
+                        <div class="flex items-center gap-2">
+                            <input type="text" class="property-input flex-1 p-2 border rounded" value="${prop}" placeholder="Property name">
+                            <button type="button" onclick="removePropertyInput(this)" class="property-remove-btn">×</button>
+                        </div>
+                    `).join('');
+                } else {
+                    propertiesHTML = `
+                        <div class="flex items-center gap-2">
+                            <input type="text" class="property-input flex-1 p-2 border rounded" placeholder="Property name">
+                            <button type="button" onclick="removePropertyInput(this)" class="property-remove-btn">×</button>
+                        </div>
+                    `;
+                }
+
+                content.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="text-center">
+                            <label for="edit-category-image-input" class="image-upload-area w-20 h-20 mx-auto rounded-lg overflow-hidden border-2 flex items-center justify-center bg-gray-50 cursor-pointer">
+                                <img id="edit-category-image-preview" src="${data.image || 'data:,'}" class="w-full h-full object-cover ${data.image ? '' : 'hidden'}">
+                                <div id="edit-category-image-placeholder" class="text-center ${data.image ? 'hidden' : ''}">
+                                    <div class="text-2xl mb-1">📦</div>
+                                    <p class="text-xs text-gray-500">Change Icon</p>
+                                </div>
+                            </label>
+                            <input type="file" id="edit-category-image-input" accept="image/*" class="hidden" onchange="handleCategoryImage(this, 'edit')">
+                        </div>
+                        <input type="text" value="${data.name}" placeholder="Category Name" id="edit-category-name" class="w-full p-2 border rounded" required />
+                        <textarea placeholder="Description (optional)" id="edit-category-description" class="w-full p-2 border rounded" rows="3">${data.description || ''}</textarea>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Properties:</label>
+                            <div id="edit-properties-list" class="space-y-2">
+                                ${propertiesHTML}
+                            </div>
+                            <button type="button" onclick="addPropertyInput('edit-properties-list')" class="mt-2 text-blue-500 hover:underline text-sm">+ Add Property</button>
+                        </div>
+                        
+                        <button onclick="updateCategory(${categoryId})" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">
+                            Update Category
+                        </button>
+                    </div>
+                `;
+
+                lucide.createIcons();
+
+            } catch (error) {
+                console.error('Error loading category for edit:', error);
+                showToast('Error loading category for edit', 'error');
+            }
+        }
+
         // Page Load Handler
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
@@ -4481,6 +4526,7 @@ function updateSelectionCounter() {
         }
     </script>
 
+    <!-- ✅ PWA SERVICE WORKER -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
