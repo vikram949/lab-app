@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory Management System - Enhanced</title>
     <!-- PWA Support -->
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.json">                                                                               
     <meta name="theme-color" content="#3b82f6">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -437,6 +437,15 @@
             background: #2563eb;
         }
 
+        .confirm-btn.damaged {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .confirm-btn.damaged:hover {
+            background: #d97706;
+        }
+
         .action-btn {
             padding: 4px 8px;
             margin: 2px;
@@ -618,6 +627,102 @@
             transform: translateY(-4px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
+
+        /* ✅ NEW: Damage reason modal styling */
+        .damage-reason-input {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            resize: vertical;
+        }
+
+        /* ✅ NEW: Reports styling */
+        .report-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .report-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ✅ NEW: Audit log styling */
+        .audit-entry {
+            padding: 12px;
+            border-left: 4px solid #3b82f6;
+            background: #f8fafc;
+            margin-bottom: 8px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .audit-entry.create {
+            border-left-color: #10b981;
+        }
+
+        .audit-entry.update {
+            border-left-color: #f59e0b;
+        }
+
+        .audit-entry.delete {
+            border-left-color: #ef4444;
+        }
+
+        .audit-entry.damage {
+            border-left-color: #f97316;
+        }
+
+        /* ✅ NEW: Export button styling */
+        .export-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .export-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-1px);
+        }
+
+        /* ✅ NEW: Reference button styling */
+        .reference-btn {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .reference-btn:hover {
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+            transform: translateY(-1px);
+        }
+
+        /* ✅ Damage tab styling */
+        .damaged-items-card {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
@@ -626,7 +731,7 @@
     <div id="splash-screen">
         <img src="images/logo.png" alt="Logo" class="splash-logo"
             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiByeD0iMjAiIGZpbGw9IiMzYjgyZjYiLz4KPHN2ZyB4PSIzMCIgeT0iMzAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiPgo8cGF0aCBkPSJtMyA5IDkgOS05LTl6TTIxIDlsLTkgOSA5LTl6Ii8+CjxwYXRoIGQ9Im0xNSAxNS05LTktOSA5Ii8+Cjwvc3ZnPgo8L3N2Zz4='"
-            &gt; <h1 class="splash-title">Inventory System</h1>
+            > <h1 class="splash-title">Inventory System</h1>
         <p class="splash-subtitle">Advanced Management Solution</p>
         <div class="progress-container">
             <div class="progress-bar" id="splash-progress"></div>
@@ -750,6 +855,22 @@
                             Admin
                         </button>
                     </li>
+                    <li>
+                        <button
+                            class="nav-btn w-full flex items-center gap-3 p-3 rounded-lg transition-colors hover:bg-gray-700"
+                            data-section="reports">
+                            <i data-lucide="file-text"></i>
+                            Reports & Analytics
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            class="nav-btn w-full flex items-center gap-3 p-3 rounded-lg transition-colors hover:bg-gray-700"
+                            data-section="audit">
+                            <i data-lucide="activity"></i>
+                            Audit Log
+                        </button>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -761,7 +882,7 @@
                 <h1 class="text-3xl font-bold mb-8">Dashboard</h1>
 
                 <!-- Stats Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-8">
                     <div class="bg-white p-6 rounded-lg shadow hover-lift">
                         <h3 class="text-lg font-semibold text-gray-700">Total Members</h3>
                         <p class="text-3xl font-bold text-blue-600" id="total-members">0</p>
@@ -771,7 +892,7 @@
                         <p class="text-3xl font-bold text-green-600" id="total-items">0</p>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow hover-lift">
-                        <h3 class="text-lg font-semibold text-gray-700">Issued Items</h3>
+                        <h3 class="text-lg font-semibold text-gray-700">Issued quantity </h3>
                         <p class="text-3xl font-bold text-orange-600" id="issued-items">0</p>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow hover-lift">
@@ -784,19 +905,24 @@
                         <p class="text-3xl font-bold text-red-600" id="low-stock-items">0</p>
                         <p class="text-xs text-gray-500 mt-1">Click to view details</p>
                     </div>
+                    <div class="bg-white p-6 rounded-lg shadow hover-lift cursor-pointer transition-all hover:scale-105"
+                        onclick="showDamagedPage()">
+                        <h3 class="text-lg font-semibold text-orange-700">Damaged Items</h3>
+                        <p class="text-3xl font-bold text-orange-600" id="damaged-items">0</p>
+                        <p class="text-xs text-gray-500 mt-1">Click to view details</p>
+                    </div>
                 </div>
 
                 <!-- Welcome Section -->
                 <div class="bg-white rounded-lg shadow p-8 text-center">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Welcome to Inventory Management</h2>
-                    <p class="text-gray-600 mb-6">Manage your components, track members, and monitor inventory
-                        efficiently</p>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Welcome to Advanced Inventory Management</h2>
+                    <p class="text-gray-600 mb-6">Manage your components, track members, monitor inventory with real-time updates & comprehensive analytics</p>
 
                     <img src="images/dashboard-welcome.jpg" alt="Inventory Management"
                         class="dashboard-welcome-image mx-auto"
                         onerror="this.src='https://t4.ftcdn.net/jpg/05/81/23/05/360_F_581230590_7bgkoYcnWN2qglejxuc9CswekwsDopMo.jpg'">
 
-                    <div class="mt-6 flex justify-center gap-4">
+                    <div class="mt-6 flex justify-center gap-4 flex-wrap">
                         <button onclick="setActiveSection('members')"
                             class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
                             <i data-lucide="users" class="w-4 h-4 inline mr-2"></i>
@@ -807,6 +933,138 @@
                             <i data-lucide="package" class="w-4 h-4 inline mr-2"></i>
                             Manage Components
                         </button>
+                        <button onclick="setActiveSection('reports')"
+                            class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors">
+                            <i data-lucide="bar-chart" class="w-4 h-4 inline mr-2"></i>
+                            View Analytics
+                        </button>
+                        <button onclick="exportAllData()"
+                            class="export-btn">
+                            <i data-lucide="download" class="w-4 h-4 inline mr-2"></i>
+                            Export Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ✅ NEW: Reports & Analytics Section -->
+            <div id="reports-section" class="section hidden">
+                <h1 class="text-3xl font-bold mb-8">Reports & Analytics</h1>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <!-- Export Options -->
+                    <div class="report-card">
+                        <h3 class="text-lg font-semibold mb-4 text-blue-600">
+                            <i data-lucide="download" class="w-5 h-5 inline mr-2"></i>
+                            Export Data
+                        </h3>
+                        <div class="space-y-3">
+                            <button onclick="exportMembers()" class="w-full export-btn">
+                                <i data-lucide="users" class="w-4 h-4 inline mr-2"></i>
+                                Export Members
+                            </button>
+                            <button onclick="exportItems()" class="w-full export-btn">
+                                <i data-lucide="package" class="w-4 h-4 inline mr-2"></i>
+                                Export Items
+                            </button>
+                            <button onclick="exportIssueHistory()" class="w-full export-btn">
+                                <i data-lucide="history" class="w-4 h-4 inline mr-2"></i>
+                                Export Issue History
+                            </button>
+                            <button onclick="exportAllData()" class="w-full bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-4 py-2 rounded hover:from-purple-600 hover:to-indigo-700">
+                                <i data-lucide="database" class="w-4 h-4 inline mr-2"></i>
+                                Export All Data
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="report-card">
+                        <h3 class="text-lg font-semibold mb-4 text-green-600">
+                            <i data-lucide="trending-up" class="w-5 h-5 inline mr-2"></i>
+                            Quick Analytics
+                        </h3>
+                        <div class="space-y-2" id="quick-analytics">
+                               <!-- <div class="flex justify-between">
+        <span>Total Inventory Value:</span> -->
+        <!-- <span class="font-semibold" id="total-value">Loading...</span> -->
+    <!-- </div> --> 
+                           
+                            <div class="flex justify-between">
+                                <span>Most Active Member:</span>
+                                <span class="font-semibold" id="most-active-member">Loading...</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Most Issued Item:</span>
+                                <span class="font-semibold" id="most-issued-item">Loading...</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Avg Issue Duration:</span>
+                                <span class="font-semibold" id="avg-duration">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category Analysis -->
+                    <div class="report-card">
+                        <h3 class="text-lg font-semibold mb-4 text-orange-600">
+                            <i data-lucide="pie-chart" class="w-5 h-5 inline mr-2"></i>
+                            Category Breakdown
+                        </h3>
+                        <div id="category-breakdown">
+                            Loading category analysis...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Reports -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-xl font-bold mb-6">Detailed Reports</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Low Stock Report -->
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4 text-red-600">Low Stock Alert</h3>
+                            <div id="low-stock-report" class="space-y-2">
+                                Loading low stock items...
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4 text-blue-600">Recent Activity</h3>
+                            <div id="recent-activity" class="space-y-2">
+                                Loading recent activity...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ✅ NEW: Audit Log Section -->
+            <div id="audit-section" class="section hidden">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h1 class="text-3xl font-bold">Audit Log</h1>
+                        <div class="flex gap-3">
+                            <button onclick="clearAuditLog()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                                <i data-lucide="trash-2" class="w-4 h-4 inline mr-2"></i>
+                                Clear Log
+                            </button>
+                            <button onclick="exportAuditLog()" class="export-btn">
+                                <i data-lucide="download" class="w-4 h-4 inline mr-2"></i>
+                                Export Log
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <input type="text" placeholder="Search audit log..." id="search-audit"
+                            class="w-full p-3 border rounded-lg" oninput="searchAuditLog()">
+                    </div>
+
+                    <div id="audit-log-container" class="max-h-96 overflow-y-auto">
+                        <p class="text-gray-500 text-center py-8">Loading audit entries...</p>
                     </div>
                 </div>
             </div>
@@ -827,6 +1085,29 @@
                 </div>
             </div>
 
+            <!-- ✅ NEW: Damaged Items Section -->
+            <div id="damaged-section" class="section hidden">
+                <button onclick="setActiveSection('dashboard')" class="mb-4 text-blue-500 hover:underline">
+                    ← Back to Dashboard
+                </button>
+
+                <div class="damaged-items-card">
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="alert-triangle" class="w-8 h-8 mr-3"></i>
+                        <div>
+                            <h1 class="text-3xl font-bold">Damaged Items</h1>
+                            <p class="opacity-90">Items that have been marked as damaged or lost</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div id="damaged-content">
+                        <!-- Damaged items will be populated here -->
+                    </div>
+                </div>
+            </div>
+
             <!-- Member Detail Section -->
             <div id="member-detail-section" class="section hidden">
                 <button onclick="setActiveSection('members')" class="mb-4 text-blue-500 hover:underline">
@@ -843,11 +1124,17 @@
                 <div class="bg-white rounded-lg shadow p-6">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-bold">Members</h2>
-                        <button onclick="openDialog('addMember')"
-                            class="bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-600">
-                            <i data-lucide="plus" class="w-5 h-5"></i>
-                            Add Member
-                        </button>
+                        <div class="flex gap-3">
+                            <button onclick="exportMembers()" class="export-btn">
+                                <i data-lucide="download" class="w-4 h-4 inline mr-2"></i>
+                                Export
+                            </button>
+                            <button onclick="openDialog('addMember')"
+                                class="bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-600">
+                                <i data-lucide="plus" class="w-5 h-5"></i>
+                                Add Member
+                            </button>
+                        </div>
                     </div>
 
                     <div class="mb-4">
@@ -884,11 +1171,17 @@
                 <div id="categories-view" class="bg-white rounded-lg shadow p-6">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-bold">Components</h2>
-                        <button onclick="openDialog('addCategory')"
-                            class="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-600">
-                            <i data-lucide="plus" class="w-5 h-5"></i>
-                            Add Category
-                        </button>
+                        <div class="flex gap-3">
+                            <button onclick="exportItems()" class="export-btn">
+                                <i data-lucide="download" class="w-4 h-4 inline mr-2"></i>
+                                Export Items
+                            </button>
+                            <button onclick="openDialog('addCategory')"
+                                class="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-600">
+                                <i data-lucide="plus" class="w-5 h-5"></i>
+                                Add Category
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Tabs -->
@@ -924,11 +1217,22 @@
                             </button>
                             <h2 id="category-title" class="text-2xl font-bold"></h2>
                         </div>
-                        <button onclick="openDialog('addItem')"
-                            class="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-600">
-                            <i data-lucide="plus" class="w-5 h-5"></i>
-                            Add Item
-                        </button>
+                        <div class="flex gap-3">
+                            <!-- ✅ NEW: Reference Button -->
+                            <button onclick="openDialog('itemReference')" class="reference-btn">
+                                <i data-lucide="book-open" class="w-4 h-4"></i>
+                                Reference
+                            </button>
+                            <button onclick="exportCategoryItems()" class="export-btn">
+                                <i data-lucide="download" class="w-4 h-4"></i>
+                                Export
+                            </button>
+                            <button onclick="openDialog('addItem')"
+                                class="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-600">
+                                <i data-lucide="plus" class="w-5 h-5"></i>
+                                Add Item
+                            </button>
+                        </div>
                     </div>
 
                     <div class="mb-4">
@@ -995,14 +1299,14 @@
                 </div>
             </div>
 
-            <!-- ✅ FIXED: Admin Section -->
+            <!-- ✅ ENHANCED: Admin Section with Damaged Tab -->
             <div id="admin-section" class="section hidden">
                 <div class="space-y-6">
                     <div class="bg-white rounded-lg shadow p-6">
                         <h2 class="text-2xl font-bold mb-6">Admin Panel</h2>
 
-                        <!-- ✅ FIXED: Admin Tabs -->
-                        <div class="flex space-x-4 mb-6 border-b">
+                        <!-- ✅ ENHANCED: Admin Tabs with Damaged -->
+                        <div class="flex space-x-4 mb-6 border-b overflow-x-auto">
                             <button class="admin-tab active" data-admin-tab="current"
                                 onclick="setActiveAdminTab('current')">
                                 <i data-lucide="clock" class="w-4 h-4 inline mr-2"></i>
@@ -1016,6 +1320,10 @@
                                 onclick="setActiveAdminTab('permanent')">
                                 <i data-lucide="lock" class="w-4 h-4 inline mr-2"></i>
                                 Permanent Issues
+                            </button>
+                            <button class="admin-tab" data-admin-tab="damaged" onclick="setActiveAdminTab('damaged')">
+                                <i data-lucide="alert-triangle" class="w-4 h-4 inline mr-2"></i>
+                                Damaged
                             </button>
                         </div>
 
@@ -1078,7 +1386,7 @@
                             </div>
                         </div>
 
-                        <!-- ✅ FIXED: Permanent Issues Tab Content -->
+                        <!-- Permanent Issues Tab Content -->
                         <div id="permanent-issues-content" class="admin-tab-content hidden">
                             <div class="flex items-center mb-4">
                                 <div class="bg-red-100 border border-red-400 rounded-lg p-4 w-full">
@@ -1137,6 +1445,50 @@
                                 </table>
                             </div>
                         </div>
+
+                        <!-- ✅ NEW: Damaged Tab Content -->
+                        <div id="damaged-issues-content" class="admin-tab-content hidden">
+                            <div class="flex items-center mb-4">
+                                <div class="bg-orange-100 border border-orange-400 rounded-lg p-4 w-full">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0">
+                                            <i data-lucide="alert-triangle" class="w-5 h-5 text-orange-600"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h3 class="text-lg font-semibold text-orange-800">Damaged/Lost Items</h3>
+                                            <p class="text-sm text-orange-700">Items that have been damaged or lost</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <input type="text" placeholder="Search damaged items..." id="search-damaged"
+                                    class="w-full p-3 border rounded-lg" oninput="searchDamagedIssues()">
+                            </div>
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full table-auto">
+                                    <thead>
+                                        <tr class="bg-orange-50">
+                                            <th class="p-3 text-left bg-gradient-to-r from-orange-500 to-orange-600 text-white">Item Image</th>
+                                            <th class="p-3 text-left bg-gradient-to-r from-orange-500 to-orange-600 text-white">Item Name</th>
+                                            <th class="p-3 text-left bg-gradient-to-r from-orange-500 to-orange-600 text-white">Member</th>
+                                            <th class="p-3 text-left bg-gradient-to-r from-orange-500 to-orange-600 text-white">Branch</th>
+                                            <th class="p-3 text-left bg-gradient-to-r from-orange-500 to-orange-600 text-white">Quantity</th>
+                                            <th class="p-3 text-left bg-gradient-to-r from-orange-500 to-orange-600 text-white">Issue Date</th>
+                                            <th class="p-3 text-left bg-gradient-to-r from-orange-500 to-orange-600 text-white">Damage Date</th>
+                                            <th class="p-3 text-left bg-gradient-to-r from-orange-500 to-orange-600 text-white">Reason</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="damaged-issues-table">
+                                        <tr>
+                                            <td colspan="8" class="p-3 text-center">Loading...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1185,6 +1537,35 @@
         let subscriptions = [];
         let isInitialized = false;
         let authListenerSetup = false;
+
+        // ✅ NEW: Audit Log Storage
+        let auditLog = JSON.parse(localStorage.getItem('inventoryAuditLog')) || [];
+
+        // ✅ NEW: Add Audit Entry
+        function addAuditEntry(action, details, userId = null) {
+            const entry = {
+                id: Date.now(),
+                timestamp: new Date().toISOString(),
+                action: action, // 'create', 'update', 'delete', 'issue', 'return', 'damage'
+                details: details,
+                user: userId || currentUser?.email || 'System',
+                ip: 'Browser Session' // Could be enhanced with actual IP
+            };
+            
+            auditLog.unshift(entry); // Add to beginning
+            
+            // Keep only last 1000 entries
+            if (auditLog.length > 1000) {
+                auditLog = auditLog.slice(0, 1000);
+            }
+            
+            localStorage.setItem('inventoryAuditLog', JSON.stringify(auditLog));
+            
+            // Real-time update if audit section is active
+            if (activeSection === 'audit') {
+                populateAuditLog();
+            }
+        }
 
         // ✅ BULLETPROOF: Advanced Calculation Fixer
         async function fixItemCalculations() {
@@ -1253,6 +1634,8 @@
                 const resultMessage = `✅ PERFECT! Fixed ${fixedCount}/${totalChecked} items. All calculations verified!`;
                 showToast(resultMessage, 'success');
 
+                addAuditEntry('system', `Auto-fix completed: ${fixedCount}/${totalChecked} items fixed`);
+
                 return { fixedCount, totalChecked };
 
             } catch (error) {
@@ -1285,86 +1668,115 @@
                 }, 6000);
             }
 
-            console.error(`❌ ${title}${details ? '\nDetails: ' + details : ''}`);
+            console.error(` ${title}${details ? '\nDetails: ' + details : ''}`);
         }
 
         // ✅ ENHANCED Real-time Subscriptions Setup - REAL UPDATES
-        async function setupRealtimeSubscriptions() {
-            try {
-                console.log('🔄 Setting up ENHANCED real-time subscriptions...');
+        
+// setupRealtimeSubscriptions function में यह code add करें:
 
-                cleanupSubscriptions();
+async function setupRealtimeSubscriptions() {
+    try {
+        console.log(' Setting up ENHANCED real-time subscriptions...');
+        cleanupSubscriptions();
 
-                // ✅ Items table changes - IMMEDIATE REFRESH
-                const itemsSubscription = supabaseClient
-                    .channel('items-changes-enhanced')
-                    .on('postgres_changes',
-                        { event: '*', schema: 'public', table: 'items' },
-                        (payload) => {
-                            console.log('📦 Items updated:', payload.eventType);
-                            // ✅ IMMEDIATE TABLE REFRESH
-                            if (activeSection === 'components' && selectedCategory) {
-                                setTimeout(() => populateItems(selectedCategory.id), 100);
-                            }
-                            // ✅ IMMEDIATE STATS UPDATE
-                            setTimeout(() => updateStats(), 200);
-                        })
-                    .on('postgres_changes',
-                        { event: '*', schema: 'public', table: 'issued_items' },
-                        (payload) => {
-                            console.log('📋 Issued items updated:', payload.eventType);
-                            // ✅ IMMEDIATE MULTIPLE REFRESHES
-                            if (activeSection === 'components' && selectedCategory) {
-                                setTimeout(() => populateItems(selectedCategory.id), 100);
-                            }
-                            if (activeSection === 'admin') {
-                                setTimeout(() => populateCurrentIssuesTable(), 150);
-                                setTimeout(() => populateHistoryTable(), 200);
-                                setTimeout(() => populatePermanentIssuesTable(), 250);
-                            }
-                            setTimeout(() => updateStats(), 300);
-                        })
-                    .subscribe();
+        // Items table changes - IMMEDIATE REFRESH
+        const itemsSubscription = supabaseClient
+            .channel('items-changes-enhanced')
+            .on('postgres_changes',
+                { event: '*', schema: 'public', table: 'items' },
+                (payload) => {
+                    console.log(' Items updated:', payload.eventType);
+                    addAuditEntry('update', `Item ${payload.eventType}: ${payload.new?.name || payload.old?.name}`);
+                    
+                    // ✅ REPORTS REAL-TIME UPDATE
+                    if (activeSection === 'reports') {
+                        setTimeout(() => updateReportsData(), 500);
+                    }
+                    
+                    if (activeSection === 'components' && selectedCategory) {
+                        setTimeout(() => populateItems(selectedCategory.id), 100);
+                    }
+                    setTimeout(() => updateStats(), 200);
+                })
+            .on('postgres_changes',
+                { event: '*', schema: 'public', table: 'issued_items' },
+                (payload) => {
+                    console.log(' Issued items updated:', payload.eventType);
+                    addAuditEntry('update', `Issue ${payload.eventType}: ${payload.new?.status || payload.old?.status}`);
+                    
+                    // ✅ REPORTS REAL-TIME UPDATE
+                    if (activeSection === 'reports') {
+                        setTimeout(() => updateReportsData(), 500);
+                    }
+                    
+                    if (activeSection === 'components' && selectedCategory) {
+                        setTimeout(() => populateItems(selectedCategory.id), 100);
+                    }
+                    if (activeSection === 'admin') {
+                        setTimeout(() => populateCurrentIssuesTable(), 150);
+                        setTimeout(() => populateHistoryTable(), 200);
+                        setTimeout(() => populatePermanentIssuesTable(), 250);
+                        setTimeout(() => populateDamagedIssuesTable(), 300);
+                    }
+                    setTimeout(() => updateStats(), 350);
+                })
+            .subscribe();
 
-                // ✅ Members table changes
-                const membersSubscription = supabaseClient
-                    .channel('members-changes-enhanced')
-                    .on('postgres_changes',
-                        { event: '*', schema: 'public', table: 'members' },
-                        (payload) => {
-                            console.log('👥 Members updated:', payload.eventType);
-                            setTimeout(() => updateStats(), 100);
-                            if (activeSection === 'members') {
-                                setTimeout(() => populateMembersTable(), 150);
-                            }
-                        })
-                    .subscribe();
+        // Members table changes
+        const membersSubscription = supabaseClient
+            .channel('members-changes-enhanced')
+            .on('postgres_changes',
+                { event: '*', schema: 'public', table: 'members' },
+                (payload) => {
+                    console.log('👥 Members updated:', payload.eventType);
+                    addAuditEntry('update', `Member ${payload.eventType}: ${payload.new?.name || payload.old?.name}`);
+                    
+                    // ✅ REPORTS REAL-TIME UPDATE
+                    if (activeSection === 'reports') {
+                        setTimeout(() => updateReportsData(), 300);
+                    }
+                    
+                    setTimeout(() => updateStats(), 100);
+                    if (activeSection === 'members') {
+                        setTimeout(() => populateMembersTable(), 150);
+                    }
+                })
+            .subscribe();
 
-                // ✅ Categories changes
-                const categoriesSubscription = supabaseClient
-                    .channel('categories-changes-enhanced')
-                    .on('postgres_changes',
-                        { event: '*', schema: 'public', table: 'categories' },
-                        (payload) => {
-                            console.log('📁 Categories updated:', payload.eventType);
-                            if (activeSection === 'components') {
-                                setTimeout(() => populateCategories(), 100);
-                            }
-                        })
-                    .subscribe();
+        // Categories changes
+        const categoriesSubscription = supabaseClient
+            .channel('categories-changes-enhanced')
+            .on('postgres_changes',
+                { event: '*', schema: 'public', table: 'categories' },
+                (payload) => {
+                    console.log(' Categories updated:', payload.eventType);
+                    addAuditEntry('update', `Category ${payload.eventType}: ${payload.new?.name || payload.old?.name}`);
+                    
+                    // ✅ REPORTS REAL-TIME UPDATE
+                    if (activeSection === 'reports') {
+                        setTimeout(() => updateReportsData(), 300);
+                    }
+                    
+                    if (activeSection === 'components') {
+                        setTimeout(() => populateCategories(), 100);
+                    }
+                })
+            .subscribe();
 
-                subscriptions.push(itemsSubscription, membersSubscription, categoriesSubscription);
-                console.log('✅ ENHANCED Real-time subscriptions setup completed');
+        subscriptions.push(itemsSubscription, membersSubscription, categoriesSubscription);
+        console.log(' ENHANCED Real-time subscriptions setup completed with Reports updates');
 
-            } catch (error) {
-                console.error('❌ Real-time setup failed:', error);
-                showToast('Real-time updates may not work properly', 'error');
-            }
-        }
+    } catch (error) {
+        console.error(' Real-time setup failed:', error);
+        showToast('Real-time updates may not work properly', 'error');
+    }
+}
+
 
         // ✅ FIXED: Cleanup Subscriptions
         function cleanupSubscriptions() {
-            console.log('🧹 Cleaning up subscriptions...');
+            console.log(' Cleaning up subscriptions...');
             subscriptions.forEach(sub => {
                 if (sub && sub.unsubscribe) {
                     sub.unsubscribe();
@@ -1410,7 +1822,7 @@
         // ✅ COMPLETE FIXED: Delete Item Function
         async function deleteItem(itemId) {
             try {
-                console.log(`🗑️ Attempting to delete item ID: ${itemId}`);
+                console.log(` Attempting to delete item ID: ${itemId}`);
 
                 if (!itemId || isNaN(itemId)) {
                     showToast('Invalid item ID', 'error');
@@ -1444,7 +1856,7 @@
                     const membersList = issuedItems.map(item => item.members?.name || 'Unknown').join(', ');
 
                     showDetailedError(
-                        `❌ Cannot delete "${itemData.name}"`,
+                        ` Cannot delete "${itemData.name}"`,
                         `${totalIssued} units are currently issued to: ${membersList}.\n\nPlease return all items first, then try deleting.`
                     );
                     return;
@@ -1476,11 +1888,12 @@
                 }
 
                 await updateStats();
-                showToast(`✅ "${itemData.name}" deleted successfully`);
+                showToast(` "${itemData.name}" deleted successfully`);
+                addAuditEntry('delete', `Item deleted: ${itemData.name}`);
 
             } catch (error) {
-                console.error('💥 Critical error in deleteItem:', error);
-                showDetailedError('❌ Delete failed', `Database error: ${error.message}`);
+                console.error(' Critical error in deleteItem:', error);
+                showDetailedError(' Delete failed', `Database error: ${error.message}`);
             } finally {
                 showLoading(false);
             }
@@ -1507,6 +1920,12 @@
                     return;
                 }
 
+                const { data: memberData } = await supabaseClient
+                    .from('members')
+                    .select('name')
+                    .eq('id', memberId)
+                    .single();
+
                 const { error } = await supabaseClient
                     .from('members')
                     .delete()
@@ -1517,6 +1936,7 @@
                 populateMembersTable();
                 updateStats();
                 showToast('Member deleted successfully');
+                addAuditEntry('delete', `Member deleted: ${memberData?.name || 'Unknown'}`);
 
             } catch (error) {
                 console.error('Error deleting member:', error);
@@ -1541,6 +1961,12 @@
 
                 if (checkError) throw checkError;
 
+                const { data: categoryData } = await supabaseClient
+                    .from('categories')
+                    .select('name')
+                    .eq('id', categoryId)
+                    .single();
+
                 if (items && items.length > 0) {
                     const confirmed2 = await showConfirmDialog(`This category contains ${items.length} items. Delete anyway? This cannot be undone.`);
                     if (!confirmed2) return;
@@ -1563,6 +1989,7 @@
                 populateCategories();
                 updateStats();
                 showToast('Category deleted successfully');
+                addAuditEntry('delete', `Category deleted: ${categoryData?.name || 'Unknown'} (with ${items?.length || 0} items)`);
 
             } catch (error) {
                 console.error('Error deleting category:', error);
@@ -1608,7 +2035,7 @@
         // ✅ FIXED: Update Stats Function
         async function updateStats() {
             try {
-                console.log('📊 Updating stats calculation...');
+                console.log(' Updating stats calculation...');
 
                 const members = await fetchMembers();
                 const items = await fetchItems();
@@ -1618,6 +2045,11 @@
                     .select('quantity')
                     .in('status', ['issued', 'permanent']);
 
+                const { data: damagedItems, error: damagedError } = await supabaseClient
+                    .from('issued_items')
+                    .select('quantity')
+                    .eq('status', 'damaged');
+
                 if (issueError) {
                     console.error('Error fetching issued items:', issueError);
                 }
@@ -1626,6 +2058,7 @@
                 let availableQuantity = 0;
                 let lowStockItems = 0;
                 let issuedQuantity = 0;
+                let damagedQuantity = 0;
 
                 items.forEach(item => {
                     totalQuantity += item.total || 0;
@@ -1639,19 +2072,30 @@
                     issuedQuantity = currentIssues.reduce((sum, issue) => sum + (issue.quantity || 0), 0);
                 }
 
+                if (damagedItems && damagedItems.length > 0) {
+                    damagedQuantity = damagedItems.length; // Count of damaged items
+                }
+
                 const totalMembersEl = document.getElementById('total-members');
                 const totalItemsEl = document.getElementById('total-items');
                 const issuedItemsEl = document.getElementById('issued-items');
                 const availableItemsEl = document.getElementById('available-items');
                 const lowStockItemsEl = document.getElementById('low-stock-items');
+                const damagedItemsEl = document.getElementById('damaged-items');
 
                 if (totalMembersEl) totalMembersEl.textContent = members.length;
                 if (totalItemsEl) totalItemsEl.textContent = items.length;
                 if (issuedItemsEl) issuedItemsEl.textContent = issuedQuantity;
                 if (availableItemsEl) availableItemsEl.textContent = availableQuantity;
                 if (lowStockItemsEl) lowStockItemsEl.textContent = lowStockItems;
+                if (damagedItemsEl) damagedItemsEl.textContent = damagedQuantity;
 
-                console.log(`✅ Stats Updated - Members: ${members.length}, Items: ${items.length}, Available: ${availableQuantity}, Issued: ${issuedQuantity}, Low Stock: ${lowStockItems}`);
+                console.log(`✅ Stats Updated - Members: ${members.length}, Items: ${items.length}, Available: ${availableQuantity}, Issued: ${issuedQuantity}, Low Stock: ${lowStockItems}, Damaged: ${damagedQuantity}`);
+                
+                // ✅ Update reports if active
+                if (activeSection === 'reports') {
+                    updateReportsData();
+                }
 
             } catch (error) {
                 console.error('Error updating stats:', error);
@@ -1671,13 +2115,19 @@
             }
 
             if (quantity > selectedItem.available) {
-                showToast(`❌ Cannot issue ${quantity}. Only ${selectedItem.available} available.`, 'error');
+                showToast(` Cannot issue ${quantity}. Only ${selectedItem.available} available.`, 'error');
                 return;
             }
 
             showLoading(true);
 
             try {
+                const { data: memberData } = await supabaseClient
+                    .from('members')
+                    .select('name')
+                    .eq('id', memberId)
+                    .single();
+
                 const { error: issueError } = await supabaseClient
                     .from('issued_items')
                     .insert([{
@@ -1719,10 +2169,11 @@
 
                 const issueType = isPermanent ? 'permanently assigned' : 'issued';
                 const statusMsg = isPermanent
-                    ? `🔒 ${quantity} items ${issueType}. Total reduced to: ${newTotal}, Available: ${newAvailable}`
-                    : `✅ ${quantity} items ${issueType}. Available: ${newAvailable}`;
+                    ? ` ${quantity} items ${issueType}. Total reduced to: ${newTotal}, Available: ${newAvailable}`
+                    : ` ${quantity} items ${issueType}. Available: ${newAvailable}`;
 
                 showToast(statusMsg, 'success');
+                addAuditEntry('issue', `Item ${issueType}: ${selectedItem.name} (${quantity} units) to ${memberData?.name || 'Unknown'}`);
 
             } catch (error) {
                 console.error('Error issuing item:', error);
@@ -1754,6 +2205,32 @@
             } catch (error) {
                 console.error('Error fetching permanent issues:', error);
                 showToast('Error loading permanent issues', 'error');
+                return [];
+            }
+        }
+
+        // ✅ NEW: Fetch Damaged Issues
+        async function fetchDamagedIssues() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('issued_items')
+                    .select(`
+                        *,
+                        items(name, image),
+                        members(name, branch, photo)
+                    `)
+                    .eq('status', 'damaged')
+                    .order('returned_date', { ascending: false });
+
+                if (error) {
+                    console.error('Supabase error:', error);
+                    throw error;
+                }
+
+                return data || [];
+            } catch (error) {
+                console.error('Error fetching damaged issues:', error);
+                showToast('Error loading damaged issues', 'error');
                 return [];
             }
         }
@@ -1797,7 +2274,7 @@
                         <td class="p-3">${issueDate}</td>
                         <td class="p-3">
                             <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-                                🔒 PERMANENT
+                                 PERMANENT
                             </span>
                         </td>
                     `;
@@ -1812,6 +2289,71 @@
                 showToast('Error loading permanent issues', 'error');
             }
         }
+
+        // ✅ NEW: Populate Damaged Issues Table
+        async function populateDamagedIssuesTable() {
+            const tbody = document.getElementById('damaged-issues-table');
+            if (!tbody) return;
+
+            tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center">Loading...</td></tr>';
+
+            try {
+                const damagedIssues = await fetchDamagedIssues();
+                tbody.innerHTML = '';
+
+                if (damagedIssues.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center text-gray-500">No damaged items found</td></tr>';
+                    return;
+                }
+
+                damagedIssues.forEach(issued => {
+                    const row = document.createElement('tr');
+                    row.className = 'border-t bg-orange-50';
+                    const issueDate = new Date(issued.issued_date).toLocaleDateString('en-US');
+                    const damageDate = new Date(issued.returned_date).toLocaleDateString('en-US');
+
+                    const itemImage = issued.items?.image ?
+                        createImagePreview(issued.items.image, 'small') :
+                        '<div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center"><i data-lucide="package" class="w-6 h-6 text-gray-400"></i></div>';
+
+                    row.innerHTML = `
+                        <td class="p-3">${itemImage}</td>
+                        <td class="p-3">${issued.items?.name || 'Unknown'}</td>
+                        <td class="p-3">${issued.members?.name || 'Unknown'}</td>
+                        <td class="p-3">${issued.members?.branch || 'Unknown'}</td>
+                        <td class="p-3">${issued.quantity}</td>
+                        <td class="p-3">${issueDate}</td>
+                        <td class="p-3">${damageDate}</td>
+                        <td class="p-3">
+                            ${issued.damage_reason ? 
+                                `<span class="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded">${issued.damage_reason}</span>` : 
+                                '<span class="text-xs text-gray-500">No reason provided</span>'
+                            }
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                lucide.createIcons();
+
+            } catch (error) {
+                console.error('Error in populateDamagedIssuesTable:', error);
+                tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center text-red-500">Error loading damaged issues</td></tr>';
+                showToast('Error loading damaged issues', 'error');
+            }
+        }
+
+        // Search damaged issues
+        const searchDamagedIssues = () => {
+            const term = document.getElementById('search-damaged').value.toLowerCase();
+            const rows = document.querySelectorAll('#damaged-issues-table tr');
+            rows.forEach(row => {
+                if (row.cells.length < 3) return;
+                const item = row.cells[1].textContent.toLowerCase();
+                const member = row.cells[2].textContent.toLowerCase();
+                row.style.display = (item.includes(term) || member.includes(term)) ? '' : 'none';
+            });
+        };
 
         // Search permanent issues
         const searchPermanentIssues = () => {
@@ -1836,7 +2378,6 @@
                 // ✅ SAHI CODE:
                 await returnItemSilent(issuedItemId, quantity);
 
-
                 updateStats();
                 populateCurrentIssuesTable();
                 populateHistoryTable();
@@ -1846,10 +2387,272 @@
                 }
 
                 showToast(`✅ Item returned successfully!`, 'success');
+                addAuditEntry('return', `Item returned: quantity ${quantity}`);
 
             } catch (error) {
                 console.error('Error returning item:', error);
                 showToast('Error returning item: ' + error.message, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // ✅ NEW: Mark Selected Items as Damaged
+        async function markSelectedDamaged() {
+            const form = document.getElementById('return-selection-form');
+            const selectedCheckboxes = form.querySelectorAll('input[name="return-item"]:checked');
+
+            if (selectedCheckboxes.length === 0) {
+                showToast('Please select at least one item to mark as damaged', 'error');
+                return;
+            }
+
+            // ✅ Ask for damage reason
+            const reason = await showDamageReasonDialog();
+            if (!reason) return; // User cancelled
+
+            const itemNames = Array.from(selectedCheckboxes).map(checkbox => {
+                const label = document.querySelector(`label[for="item-${checkbox.value}"]`);
+                return label ? label.textContent.split('\n')[0].trim() : 'Unknown Item';
+            });
+
+            const itemList = itemNames.map(name => `• ${name}`).join('\n');
+
+            const confirmed = await showConfirmDialog(
+                `Are you sure you want to mark these ${selectedCheckboxes.length} items as DAMAGED?\n\n${itemList}\n\nReason: ${reason}`,
+                false, // Not return, it's damage
+                'damaged'
+            );
+
+            if (!confirmed) return;
+
+            showLoading(true);
+            closeDialog();
+
+            let successCount = 0;
+            let failureCount = 0;
+
+            try {
+                for (const checkbox of selectedCheckboxes) {
+                    try {
+                        const issuedItemId = parseInt(checkbox.value);
+                        const quantity = parseInt(checkbox.dataset.quantity);
+
+                        await markItemDamaged(issuedItemId, quantity, reason);
+                        successCount++;
+
+                    } catch (error) {
+                        console.error(`❌ Failed to mark item as damaged:`, error);
+                        failureCount++;
+                    }
+                }
+
+                if (successCount > 0 && failureCount === 0) {
+                    showToast(`🔥 Successfully marked all ${successCount} items as damaged!`, 'success');
+                } else if (successCount > 0 && failureCount > 0) {
+                    showToast(`⚠️ Marked ${successCount} items as damaged, ${failureCount} failed`, 'error');
+                } else {
+                    showToast(`❌ Failed to mark all items as damaged`, 'error');
+                }
+
+                addAuditEntry('damage', `${successCount} items marked as damaged. Reason: ${reason}`);
+
+            } catch (error) {
+                console.error('💥 Critical error in markSelectedDamaged:', error);
+                showToast('Error processing damage marking', 'error');
+            } finally {
+                showLoading(false);
+                updateStats();
+                populateCurrentIssuesTable();
+                populateDamagedIssuesTable();
+            }
+        }
+
+        // ✅ NEW: Mark Single Item as Damaged
+        async function markItemDamaged(issuedItemId, quantity, reason = '') {
+            try {
+                // 1. Get item info
+                const { data: issuedItemData, error: getError } = await supabaseClient
+                    .from('issued_items')
+                    .select('item_id')
+                    .eq('id', issuedItemId)
+                    .single();
+
+                if (getError) throw getError;
+
+                // 2. Update issued status to damaged
+                const { error: damageError } = await supabaseClient
+                    .from('issued_items')
+                    .update({
+                        status: 'damaged',
+                        returned_date: new Date().toISOString(),
+                        damage_reason: reason
+                    })
+                    .eq('id', issuedItemId);
+
+                if (damageError) throw damageError;
+
+                // 3. Update total quantity
+                // 3. Update total quantity (permanently reduce from total)
+                const { data: currentItem, error: itemError } = await supabaseClient
+                    .from('items')
+                    .select('available, total')
+                    .eq('id', issuedItemData.item_id)
+                    .single();
+
+                if (itemError) throw itemError;
+
+                const newTotal = Math.max(0, currentItem.total - quantity);
+                const newAvailable = Math.max(0, currentItem.available); // Available stays same
+
+                const { error: updateError } = await supabaseClient
+                    .from('items')
+                    .update({ 
+                        total: newTotal,
+                        available: newAvailable 
+                    })
+                    .eq('id', issuedItemData.item_id);
+
+                if (updateError) throw updateError;
+
+                // 4. Update selectedItem if same
+                if (selectedItem && selectedItem.id === issuedItemData.item_id) {
+                    selectedItem.total = newTotal;
+                    selectedItem.available = newAvailable;
+                }
+
+                return { itemId: issuedItemData.item_id, newTotal, newAvailable };
+
+            } catch (error) {
+                console.error('Error marking item as damaged:', error);
+                throw error;
+            }
+        }
+
+        // ✅ NEW: Show Damage Reason Dialog
+        function showDamageReasonDialog() {
+            return new Promise((resolve) => {
+                const backdrop = document.getElementById('confirm-backdrop');
+                const modal = document.getElementById('confirm-modal');
+                const messageEl = document.getElementById('confirm-message');
+                const cancelBtn = document.getElementById('confirm-cancel');
+                const deleteBtn = document.getElementById('confirm-delete');
+
+                messageEl.innerHTML = `
+                    <div class="text-left">
+                        <p class="font-semibold mb-3">Please provide a reason for marking items as damaged:</p>
+                        <textarea id="damage-reason-input" class="damage-reason-input" placeholder="e.g., Short circuit during testing, Physical damage, Lost during transport..."></textarea>
+                    </div>
+                `;
+
+                deleteBtn.textContent = 'Mark Damaged';
+                deleteBtn.className = 'confirm-btn damaged';
+
+                backdrop.classList.remove('hidden');
+                modal.classList.remove('hidden');
+
+                function cleanup() {
+                    backdrop.classList.add('hidden');
+                    modal.classList.add('hidden');
+                    cancelBtn.removeEventListener('click', handleCancel);
+                    deleteBtn.removeEventListener('click', handleConfirm);
+                }
+
+                function handleCancel() {
+                    cleanup();
+                    resolve(null);
+                }
+
+                function handleConfirm() {
+                    const reason = document.getElementById('damage-reason-input').value.trim();
+                    if (!reason) {
+                        showToast('Please provide a reason for the damage', 'error');
+                        return;
+                    }
+                    cleanup();
+                    resolve(reason);
+                }
+
+                cancelBtn.addEventListener('click', handleCancel);
+                deleteBtn.addEventListener('click', handleConfirm);
+
+                // Auto focus on textarea
+                setTimeout(() => {
+                    document.getElementById('damage-reason-input').focus();
+                }, 100);
+            });
+        }
+
+        // ✅ NEW: Show Damaged Items Page
+        async function showDamagedPage() {
+            showLoading(true);
+
+            try {
+                const damagedIssues = await fetchDamagedIssues();
+
+                document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+                document.getElementById('damaged-section').classList.remove('hidden');
+
+                const content = document.getElementById('damaged-content');
+
+                if (damagedIssues.length === 0) {
+                    content.innerHTML = `
+                        <div class="text-center py-12">
+                            <div class="text-6xl mb-4">✅</div>
+                            <h3 class="text-xl font-semibold text-green-600 mb-2">Great! No Damaged Items</h3>
+                            <p class="text-gray-500">No items have been marked as damaged or lost.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                content.innerHTML = `
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-xl font-bold text-gray-700">Total Damaged Items: ${damagedIssues.length}</h2>
+                            <button onclick="exportDamagedItems()" class="export-btn">
+                                <i data-lucide="download" class="w-4 h-4 inline mr-2"></i>
+                                Export Damaged Items
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        ${damagedIssues.map(issued => `
+                            <div class="border-l-4 border-orange-500 bg-orange-50 rounded-r-lg p-4">
+                                <div class="flex items-center gap-3 mb-3">
+                                    ${issued.items?.image ?
+                        `<img src="${issued.items.image}" class="w-12 h-12 object-cover rounded" alt="Item">` :
+                        `<div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
+                                                <i data-lucide="package" class="w-6 h-6 text-gray-400"></i>
+                                            </div>`
+                    }
+                                    <div>
+                                        <h3 class="font-semibold text-gray-800">${issued.items?.name || 'Unknown Item'}</h3>
+                                        <p class="text-xs text-orange-600">Quantity: ${issued.quantity}</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-2 text-sm">
+                                    <p><strong>Member:</strong> ${issued.members?.name || 'Unknown'}</p>
+                                    <p><strong>Branch:</strong> ${issued.members?.branch || 'Unknown'}</p>
+                                    <p><strong>Issue Date:</strong> ${new Date(issued.issued_date).toLocaleDateString()}</p>
+                                    <p><strong>Damage Date:</strong> ${new Date(issued.returned_date).toLocaleDateString()}</p>
+                                    ${issued.damage_reason ? 
+                        `<p><strong>Reason:</strong> <span class="text-orange-700">${issued.damage_reason}</span></p>` : 
+                        '<p><strong>Reason:</strong> <span class="text-gray-500">Not provided</span></p>'
+                    }
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                lucide.createIcons();
+
+            } catch (error) {
+                console.error('Error loading damaged items:', error);
+                showToast('Error loading damaged items', 'error');
             } finally {
                 showLoading(false);
             }
@@ -1981,7 +2784,7 @@
                 if (lowStockItems.length === 0) {
                     content.innerHTML = `
                         <div class="text-center py-12">
-                            <div class="text-6xl mb-4">🎉</div>
+                            <div class="text-6xl mb-4"></div>
                             <h3 class="text-xl font-semibold text-green-600 mb-2">Great! No Low Stock Items</h3>
                             <p class="text-gray-500">All items have sufficient quantity in stock.</p>
                         </div>
@@ -1990,6 +2793,16 @@
                 }
 
                 content.innerHTML = `
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-xl font-bold text-gray-700">Items Requiring Attention: ${lowStockItems.length}</h2>
+                            <button onclick="exportLowStockItems()" class="export-btn">
+                                <i data-lucide="download" class="w-4 h-4 inline mr-2"></i>
+                                Export Low Stock Items
+                            </button>
+                        </div>
+                    </div>
+                    
                     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                         ${lowStockItems.map(item => `
                             <div class="border rounded-lg p-4 ${item.available === 0 ? 'border-red-500 bg-red-50' : 'border-orange-300 bg-orange-50'}">
@@ -2219,6 +3032,7 @@
 
                 updateStats();
                 showToast('Item returned successfully');
+                addAuditEntry('return', `Item returned from member: quantity ${quantity}`);
 
             } catch (error) {
                 console.error('Error returning item:', error);
@@ -2265,7 +3079,7 @@
             }
         }
 
-        // Smart Return System for Admin Panel - UPDATED FOR MULTIPLE SELECTION
+        // ✅ ENHANCED: Smart Return System for Admin Panel - WITH DAMAGE OPTION
         async function smartReturn(memberId, memberName) {
             try {
                 const { data: issuedItems, error } = await supabaseClient
@@ -2284,7 +3098,6 @@
                     return;
                 }
 
-                // ✅ ALWAYS SHOW DIALOG (even for single item) to allow multiple selection
                 openDialog('smartReturn');
                 const title = document.getElementById('dialog-title');
                 const content = document.getElementById('dialog-content');
@@ -2294,20 +3107,22 @@
                     <div class="space-y-4">
                         <p class="text-gray-600 mb-4">Select items to return (multiple selection allowed):</p>
                         
-                        <!-- ✅ SELECT ALL BUTTON -->
-                        <div class="flex gap-2 mb-4">
+                        <!-- ✅ ENHANCED: SELECT ALL & DAMAGE BUTTONS -->
+                        <div class="flex gap-2 mb-4 flex-wrap">
                             <button type="button" onclick="selectAllItems(true)" class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
                                 ✅ Select All
                             </button>
                             <button type="button" onclick="selectAllItems(false)" class="bg-gray-500 text-white px-3 py-1 rounded text-sm hover:bg-gray-600">
                                 ❌ Clear All
                             </button>
+                            <button type="button" onclick="markSelectedDamaged()" class="bg-orange-500 text-white px-3 py-1 rounded text-sm hover:bg-orange-600">
+                                🔥 Mark Damaged
+                            </button>
                         </div>
                         
                         <form id="return-selection-form">
                             ${issuedItems.map(item => `
                                 <div class="return-item-option">
-                                    <!-- ✅ CHANGED: radio to checkbox -->
                                     <input type="checkbox" name="return-item" value="${item.id}" data-quantity="${item.quantity}" id="item-${item.id}">
                                     <label for="item-${item.id}" class="flex items-center gap-3 flex-1 cursor-pointer">
                                         ${item.items?.image ?
@@ -2326,7 +3141,6 @@
                             `).join('')}
                         </form>
                         
-                        <!-- ✅ UPDATED BUTTONS -->
                         <div class="flex gap-3 mt-6">
                             <button onclick="closeDialog()" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded hover:bg-gray-400">
                                 Cancel
@@ -2336,7 +3150,6 @@
                             </button>
                         </div>
                         
-                        <!-- ✅ COUNTER DISPLAY -->
                         <div id="selection-counter" class="text-center text-sm text-gray-600 mt-2">
                             0 items selected
                         </div>
@@ -2344,8 +3157,6 @@
                 `;
 
                 lucide.createIcons();
-
-                // ✅ ADD COUNTER FUNCTIONALITY
                 setupSelectionCounter();
 
             } catch (error) {
@@ -2364,7 +3175,6 @@
                 return;
             }
 
-            // ✅ SINGLE CONFIRMATION WITH ALL ITEM DETAILS
             const itemNames = Array.from(selectedCheckboxes).map(checkbox => {
                 const label = document.querySelector(`label[for="item-${checkbox.value}"]`);
                 return label ? label.textContent.split('\n')[0].trim() : 'Unknown Item';
@@ -2379,7 +3189,6 @@
 
             if (!confirmed) return;
 
-            // ✅ PROCEED WITHOUT ASKING AGAIN
             showLoading(true);
             closeDialog();
 
@@ -2387,7 +3196,6 @@
             let failureCount = 0;
 
             try {
-                // ✅ RETURN ALL ITEMS WITHOUT INDIVIDUAL CONFIRMATIONS
                 for (const checkbox of selectedCheckboxes) {
                     try {
                         const issuedItemId = parseInt(checkbox.value);
@@ -2395,7 +3203,6 @@
 
                         console.log(`🔄 Returning item ID: ${issuedItemId}, Quantity: ${quantity}`);
 
-                        // ✅ CALL returnItemSilent (without confirmation)
                         await returnItemSilent(issuedItemId, quantity);
                         successCount++;
 
@@ -2405,7 +3212,6 @@
                     }
                 }
 
-                // ✅ SINGLE SUMMARY MESSAGE
                 if (successCount > 0 && failureCount === 0) {
                     showToast(`✅ Successfully returned all ${successCount} items!`, 'success');
                 } else if (successCount > 0 && failureCount > 0) {
@@ -2413,6 +3219,8 @@
                 } else {
                     showToast(`❌ Failed to return all items`, 'error');
                 }
+
+                addAuditEntry('return', `Bulk return: ${successCount} items returned successfully`);
 
             } catch (error) {
                 console.error('💥 Critical error in processSmartReturn:', error);
@@ -2509,6 +3317,417 @@
             }
         }
 
+        //  NEW: Export Functions
+        function downloadCSV(data, filename) {
+            const csvContent = data.map(row => row.join(',')).join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        async function exportMembers() {
+            try {
+                showLoading(true);
+                const members = await fetchMembers();
+                
+                const csvData = [
+                    ['Name', 'Batch', 'Branch', 'Year', 'Contact', 'Address'],
+                    ...members.map(member => [
+                        member.name || '',
+                        member.batch || '',
+                        member.branch || '',
+                        member.year || '',
+                        member.contact || '',
+                        member.address || ''
+                    ])
+                ];
+                
+                downloadCSV(csvData, `members_${new Date().toISOString().split('T')[0]}.csv`);
+                showToast('Members exported successfully!', 'success');
+                addAuditEntry('export', `Members data exported (${members.length} records)`);
+                
+            } catch (error) {
+                console.error('Error exporting members:', error);
+                showToast('Error exporting members', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function exportItems() {
+            try {
+                showLoading(true);
+                const items = await fetchItems();
+                const categories = await fetchCategories();
+                
+                const csvData = [
+                    ['Name', 'Category', 'Total', 'Available', 'Properties'],
+                    ...items.map(item => {
+                        const category = categories.find(cat => cat.id === item.category_id);
+                        return [
+                            item.name || '',
+                            category?.name || '',
+                            item.total || 0,
+                            item.available || 0,
+                            item.property || ''
+                        ];
+                    })
+                ];
+                
+                downloadCSV(csvData, `items_${new Date().toISOString().split('T')[0]}.csv`);
+                showToast('Items exported successfully!', 'success');
+                addAuditEntry('export', `Items data exported (${items.length} records)`);
+                
+            } catch (error) {
+                console.error('Error exporting items:', error);
+                showToast('Error exporting items', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function exportIssueHistory() {
+            try {
+                showLoading(true);
+                
+                const { data: issueHistory, error } = await supabaseClient
+                    .from('issued_items')
+                    .select(`
+                        *,
+                        items(name),
+                        members(name, branch)
+                    `)
+                    .order('issued_date', { ascending: false });
+
+                if (error) throw error;
+                
+                const csvData = [
+                    ['Item', 'Member', 'Branch', 'Quantity', 'Status', 'Issue Date', 'Return Date', 'Duration Days'],
+                    ...issueHistory.map(issue => {
+                        const issueDate = new Date(issue.issued_date);
+                        const returnDate = issue.returned_date ? new Date(issue.returned_date) : null;
+                        const duration = returnDate ? Math.ceil((returnDate - issueDate) / (1000 * 60 * 60 * 24)) : '';
+                        
+                        return [
+                            issue.items?.name || '',
+                            issue.members?.name || '',
+                            issue.members?.branch || '',
+                            issue.quantity || 0,
+                            issue.status || '',
+                            issueDate.toDateString(),
+                            returnDate ? returnDate.toDateString() : '',
+                            duration
+                        ];
+                    })
+                ];
+                
+                downloadCSV(csvData, `issue_history_${new Date().toISOString().split('T')[0]}.csv`);
+                showToast('Issue history exported successfully!', 'success');
+                addAuditEntry('export', `Issue history exported (${issueHistory.length} records)`);
+                
+            } catch (error) {
+                console.error('Error exporting issue history:', error);
+                showToast('Error exporting issue history', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function exportDamagedItems() {
+            try {
+                showLoading(true);
+                const damagedIssues = await fetchDamagedIssues();
+                
+                const csvData = [
+                    ['Item', 'Member', 'Branch', 'Quantity', 'Issue Date', 'Damage Date', 'Reason'],
+                    ...damagedIssues.map(issue => [
+                        issue.items?.name || '',
+                        issue.members?.name || '',
+                        issue.members?.branch || '',
+                        issue.quantity || 0,
+                        new Date(issue.issued_date).toDateString(),
+                        new Date(issue.returned_date).toDateString(),
+                        issue.damage_reason || 'No reason provided'
+                    ])
+                ];
+                
+                downloadCSV(csvData, `damaged_items_${new Date().toISOString().split('T')[0]}.csv`);
+                showToast('Damaged items exported successfully!', 'success');
+                addAuditEntry('export', `Damaged items exported (${damagedIssues.length} records)`);
+                
+            } catch (error) {
+                console.error('Error exporting damaged items:', error);
+                showToast('Error exporting damaged items', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function exportLowStockItems() {
+            try {
+                showLoading(true);
+                const items = await fetchItems();
+                const lowStockItems = items.filter(item => item.available <= 5);
+                const categories = await fetchCategories();
+                
+                const csvData = [
+                    ['Name', 'Category', 'Available', 'Total', 'Properties', 'Status'],
+                    ...lowStockItems.map(item => {
+                        const category = categories.find(cat => cat.id === item.category_id);
+                        return [
+                            item.name || '',
+                            category?.name || '',
+                            item.available || 0,
+                            item.total || 0,
+                            item.property || '',
+                            item.available === 0 ? 'OUT OF STOCK' : 'LOW STOCK'
+                        ];
+                    })
+                ];
+                
+                downloadCSV(csvData, `low_stock_items_${new Date().toISOString().split('T')[0]}.csv`);
+                showToast('Low stock items exported successfully!', 'success');
+                addAuditEntry('export', `Low stock items exported (${lowStockItems.length} records)`);
+                
+            } catch (error) {
+                console.error('Error exporting low stock items:', error);
+                showToast('Error exporting low stock items', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function exportAllData() {
+            try {
+                showLoading(true);
+                showToast('Preparing comprehensive export...', 'success');
+
+                // Export all data types
+                await exportMembers();
+                await exportItems();
+                await exportIssueHistory();
+                
+                // Also export audit log
+                await exportAuditLog();
+                showToast(' All data exported successfully! Check your downloads folder.', 'success');
+                addAuditEntry('export', 'Complete database export performed');
+                
+            } catch (error) {
+                console.error('Error exporting all data:', error);
+                showToast('Error exporting all data', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function exportCategoryItems() {
+            if (!selectedCategory) {
+                showToast('No category selected', 'error');
+                return;
+            }
+
+            try {
+                showLoading(true);
+                const items = await fetchItems(selectedCategory.id);
+                
+                const csvData = [
+                    ['Name', 'Total', 'Available', 'Properties'],
+                    ...items.map(item => [
+                        item.name || '',
+                        item.total || 0,
+                        item.available || 0,
+                        item.property || ''
+                    ])
+                ];
+                
+                downloadCSV(csvData, `${selectedCategory.name}_items_${new Date().toISOString().split('T')[0]}.csv`);
+                showToast(`${selectedCategory.name} items exported successfully!`, 'success');
+                addAuditEntry('export', `Category items exported: ${selectedCategory.name} (${items.length} records)`);
+                
+            } catch (error) {
+                console.error('Error exporting category items:', error);
+                showToast('Error exporting category items', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // ✅ NEW: Audit Log Functions
+        function populateAuditLog() {
+            const container = document.getElementById('audit-log-container');
+            if (!container) return;
+
+            if (auditLog.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-8">No audit entries found</p>';
+                return;
+            }
+
+            container.innerHTML = auditLog.map(entry => `
+                <div class="audit-entry ${entry.action}">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="${getAuditIcon(entry.action)}" class="w-4 h-4"></i>
+                            <span class="font-semibold capitalize">${entry.action}</span>
+                        </div>
+                        <span class="text-xs text-gray-500">${new Date(entry.timestamp).toLocaleString()}</span>
+                    </div>
+                    <p class="text-sm text-gray-700">${entry.details}</p>
+                    <p class="text-xs text-gray-500 mt-1">User: ${entry.user}</p>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        function getAuditIcon(action) {
+            const icons = {
+                'create': 'plus-circle',
+                'update': 'edit',
+                'delete': 'trash-2',
+                'issue': 'arrow-right',
+                'return': 'arrow-left',
+                'damage': 'alert-triangle',
+                'export': 'download',
+                'system': 'settings'
+            };
+            return icons[action] || 'activity';
+        }
+
+        function searchAuditLog() {
+            const term = document.getElementById('search-audit').value.toLowerCase();
+            const entries = document.querySelectorAll('.audit-entry');
+            
+            entries.forEach(entry => {
+                const text = entry.textContent.toLowerCase();
+                entry.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        }
+
+        function clearAuditLog() {
+            if (confirm('Are you sure you want to clear the audit log? This action cannot be undone.')) {
+                auditLog = [];
+                localStorage.removeItem('inventoryAuditLog');
+                populateAuditLog();
+                showToast('Audit log cleared', 'success');
+                addAuditEntry('system', 'Audit log cleared by user');
+            }
+        }
+
+        function exportAuditLog() {
+            try {
+                const csvData = [
+                    ['Timestamp', 'Action', 'Details', 'User'],
+                    ...auditLog.map(entry => [
+                        new Date(entry.timestamp).toLocaleString(),
+                        entry.action,
+                        entry.details,
+                        entry.user
+                    ])
+                ];
+                
+                downloadCSV(csvData, `audit_log_${new Date().toISOString().split('T')[0]}.csv`);
+                showToast('Audit log exported successfully!', 'success');
+                addAuditEntry('export', `Audit log exported (${auditLog.length} entries)`);
+                
+            } catch (error) {
+                console.error('Error exporting audit log:', error);
+                showToast('Error exporting audit log', 'error');
+            }
+        }
+
+        // ✅ NEW: Reports Functions
+        async function updateReportsData() {
+            try {
+                // Quick Analytics
+                const members = await fetchMembers();
+                const items = await fetchItems();
+                
+                const { data: allIssues } = await supabaseClient
+                    .from('issued_items')
+                    .select(`
+                        *,
+                        items(name),
+                        members(name)
+                    `);
+
+                // Calculate analytics
+               // const totalValue = items.reduce((sum, item) => sum + (item.total * 10), 0); // Assuming avg value of 10 per item
+                
+                // Most active member
+                const memberCounts = {};
+                allIssues?.forEach(issue => {
+                    const memberName = issue.members?.name || 'Unknown';
+                    memberCounts[memberName] = (memberCounts[memberName] || 0) + 1;
+                });
+                const mostActiveMember = Object.keys(memberCounts).reduce((a, b) => 
+                    memberCounts[a] > memberCounts[b] ? a : b, 'None');
+
+                // Most issued item
+                const itemCounts = {};
+                allIssues?.forEach(issue => {
+                    const itemName = issue.items?.name || 'Unknown';
+                    itemCounts[itemName] = (itemCounts[itemName] || 0) + issue.quantity;
+                });
+                const mostIssuedItem = Object.keys(itemCounts).reduce((a, b) => 
+                    itemCounts[a] > itemCounts[b] ? a : b, 'None');
+
+                // Average duration
+                const returnedIssues = allIssues?.filter(issue => issue.status === 'returned' && issue.returned_date) || [];
+                const avgDuration = returnedIssues.length > 0 ? 
+                    Math.round(returnedIssues.reduce((sum, issue) => {
+                        const days = (new Date(issue.returned_date) - new Date(issue.issued_date)) / (1000 * 60 * 60 * 24);
+                        return sum + days;
+                    }, 0) / returnedIssues.length) : 0;
+
+                // Update UI
+                //document.getElementById('total-value').textContent = `$${totalValue.toLocaleString()}`;
+                document.getElementById('most-active-member').textContent = mostActiveMember;
+                document.getElementById('most-issued-item').textContent = mostIssuedItem;
+                document.getElementById('avg-duration').textContent = `${avgDuration} days`;
+
+                // Category breakdown
+                const categories = await fetchCategories();
+                const categoryBreakdown = document.getElementById('category-breakdown');
+                categoryBreakdown.innerHTML = categories.map(cat => {
+                    const categoryItems = items.filter(item => item.category_id === cat.id);
+                    return `
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>${cat.name}</span>
+                            <span class="font-semibold">${categoryItems.length}</span>
+                        </div>
+                    `;
+                }).join('');
+
+                // Low stock report
+                const lowStockReport = document.getElementById('low-stock-report');
+                const lowStockItems = items.filter(item => item.available <= 5);
+                lowStockReport.innerHTML = lowStockItems.slice(0, 5).map(item => `
+                    <div class="flex justify-between text-sm text-red-600">
+                        <span>${item.name}</span>
+                        <span>${item.available} left</span>
+                    </div>
+                `).join('') || '<p class="text-green-600 text-sm">All items well stocked!</p>';
+
+                // Recent activity
+                const recentActivity = document.getElementById('recent-activity');
+                recentActivity.innerHTML = auditLog.slice(0, 5).map(entry => `
+                    <div class="text-sm text-gray-600">
+                        <span class="font-medium">${entry.action}:</span> ${entry.details.substring(0, 50)}...
+                        <div class="text-xs text-gray-400">${new Date(entry.timestamp).toLocaleString()}</div>
+                    </div>
+                `).join('') || '<p class="text-gray-500 text-sm">No recent activity</p>';
+
+            } catch (error) {
+                console.error('Error updating reports data:', error);
+            }
+        }
+
         // Add Property Input Field
         function addPropertyInput(containerId = 'properties-list') {
             const container = document.getElementById(containerId);
@@ -2561,6 +3780,7 @@
                 closeDialog();
                 populateCategories();
                 showToast('Category updated successfully');
+                addAuditEntry('update', `Category updated: ${name}`);
 
             } catch (error) {
                 console.error('Error updating category:', error);
@@ -2692,7 +3912,7 @@
 
                 if (newTotal < issuedQuantity) {
                     showDetailedError(
-                        `❌ Cannot set total quantity to ${newTotal}`,
+                        `Cannot set total quantity to ${newTotal}`,
                         `${issuedQuantity} items are currently issued. Total must be at least ${issuedQuantity}.`
                     );
                     return;
@@ -2715,7 +3935,8 @@
                 if (error) throw error;
 
                 closeDialog();
-                showToast(`✅ Item updated! Available: ${newAvailable}, Total: ${newTotal}`);
+                showToast(` Item updated! Available: ${newAvailable}, Total: ${newTotal}`);
+                addAuditEntry('update', `Item updated: ${name}`);
 
             } catch (error) {
                 console.error('Error updating item:', error);
@@ -2750,6 +3971,9 @@
             } else if (tab === 'permanent') {
                 document.getElementById('permanent-issues-content').classList.remove('hidden');
                 populatePermanentIssuesTable();
+            } else if (tab === 'damaged') {
+                document.getElementById('damaged-issues-content').classList.remove('hidden');
+                populateDamagedIssuesTable();
             }
         }
 
@@ -2761,7 +3985,7 @@
                 const cleanFileName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
                 const fileName = `${timestamp}_${cleanFileName}`;
 
-                console.log(`🚀 Uploading to bucket: ${bucketName}, file: ${fileName}`);
+                console.log(` Uploading to bucket: ${bucketName}, file: ${fileName}`);
                 showToast('Uploading image to storage...');
 
                 const { data, error } = await supabaseClient.storage
@@ -2772,13 +3996,13 @@
                     });
 
                 if (error) {
-                    console.error('❌ Storage upload error:', error);
+                    console.error(' Storage upload error:', error);
                     showToast('Storage upload failed: ' + error.message, 'error');
 
                     return new Promise((resolve) => {
                         const reader = new FileReader();
                         reader.onload = function (e) {
-                            console.log('📋 Fallback to base64 due to storage error');
+                            console.log(' Fallback to base64 due to storage error');
                             showToast('Using fallback method for image storage', 'error');
                             resolve(e.target.result);
                         };
@@ -2790,12 +4014,12 @@
                     .from(bucketName)
                     .getPublicUrl(fileName);
 
-                console.log('✅ Image uploaded successfully:', publicUrl);
+                console.log(' Image uploaded successfully:', publicUrl);
                 showToast('Image uploaded successfully');
                 return publicUrl;
 
             } catch (error) {
-                console.error('💥 Error uploading to storage:', error);
+                console.error(' Error uploading to storage:', error);
                 showToast('Upload error: ' + error.message, 'error');
 
                 return new Promise((resolve) => {
@@ -2825,7 +4049,7 @@
         function handleCategoryImage(input, mode = 'add') {
             const file = input.files[0];
             if (file) {
-                console.log('📂 Category image selected:', file.name);
+                console.log(' Category image selected:', file.name);
 
                 handleImageUpload(file, (imageSrc) => {
                     const previewId = mode === 'edit' ? 'edit-category-image-preview' : 'category-image-preview';
@@ -2837,7 +4061,7 @@
                         preview.src = imageSrc;
                         preview.classList.remove('hidden');
                         placeholder.classList.add('hidden');
-                        console.log('✅ Category image preview updated');
+                        console.log(' Category image preview updated');
                     }
                 }, 'category-images');
             }
@@ -2858,7 +4082,7 @@
                         preview.src = imageSrc;
                         preview.classList.remove('hidden');
                         placeholder.classList.add('hidden');
-                        console.log('✅ Member photo preview updated');
+                        console.log(' Member photo preview updated');
                     }
                 }, 'member-photos');
             }
@@ -2879,7 +4103,7 @@
                         preview.src = imageSrc;
                         preview.classList.remove('hidden');
                         placeholder.classList.add('hidden');
-                        console.log('✅ Item image preview updated');
+                        console.log(' Item image preview updated');
                     }
                 }, 'component-images');
             }
@@ -2928,7 +4152,7 @@
         }
 
         // Show Confirm Dialog
-        function showConfirmDialog(message, isReturn = false) {
+        function showConfirmDialog(message, isReturn = false, actionType = 'delete') {
             return new Promise((resolve) => {
                 const backdrop = document.getElementById('confirm-backdrop');
                 const modal = document.getElementById('confirm-modal');
@@ -2941,6 +4165,9 @@
                 if (isReturn) {
                     deleteBtn.textContent = 'Return';
                     deleteBtn.className = 'confirm-btn return';
+                } else if (actionType === 'damaged') {
+                    deleteBtn.textContent = 'Mark Damaged';
+                    deleteBtn.className = 'confirm-btn damaged';
                 } else {
                     deleteBtn.textContent = 'Delete';
                     deleteBtn.className = 'confirm-btn delete';
@@ -3003,6 +4230,7 @@
                 currentUser = data.user;
                 showMainApp();
                 showToast('Successfully logged in');
+                addAuditEntry('system', `User logged in: ${data.user.email}`);
 
             } catch (error) {
                 console.error('Sign in error:', error);
@@ -3044,6 +4272,7 @@
 
                 showToast('Account created! Please sign in now.');
                 showSignIn();
+                addAuditEntry('system', `New user registered: ${email}`);
 
             } catch (error) {
                 console.error('Sign up error:', error);
@@ -3058,6 +4287,7 @@
             if (error) {
                 showToast('Error signing out', 'error');
             } else {
+                addAuditEntry('system', `User logged out: ${currentUser?.email || 'Unknown'}`);
                 currentUser = null;
                 isInitialized = false;
                 cleanupSubscriptions();
@@ -3183,32 +4413,32 @@
             }
         }
 
-        // ✅ FIXED: Fetch current issued items (including permanent)
-      // ✅ SAHI CODE:
-async function fetchCurrentIssues() {
-    try {
-        const { data, error } = await supabaseClient
-            .from('issued_items')
-            .select(`
-                *,
-                items(name, image),
-                members(name, branch, photo)
-            `)
-            .eq('status', 'issued')  // ✅ केवल 'issued' items
-            .order('issued_date', { ascending: false });
+        //  FIXED: Fetch current issued items (including permanent)
+        // SAHI CODE:
+        async function fetchCurrentIssues() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('issued_items')
+                    .select(`
+                        *,
+                        items(name, image),
+                        members(name, branch, photo)
+                    `)
+                    .eq('status', 'issued')  // ✅ केवल 'issued' items
+                    .order('issued_date', { ascending: false });
 
-        if (error) {
-            console.error('Supabase error:', error);
-            throw error;
+                if (error) {
+                    console.error('Supabase error:', error);
+                    throw error;
+                }
+
+                return data || [];
+            } catch (error) {
+                console.error('Error fetching current issues:', error);
+                showToast('Error loading current issues', 'error');
+                return [];
+            }
         }
-
-        return data || [];
-    } catch (error) {
-        console.error('Error fetching current issues:', error);
-        showToast('Error loading current issues', 'error');
-        return [];
-    }
-}
 
         // Fetch history (returned items)
         async function fetchHistory() {
@@ -3267,7 +4497,7 @@ async function fetchCurrentIssues() {
                 }
 
                 if (existingMember) {
-                    showToast(`❌ Member "${name}" already exists! Please use a different name.`, 'error');
+                    showToast(` Member "${name}" already exists! Please use a different name.`, 'error');
                     return;
                 }
 
@@ -3288,7 +4518,8 @@ async function fetchCurrentIssues() {
                 closeDialog();
                 populateMembersTable();
                 updateStats();
-                showToast(`✅ Member "${name}" added successfully`);
+                showToast(` Member "${name}" added successfully`);
+                addAuditEntry('create', `Member added: ${name}`);
 
             } catch (error) {
                 console.error('Error adding member:', error);
@@ -3303,7 +4534,7 @@ async function fetchCurrentIssues() {
             const name = document.getElementById('category-name').value.trim();
             const description = document.getElementById('category-description').value.trim();
             const imageEl = document.getElementById('category-image-preview');
-            const image = imageEl && imageEl.src !== 'data:,' ? imageEl.src : '📦';
+            const image = imageEl && imageEl.src !== 'data:,' ? imageEl.src : 'images/logo.png ';
             const type = activeTab;
 
             const propertyInputs = document.querySelectorAll('#properties-list .property-input');
@@ -3331,11 +4562,11 @@ async function fetchCurrentIssues() {
                 }
 
                 if (existingCategory) {
-                    showToast(`❌ Category "${name}" already exists! Please use a different name.`, 'error');
+                    showToast(` Category "${name}" already exists! Please use a different name.`, 'error');
                     return;
                 }
 
-                console.log('💾 Saving category with properties:', properties);
+                console.log(' Saving category with properties:', properties);
 
                 const { data, error } = await supabaseClient
                     .from('categories')
@@ -3351,7 +4582,8 @@ async function fetchCurrentIssues() {
 
                 closeDialog();
                 populateCategories();
-                showToast(`✅ Category "${name}" added successfully`);
+                showToast(` Category "${name}" added successfully`);
+                addAuditEntry('create', `Category added: ${name} with ${properties.length} properties`);
 
             } catch (error) {
                 console.error('Error adding category:', error);
@@ -3366,7 +4598,7 @@ async function fetchCurrentIssues() {
             const getDialogInputValue = (id) => {
                 const element = document.querySelector(`#dialog-content input#${id}`);
                 if (!element) {
-                    console.error(`❌ Dialog input not found: ${id}`);
+                    console.error(` Dialog input not found: ${id}`);
                     return null;
                 }
                 return element.value ? element.value.trim() : '';
@@ -3394,7 +4626,7 @@ async function fetchCurrentIssues() {
             showLoading(true);
 
             try {
-                // ✅ CHECK FOR DUPLICATE ITEM NAME IN SAME CATEGORY
+                //  CHECK FOR DUPLICATE ITEM NAME IN SAME CATEGORY
                 const { data: existingItem, error: checkError } = await supabaseClient
                     .from('items')
                     .select('id, name')
@@ -3407,7 +4639,7 @@ async function fetchCurrentIssues() {
                 }
 
                 if (existingItem) {
-                    showToast(`❌ Item "${name}" already exists in this category! Please use a different name.`, 'error');
+                    showToast(` Item "${name}" already exists in this category! Please use a different name.`, 'error');
                     return;
                 }
 
@@ -3444,7 +4676,7 @@ async function fetchCurrentIssues() {
                     .select();
 
                 if (error) {
-                    console.error('❌ Supabase insert error:', error);
+                    console.error(' Supabase insert error:', error);
                     showToast('Database error: ' + error.message, 'error');
                     return;
                 }
@@ -3452,59 +4684,60 @@ async function fetchCurrentIssues() {
                 closeDialog();
                 await populateItems(selectedCategory.id);
                 await updateStats();
-                showToast(`✅ Item "${name}" added successfully`, 'success');
+                showToast(` Item "${name}" added successfully`, 'success');
+                addAuditEntry('create', `Item added: ${name} (${total} units) in ${selectedCategory.name}`);
 
             } catch (error) {
-                console.error('💥 Unexpected error:', error);
+                console.error(' Unexpected error:', error);
                 showToast('Unexpected error: ' + error.message, 'error');
             } finally {
                 showLoading(false);
             }
         }
 
-        // Navigation Functions
-        function setActiveSection(section) {
-            console.log('Navigating to:', section);
-            activeSection = section;
+       // setActiveSection function में यह code add करें:
 
-            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+function setActiveSection(section) {
+    console.log('Navigating to:', section);
+    activeSection = section;
 
-            const targetSection = document.getElementById(section + '-section');
-            if (targetSection) {
-                targetSection.classList.remove('hidden');
-            } else {
-                console.error('Section not found:', section);
-                return;
-            }
+    document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
 
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                if (btn.dataset.section === section) {
-                    btn.classList.add('bg-blue-600');
-                    btn.classList.remove('hover:bg-gray-700');
-                } else {
-                    btn.classList.remove('bg-blue-600');
-                    btn.classList.add('hover:bg-gray-700');
-                }
-            });
+    const targetSection = document.getElementById(section + '-section');
+    if (targetSection) {
+        targetSection.classList.remove('hidden');
+    } else {
+        console.error('Section not found:', section);
+        return;
+    }
 
-            try {
-                if (section === 'members') {
-                    populateMembersTable();
-                } else if (section === 'components') {
-                    showCategoriesView();
-                    populateCategories();
-                } else if (section === 'admin') {
-                    setActiveAdminTab(activeAdminTab);
-                } else if (section === 'dashboard') {
-                    updateStats();
-                } else if (section === 'low-stock') {
-                    showLowStockPage();
-                }
-            } catch (error) {
-                console.error('Error loading section data:', error);
-                showToast('Error loading data', 'error');
-            }
+    // Navigation styling code...
+
+    try {
+        if (section === 'members') {
+            populateMembersTable();
+        } else if (section === 'components') {
+            showCategoriesView();
+            populateCategories();
+        } else if (section === 'admin') {
+            setActiveAdminTab(activeAdminTab);
+        } else if (section === 'dashboard') {
+            updateStats();
+        } else if (section === 'low-stock') {
+            showLowStockPage();
+        } else if (section === 'reports') {
+            // ✅ REAL-TIME REPORTS UPDATE
+            updateReportsData();
+            console.log(' Reports section activated - real-time updates enabled');
+        } else if (section === 'audit') {
+            populateAuditLog();
         }
+    } catch (error) {
+        console.error('Error loading section data:', error);
+        showToast('Error loading data', 'error');
+    }
+}
+
 
         function setActiveTab(tab) {
             activeTab = tab;
@@ -3594,7 +4827,7 @@ async function fetchCurrentIssues() {
 
                     const displayImage = category.image && (category.image.startsWith('data:') || category.image.startsWith('http')) ?
                         `<img src="${category.image}" class="category-image mx-auto mb-3" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="text-4xl mb-3" style="display:none;">📦</div>` :
-                        `<div class="text-4xl mb-3">${category.image || '📦'}</div>`;
+                        `<div class="text-4xl mb-3">${category.image || ''}</div>`;
 
                     const descriptionHTML = category.description ?
                         `<p class="text-xs text-gray-400 mb-2 line-clamp-2">${category.description}</p>` : '';
@@ -3638,7 +4871,7 @@ async function fetchCurrentIssues() {
             }
         }
 
-        // ✅ ENHANCED TABLE WITH SIMPLE NUMBERS - NO COLORS
+        //  ENHANCED TABLE WITH SIMPLE NUMBERS - NO COLORS
         async function populateItems(categoryId) {
             const tableBody = document.getElementById('items-table-body');
             const tableHead = document.getElementById('items-table-head');
@@ -3654,14 +4887,14 @@ async function fetchCurrentIssues() {
                     return;
                 }
 
-                // ✅ STEP 2: Get category properties (FIXED METHOD)
+                //  STEP 2: Get category properties (FIXED METHOD)
                 let categoryProperties = [];
 
                 if (selectedCategory && selectedCategory.properties && Array.isArray(selectedCategory.properties)) {
                     categoryProperties = selectedCategory.properties;
-                    console.log('📝 Using category properties:', categoryProperties);
+                    console.log(' Using category properties:', categoryProperties);
                 } else {
-                    // ✅ Fallback: Extract unique properties from items
+                    //  Fallback: Extract unique properties from items
                     const allProperties = new Set();
                     items.forEach(item => {
                         if (item.property_values && Array.isArray(item.property_values)) {
@@ -3683,10 +4916,10 @@ async function fetchCurrentIssues() {
                         }
                     });
                     categoryProperties = Array.from(allProperties);
-                    console.log('🔄 Extracted properties from items:', categoryProperties);
+                    console.log(' Extracted properties from items:', categoryProperties);
                 }
 
-                // ✅ STEP 3: Build dynamic table header
+                //  STEP 3: Build dynamic table header
                 let headerHTML = `
             <th class="p-2 text-left border bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold">
                 <i data-lucide="image" class="w-3 h-3 inline mr-1"></i>Image
@@ -3696,7 +4929,7 @@ async function fetchCurrentIssues() {
             </th>
         `;
 
-                // ✅ Add property columns with simple styling
+                //  Add property columns with simple styling
                 categoryProperties.forEach((prop) => {
                     headerHTML += `
                 <th class="p-2 text-left border bg-gradient-to-r from-gray-500 to-gray-600 text-white text-xs font-bold">
@@ -3717,19 +4950,19 @@ async function fetchCurrentIssues() {
                 const headerRow = tableHead.querySelector('tr');
                 headerRow.innerHTML = headerHTML;
 
-                // ✅ STEP 4: Build table body with SIMPLE NUMBERS
+                //  STEP 4: Build table body with SIMPLE NUMBERS
                 tableBody.innerHTML = '';
 
                 items.forEach(item => {
                     const row = document.createElement('tr');
                     row.className = 'border-b hover:bg-blue-50 cursor-pointer transition-all duration-200 hover:shadow-sm';
 
-                    // ✅ Image column
-                    const imageHTML = item.image ?
+                    //  Image column
+                                    const imageHTML = item.image ?
                         `<img src="${item.image}" class="w-10 h-10 object-cover rounded-lg border-2 border-gray-200" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="text-2xl text-center hidden">🔌</div>` :
                         '<div class="text-2xl text-center">🔌</div>';
 
-                    // ✅ Get property values for this item (ENHANCED METHOD)
+                    //  Get property values for this item (ENHANCED METHOD)
                     const itemProperties = {};
 
                     // Method 1: From property_values array (new format)
@@ -3756,7 +4989,7 @@ async function fetchCurrentIssues() {
                         });
                     }
 
-                    // ✅ Build property columns with SIMPLE NUMBERS - NO BACKGROUND COLORS
+                    //  Build property columns with SIMPLE NUMBERS - NO BACKGROUND COLORS
                     let propertyColumnsHTML = '';
                     categoryProperties.forEach((prop) => {
                         const value = itemProperties[prop] || '-';
@@ -3770,14 +5003,14 @@ async function fetchCurrentIssues() {
                 `;
                     });
 
-                    // ✅ Available status with simple styling
+                    //  Available status with simple styling
                     const availableStatus = item.available <= 0 ?
                         '<span class="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">OUT OF STOCK</span>' :
                         item.available <= 5 ?
                             `<span class="bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-bold">${item.available} (Low)</span>` :
                             `<span class="simple-number">${item.available}</span>`;
 
-                    // ✅ Build complete row
+                    //  Build complete row
                     row.innerHTML = `
                 <td class="p-2 border text-center">${imageHTML}</td>
                 <td class="p-2 border">
@@ -3807,7 +5040,7 @@ async function fetchCurrentIssues() {
                 </td>
             `;
 
-                    // ✅ Row click handler
+                    //  Row click handler
                     row.addEventListener('click', (e) => {
                         if (!e.target.closest('button')) {
                             selectedItem = item;
@@ -3820,70 +5053,70 @@ async function fetchCurrentIssues() {
 
                 lucide.createIcons();
 
-                console.log(`✅ Table generated with ${categoryProperties.length} property columns:`, categoryProperties);
+                console.log(` Table generated with ${categoryProperties.length} property columns:`, categoryProperties);
 
             } catch (error) {
-                console.error('💥 Error in populateItems:', error);
+                console.error(' Error in populateItems:', error);
                 tableBody.innerHTML = '<tr><td colspan="10" class="p-2 text-center text-red-500 text-sm">Error loading items</td></tr>';
                 showToast('Error loading items', 'error');
             }
         }
 
-        // ✅ FIXED: Populate Current Issues Table
-// ✅ COMPLETE FIXED: Populate Current Issues Table (केवल issued items)
-async function populateCurrentIssuesTable() {
-    const tbody = document.getElementById('current-issues-table');
-    if (!tbody) return;
+        //  FIXED: Populate Current Issues Table
+        //  COMPLETE FIXED: Populate Current Issues Table (केवल issued items)
+        async function populateCurrentIssuesTable() {
+            const tbody = document.getElementById('current-issues-table');
+            if (!tbody) return;
 
-    tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center">Loading...</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center">Loading...</td></tr>';
 
-    try {
-        const currentIssues = await fetchCurrentIssues();
-        tbody.innerHTML = '';
+            try {
+                const currentIssues = await fetchCurrentIssues();
+                tbody.innerHTML = '';
 
-        if (currentIssues.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center text-gray-500">No currently issued items</td></tr>';
-            return;
+                if (currentIssues.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center text-gray-500">No currently issued items</td></tr>';
+                    return;
+                }
+
+                currentIssues.forEach(issued => {
+                    const row = document.createElement('tr');
+                    row.className = 'border-t';  //  Simple styling (no permanent check needed)
+                    
+                    const issueDate = new Date(issued.issued_date).toLocaleDateString('en-US');
+
+                    const itemImage = issued.items?.image ?
+                        createImagePreview(issued.items.image, 'small') :
+                        '<div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center"><i data-lucide="package" class="w-6 h-6 text-gray-400"></i></div>';
+
+                    const memberPhoto = issued.members?.photo ?
+                        createImagePreview(issued.members.photo, 'small', true) :
+                        '<div class="profile-image bg-gray-200 flex items-center justify-center"><i data-lucide="user" class="w-6 h-6 text-gray-400"></i></div>';
+
+                    // ✅ Simple action button (केवल return button - no permanent check)
+                    const actionButton = `<button onclick="smartReturn(${issued.member_id}, '${issued.members?.name || 'Unknown'}')" class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">Return</button>`;
+
+                    row.innerHTML = `
+                        <td class="p-3">${itemImage}</td>
+                        <td class="p-3">${issued.items?.name || 'Unknown'}</td>
+                        <td class="p-3">${issued.members?.name || 'Unknown'}</td>
+                        <td class="p-3">${memberPhoto}</td>
+                        <td class="p-3">${issued.members?.branch || 'Unknown'}</td>
+                        <td class="p-3">${issued.quantity}</td>
+                        <td class="p-3">${issueDate}</td>
+                        <td class="p-3">${actionButton}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                lucide.createIcons();
+
+            } catch (error) {
+                console.error('Error in populateCurrentIssuesTable:', error);
+                tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center text-red-500">Error loading current issues</td></tr>';
+                showToast('Error loading current issues', 'error');
+            }
         }
-
-        currentIssues.forEach(issued => {
-            const row = document.createElement('tr');
-            row.className = 'border-t';  // ✅ Simple styling (no permanent check needed)
-            
-            const issueDate = new Date(issued.issued_date).toLocaleDateString('en-US');
-
-            const itemImage = issued.items?.image ?
-                createImagePreview(issued.items.image, 'small') :
-                '<div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center"><i data-lucide="package" class="w-6 h-6 text-gray-400"></i></div>';
-
-            const memberPhoto = issued.members?.photo ?
-                createImagePreview(issued.members.photo, 'small', true) :
-                '<div class="profile-image bg-gray-200 flex items-center justify-center"><i data-lucide="user" class="w-6 h-6 text-gray-400"></i></div>';
-
-            // ✅ Simple action button (केवल return button - no permanent check)
-            const actionButton = `<button onclick="smartReturn(${issued.member_id}, '${issued.members?.name || 'Unknown'}')" class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">Return</button>`;
-
-            row.innerHTML = `
-                <td class="p-3">${itemImage}</td>
-                <td class="p-3">${issued.items?.name || 'Unknown'}</td>
-                <td class="p-3">${issued.members?.name || 'Unknown'}</td>
-                <td class="p-3">${memberPhoto}</td>
-                <td class="p-3">${issued.members?.branch || 'Unknown'}</td>
-                <td class="p-3">${issued.quantity}</td>
-                <td class="p-3">${issueDate}</td>
-                <td class="p-3">${actionButton}</td>
-            `;
-            tbody.appendChild(row);
-        });
-
-        lucide.createIcons();
-
-    } catch (error) {
-        console.error('Error in populateCurrentIssuesTable:', error);
-        tbody.innerHTML = '<tr><td colspan="8" class="p-3 text-center text-red-500">Error loading current issues</td></tr>';
-        showToast('Error loading current issues', 'error');
-    }
-}
 
         // Populate History Table
         async function populateHistoryTable() {
@@ -4124,7 +5357,7 @@ async function populateCurrentIssuesTable() {
                             <label for="category-image-input" class="image-upload-area w-20 h-20 mx-auto rounded-lg overflow-hidden border-2 flex items-center justify-center bg-gray-50 cursor-pointer">
                                 <img id="category-image-preview" src="data:," class="w-full h-full object-cover hidden">
                                 <div id="category-image-placeholder" class="text-center">
-                                    <div class="text-2xl mb-1">📦</div>
+                                    <div class="text-2xl mb-1"> </div>
                                     <p class="text-xs text-gray-500">Add Icon</p>
                                 </div>
                             </label>
@@ -4212,11 +5445,11 @@ async function populateCurrentIssuesTable() {
                             </select>
                             <input type="number" placeholder="Quantity" id="issue-quantity" class="w-full p-2 border rounded" min="1" max="${selectedItem ? selectedItem.available : 0}" required />
                             
-                            <!-- ✅ NEW: Permanent Issue Option -->
+                            <!--  NEW: Permanent Issue Option -->
                             <div class="flex items-center gap-2 p-3 bg-orange-50 border border-orange-200 rounded-lg">
                                 <input type="checkbox" id="permanent-issue" class="rounded">
                                 <label for="permanent-issue" class="text-sm text-orange-800">
-                                    <strong>🔒 Permanent Issue</strong> (Item will not be returned & quantity will be deducted permanently)
+                                    <strong> Permanent Issue</strong> (Item will not be returned & quantity will be deducted permanently)
                                 </label>
                             </div>
                             
@@ -4230,6 +5463,65 @@ async function populateCurrentIssuesTable() {
                     console.error('Error loading members for issue dialog:', error);
                     content.innerHTML = '<div class="text-center text-red-500">Error loading members</div>';
                 }
+            } else if (type === 'itemReference') {
+                //  NEW: Item Reference Dialog
+                title.textContent = 'Component Reference Guide';
+                content.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2"> Reference Information</h4>
+                            <p class="text-sm text-blue-700">Quick reference for common electronic components and their specifications.</p>
+                        </div>
+                        
+                        <div class="grid gap-4">
+                            <div class="border rounded p-3">
+                                <h5 class="font-semibold mb-2">🔌 Resistors</h5>
+                                <div class="text-sm space-y-1">
+                                    <p><strong>Common Values:</strong> 1K, 2.2K, 4.7K, 10K, 22K, 47K, 100K</p>
+                                    <p><strong>Power Rating:</strong> 1/4W, 1/2W, 1W, 2W</p>
+                                    <p><strong>Tolerance:</strong> ±5%, ±1%</p>
+                                </div>
+                            </div>
+                            
+                            <div class="border rounded p-3">
+                                <h5 class="font-semibold mb-2"> Capacitors</h5>
+                                <div class="text-sm space-y-1">
+                                    <p><strong>Ceramic:</strong> 10pF - 10µF</p>
+                                    <p><strong>Electrolytic:</strong> 1µF - 10000µF</p>
+                                    <p><strong>Voltage:</strong> 6.3V, 16V, 25V, 50V, 100V</p>
+                                </div>
+                            </div>
+                            
+                            <div class="border rounded p-3">
+                                <h5 class="font-semibold mb-2">🔌 LEDs</h5>
+                                <div class="text-sm space-y-1">
+                                    <p><strong>Colors:</strong> Red, Green, Blue, Yellow, White</p>
+                                    <p><strong>Forward Voltage:</strong> 1.8V-3.3V</p>
+                                    <p><strong>Current:</strong> 20mA typical</p>
+                                </div>
+                            </div>
+                            
+                            <div class="border rounded p-3">
+                                <h5 class="font-semibold mb-2"> ICs</h5>
+                                <div class="text-sm space-y-1">
+                                    <p><strong>Op-Amps:</strong> LM358, LM741, TL072</p>
+                                    <p><strong>Logic:</strong> 74HC00, 74HC04, 74HC74</p>
+                                    <p><strong>Regulators:</strong> 7805, 7812, LM317</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-yellow-50 p-3 rounded">
+                            <p class="text-xs text-yellow-800">
+                                <strong> Tip:</strong> Always check component datasheets for exact specifications before use.
+                            </p>
+                        </div>
+                        
+                        <button onclick="closeDialog()" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+                            Close Reference
+                        </button>
+                    </div>
+                `;
             }
 
             lucide.createIcons();
@@ -4264,56 +5556,7 @@ async function populateCurrentIssuesTable() {
             });
         }
 
-        // ✅ FIXED: Init Function with Real-time Subscriptions
-        async function init() {
-            if (isInitialized) return;
-            isInitialized = true;
-
-            try {
-                console.log('🚀 Initializing enhanced inventory system...');
-                lucide.createIcons();
-                setupNavigationListeners();
-
-                // ✅ Setup real-time immediately
-                await setupRealtimeSubscriptions();
-
-                setActiveSection('dashboard');
-                await updateStats(); // Initial stats load
-
-                // ✅ AUTOMATIC CALCULATION FIX ON STARTUP
-                console.log('🔧 Running automatic calculation fix...');
-                setTimeout(async () => {
-                    await fixItemCalculations();
-                }, 2000); // Wait 2 seconds after app loads
-
-                if (!authListenerSetup) {
-                    authListenerSetup = true;
-                    supabaseClient.auth.onAuthStateChange(async (event, session) => {
-                        console.log(`Auth state changed: ${event}`);
-                        if (event === 'SIGNED_IN' && !currentUser) {
-                            currentUser = session.user;
-                            showMainApp();
-                            await setupRealtimeSubscriptions();
-                            await updateStats();
-                        } else if (event === 'SIGNED_OUT') {
-                            currentUser = null;
-                            isInitialized = false;
-                            authListenerSetup = false;
-                            cleanupSubscriptions();
-                            showAuthModal();
-                        }
-                    });
-                }
-
-                console.log('✅ System initialized successfully with real-time updates!');
-            } catch (error) {
-                console.error('💥 Error initializing app:', error);
-                isInitialized = false;
-                showToast('App initialization error', 'error');
-            }
-        }
-
-        // ✅ ENHANCED SEARCH FUNCTIONS FOR BETTER UX
+        //  ENHANCED SEARCH FUNCTIONS FOR BETTER UX
         async function searchItemsByProperty(searchTerm) {
             try {
                 const { data: items, error } = await supabaseClient
@@ -4429,7 +5672,7 @@ async function populateCurrentIssuesTable() {
                     const grid = document.getElementById('categories-grid');
                     grid.innerHTML = `
                         <div class="col-span-full text-center p-8">
-                            <div class="text-6xl mb-4">🔍</div>
+                            <div class="text-6xl mb-4"></div>
                             <h3 class="text-xl font-semibold text-gray-600 mb-2">No Categories Found</h3>
                             <p class="text-gray-500">No categories contain items matching "${searchTerm}"</p>
                             <button onclick="populateCategories()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
@@ -4445,7 +5688,7 @@ async function populateCurrentIssuesTable() {
             }
         }
 
-        // ✅ EDIT CATEGORY FUNCTION
+        //  EDIT CATEGORY FUNCTION
         async function editCategory(categoryId) {
             try {
                 const { data, error } = await supabaseClient
@@ -4483,7 +5726,7 @@ async function populateCurrentIssuesTable() {
                             <label for="edit-category-image-input" class="image-upload-area w-20 h-20 mx-auto rounded-lg overflow-hidden border-2 flex items-center justify-center bg-gray-50 cursor-pointer">
                                 <img id="edit-category-image-preview" src="${data.image || 'data:,'}" class="w-full h-full object-cover ${data.image ? '' : 'hidden'}">
                                 <div id="edit-category-image-placeholder" class="text-center ${data.image ? 'hidden' : ''}">
-                                    <div class="text-2xl mb-1">📦</div>
+                                    <div class="text-2xl mb-1"> </div>
                                     <p class="text-xs text-gray-500">Change Icon</p>
                                 </div>
                             </label>
@@ -4514,6 +5757,57 @@ async function populateCurrentIssuesTable() {
             }
         }
 
+        //  FIXED: Init Function with Real-time Subscriptions
+        async function init() {
+            if (isInitialized) return;
+            isInitialized = true;
+
+            try {
+                console.log(' Initializing ENHANCED inventory system...');
+                lucide.createIcons();
+                setupNavigationListeners();
+
+                // Setup real-time immediately
+                await setupRealtimeSubscriptions();
+
+                setActiveSection('dashboard');
+                await updateStats(); // Initial stats load
+
+                // AUTOMATIC CALCULATION FIX ON STARTUP
+                console.log(' Running automatic calculation fix...');
+                setTimeout(async () => {
+                    await fixItemCalculations();
+                }, 2000); // Wait 2 seconds after app loads
+
+                if (!authListenerSetup) {
+                    authListenerSetup = true;
+                    supabaseClient.auth.onAuthStateChange(async (event, session) => {
+                        console.log(`Auth state changed: ${event}`);
+                        if (event === 'SIGNED_IN' && !currentUser) {
+                            currentUser = session.user;
+                            showMainApp();
+                            await setupRealtimeSubscriptions();
+                            await updateStats();
+                        } else if (event === 'SIGNED_OUT') {
+                            currentUser = null;
+                            isInitialized = false;
+                            authListenerSetup = false;
+                            cleanupSubscriptions();
+                            showAuthModal();
+                        }
+                    });
+                }
+
+                console.log(' ENHANCED System initialized successfully with all features!');
+                addAuditEntry('system', 'System initialized successfully');
+
+            } catch (error) {
+                console.error(' Error initializing app:', error);
+                isInitialized = false;
+                showToast('App initialization error', 'error');
+            }
+        }
+
         // Page Load Handler
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
@@ -4532,10 +5826,10 @@ async function populateCurrentIssuesTable() {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js')
                     .then(() => {
-                        console.log('✅ PWA Ready! App can be installed');
+                        console.log(' PWA Ready! App can be installed');
                     })
                     .catch((error) => {
-                        console.log('❌ PWA registration failed:', error);
+                        console.log(' PWA registration failed:', error);
                     });
             });
         }
@@ -4543,3 +5837,4 @@ async function populateCurrentIssuesTable() {
 </body>
 
 </html>
+
