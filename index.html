@@ -4534,7 +4534,7 @@ async function setupRealtimeSubscriptions() {
             const name = document.getElementById('category-name').value.trim();
             const description = document.getElementById('category-description').value.trim();
             const imageEl = document.getElementById('category-image-preview');
-            const image = imageEl && imageEl.src !== 'data:,' ? imageEl.src : 'images/logo.png ';
+            const image = imageEl && imageEl.src !== 'data:,' ? imageEl.src : '';
             const type = activeTab;
 
             const propertyInputs = document.querySelectorAll('#properties-list .property-input');
